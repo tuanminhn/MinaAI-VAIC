@@ -48,6 +48,15 @@ export type TeacherClassAssignmentsResponse = {
   }>;
 };
 
+export type TeacherCreateAssignmentRequest = {
+  title: string; description?: string; targetSkillCode: string;
+  estimatedMinutes: number; dueAt?: string | null; publish: boolean;
+};
+
+export type TeacherCreateAssignmentResponse = {
+  id: string; title: string; status: string; studentCount: number;
+};
+
 export type TeacherAssignmentOverviewResponse = {
   assignment: {
     id: string;
@@ -121,5 +130,30 @@ export type TeacherLearningSessionEvidenceResponse = {
     isCorrect: boolean;
     skillName: string;
     answeredAt: string;
+  }>;
+};
+
+export type TeacherSupportGroupsResponse = {
+  items: Array<{ skillId: string; skillName: string; studentCount: number; needsSupportCount: number; classroomNames: string[] }>;
+};
+
+export type TeacherInterventionsResponse = {
+  items: Array<{
+    studentId: string; studentName: string; classroomName: string;
+    assignmentId: string; assignmentTitle: string; sessionId: string;
+    rootCauseSkillName: string | null; priority: "high" | "medium" | "low";
+    priorityScore: number; reason: string; updatedAt: string;
+  }>;
+};
+
+export type TeacherStudentProfileResponse = {
+  id: string; displayName: string; classroomName: string; schoolName: string;
+  masteries: Array<{
+    skillId: string; skillName: string; status: string; masteryScore: number;
+    confidence: number; evidenceCount: number; lastEvaluatedAt: string | null;
+  }>;
+  recentSessions: Array<{
+    sessionId: string; assignmentId: string; assignmentTitle: string; state: string;
+    outcome: TeacherOutcome | null; rootCauseSkillName: string | null; updatedAt: string;
   }>;
 };

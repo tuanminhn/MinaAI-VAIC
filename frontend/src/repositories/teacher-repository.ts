@@ -7,6 +7,11 @@ import type {
   TeacherClassesResponse,
   TeacherLearningSessionEvidenceResponse,
   TeacherStudentsResponse,
+  TeacherInterventionsResponse,
+  TeacherStudentProfileResponse,
+  TeacherSupportGroupsResponse,
+  TeacherCreateAssignmentRequest,
+  TeacherCreateAssignmentResponse,
 } from "@/contracts/teacher";
 
 export type TeacherRepository = {
@@ -30,4 +35,8 @@ export type TeacherRepository = {
     sessionId: string,
     signal?: AbortSignal,
   ): Promise<TeacherLearningSessionEvidenceResponse>;
+  listSupportGroups(signal?: AbortSignal): Promise<TeacherSupportGroupsResponse>;
+  listInterventions(signal?: AbortSignal): Promise<TeacherInterventionsResponse>;
+  getStudentProfile(studentId: string, signal?: AbortSignal): Promise<TeacherStudentProfileResponse>;
+  createAssignment(classId: string, payload: TeacherCreateAssignmentRequest): Promise<TeacherCreateAssignmentResponse>;
 };

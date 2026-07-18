@@ -6,6 +6,9 @@ import type {
   TeacherClassesResponse,
   TeacherLearningSessionEvidenceResponse,
   TeacherStudentsResponse,
+  TeacherInterventionsResponse,
+  TeacherStudentProfileResponse,
+  TeacherSupportGroupsResponse,
 } from "@/contracts/teacher";
 
 export function getMockTeacherClassesResponse(): TeacherClassesResponse {
@@ -158,7 +161,7 @@ export function getMockTeacherLearningSessionEvidenceResponse(): TeacherLearning
       {
         phase: "diagnostic",
         questionPrompt: "BCNN của 6 và 8 là số nào?",
-        selectedOptionLabel: "24",
+        selectedOptionLabel: "18",
         isCorrect: false,
         skillName: "Tìm bội chung nhỏ nhất",
         answeredAt: "2026-07-18T08:03:00Z",
@@ -180,5 +183,28 @@ export function getMockTeacherLearningSessionEvidenceResponse(): TeacherLearning
         answeredAt: "2026-07-18T08:28:00Z",
       },
     ],
+  };
+}
+
+export function getMockTeacherSupportGroupsResponse(): TeacherSupportGroupsResponse {
+  return { items: [{ skillId: "skill-lcm", skillName: "Tìm bội chung nhỏ nhất", studentCount: 1, needsSupportCount: 0, classroomNames: ["Lớp 6A1"] }] };
+}
+
+export function getMockTeacherInterventionsResponse(): TeacherInterventionsResponse {
+  return { items: [{
+    studentId: "student-001", studentName: "DIEM", classroomName: "Lớp 6A1",
+    assignmentId: "assignment-fractions-001", assignmentTitle: "Ôn tập phân số",
+    sessionId: "diagnostic-fractions-001", rootCauseSkillName: "Tìm bội chung nhỏ nhất",
+    priority: "medium", priorityScore: 70,
+    reason: "Đang cần củng cố Tìm bội chung nhỏ nhất và cần theo dõi sau transfer.",
+    updatedAt: "2026-07-18T08:30:00Z",
+  }] };
+}
+
+export function getMockTeacherStudentProfileResponse(): TeacherStudentProfileResponse {
+  return {
+    id: "student-001", displayName: "DIEM", classroomName: "Lớp 6A1", schoolName: "Trường THCS Mina",
+    masteries: [{ skillId: "skill-lcm", skillName: "Tìm bội chung nhỏ nhất", status: "practicing", masteryScore: 0.67, confidence: 0.75, evidenceCount: 3, lastEvaluatedAt: "2026-07-18T08:28:00Z" }],
+    recentSessions: [{ sessionId: "diagnostic-fractions-001", assignmentId: "assignment-fractions-001", assignmentTitle: "Ôn tập phân số", state: "completed", outcome: "masteredAfterRemediation", rootCauseSkillName: "Tìm bội chung nhỏ nhất", updatedAt: "2026-07-18T08:30:00Z" }],
   };
 }

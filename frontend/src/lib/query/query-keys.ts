@@ -24,5 +24,8 @@ export const queryKeys = {
     assignmentStudents: (assignmentId: string, page = 1, pageSize = 20) =>
       ["teacher", "assignment", assignmentId, "students", page, pageSize] as const,
     learningSession: (sessionId: string) => ["teacher", "learning-session", sessionId] as const,
+    supportGroups: () => ["teacher", "support-groups"] as const,
+    interventions: () => ["teacher", "interventions"] as const,
+    studentProfile: (studentId: string) => ["teacher", "student", studentId, "profile"] as const,
   },
 };

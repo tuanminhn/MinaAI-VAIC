@@ -8,6 +8,9 @@ import {
   getMockTeacherClassDetailResponse,
   getMockTeacherLearningSessionEvidenceResponse,
   getMockTeacherStudentsResponse,
+  getMockTeacherInterventionsResponse,
+  getMockTeacherStudentProfileResponse,
+  getMockTeacherSupportGroupsResponse,
 } from "@/fixtures/teacher";
 
 function getTeacherSession() {
@@ -29,6 +32,26 @@ function createUnauthorizedResponse() {
 }
 
 export const teacherHandlers = [
+  http.post("*/api/v1/teacher/classes/:classId/assignments", async ({ request }) => {
+    if (!getTeacherSession()) return createUnauthorizedResponse();
+    const payload = await request.json() as { title?: string };
+    return HttpResponse.json({ id: "assignment-created-local", title: payload.title ?? "Bài mới", status: "published", studentCount: 1 }, { status: 201 });
+  }),
+  http.get("*/api/v1/teacher/support-groups", () => {
+    if (!getTeacherSession()) return createUnauthorizedResponse();
+    return HttpResponse.json(getMockTeacherSupportGroupsResponse());
+  }),
+
+  http.get("*/api/v1/teacher/interventions", () => {
+    if (!getTeacherSession()) return createUnauthorizedResponse();
+    return HttpResponse.json(getMockTeacherInterventionsResponse());
+  }),
+
+  http.get("*/api/v1/teacher/students/:studentId/profile", ({ params }) => {
+    if (!getTeacherSession()) return createUnauthorizedResponse();
+    if (String(params.studentId) !== "student-001") return HttpResponse.json({ code: "STUDENT_NOT_FOUND", message: "Không tìm thấy học sinh." }, { status: 404 });
+    return HttpResponse.json(getMockTeacherStudentProfileResponse());
+  }),
   http.get("*/api/v1/teacher/classes", () => {
     if (!getTeacherSession()) {
       return createUnauthorizedResponse();

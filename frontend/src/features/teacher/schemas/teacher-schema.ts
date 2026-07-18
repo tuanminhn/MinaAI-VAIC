@@ -135,3 +135,33 @@ export const teacherLearningSessionEvidenceResponseSchema = z.object({
     }),
   ),
 });
+
+export const teacherSupportGroupsResponseSchema = z.object({
+  items: z.array(z.object({
+    skillId: z.string().min(1), skillName: z.string().min(1),
+    studentCount: z.number().int().min(0), needsSupportCount: z.number().int().min(0),
+    classroomNames: z.array(z.string().min(1)),
+  })),
+});
+
+export const teacherInterventionsResponseSchema = z.object({
+  items: z.array(z.object({
+    studentId: z.string().min(1), studentName: z.string().min(1), classroomName: z.string().min(1),
+    assignmentId: z.string().min(1), assignmentTitle: z.string().min(1), sessionId: z.string().min(1),
+    rootCauseSkillName: z.string().nullable(), priority: z.enum(["high", "medium", "low"]),
+    priorityScore: z.number().int().min(0), reason: z.string().min(1), updatedAt: z.string().min(1),
+  })),
+});
+
+export const teacherStudentProfileResponseSchema = z.object({
+  id: z.string().min(1), displayName: z.string().min(1), classroomName: z.string().min(1), schoolName: z.string().min(1),
+  masteries: z.array(z.object({
+    skillId: z.string().min(1), skillName: z.string().min(1), status: z.string().min(1),
+    masteryScore: z.number().min(0).max(1), confidence: z.number().min(0).max(1),
+    evidenceCount: z.number().int().min(0), lastEvaluatedAt: z.string().nullable(),
+  })),
+  recentSessions: z.array(z.object({
+    sessionId: z.string().min(1), assignmentId: z.string().min(1), assignmentTitle: z.string().min(1),
+    state: z.string().min(1), outcome: teacherOutcomeSchema.nullable(), rootCauseSkillName: z.string().nullable(), updatedAt: z.string().min(1),
+  })),
+});

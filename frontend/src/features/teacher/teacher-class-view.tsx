@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AppErrorFallback } from "@/components/feedback/app-error-fallback";
 import { EmptyState } from "@/components/feedback/empty-state";
@@ -11,12 +12,30 @@ import { getTeacherApiError } from "@/features/teacher/helpers/teacher-api-error
 import { formatTeacherDateTime } from "@/features/teacher/helpers/teacher-presentation";
 import { useTeacherClassPageQuery } from "@/features/teacher/hooks/use-teacher-class-page-query";
 import { cn } from "@/lib/utils/cn";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { httpTeacherRepository } from "@/repositories/http-teacher-repository";
+import { queryKeys } from "@/lib/query/query-keys";
 
 export function TeacherClassView(): JSX.Element {
   const { classId = "" } = useParams();
   const auth = useAuth();
   const navigate = useNavigate();
   const { detailQuery, assignmentsQuery, studentsQuery } = useTeacherClassPageQuery(classId);
+  const queryClient = useQueryClient();
+  const [showCreate, setShowCreate] = useState(false);
+  const [title, setTitle] = useState("");
+  const createMutation = useMutation({
+    mutationFn: () => httpTeacherRepository.createAssignment(classId, {
+      title, targetSkillCode: "MATH6.FRACTIONS.SUBTRACT_DIFFERENT_DENOMINATOR",
+      estimatedMinutes: 15, publish: true,
+    }),
+    onSuccess: async () => {
+      setTitle(""); setShowCreate(false);
+      await queryClient.invalidateQueries({ queryKey: queryKeys.teacher.classAssignments(classId) });
+    },
+  });
 
   const firstError = detailQuery.error ?? assignmentsQuery.error ?? studentsQuery.error;
 
@@ -89,9 +108,15 @@ export function TeacherClassView(): JSX.Element {
       <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
         <Card variant="teacher-compact">
           <CardHeader>
-            <CardTitle className="text-xl">Bài được giao</CardTitle>
+            <div className="flex items-center justify-between gap-3"><CardTitle className="text-xl">Bài được giao</CardTitle><Button size="sm" variant="secondary" onClick={() => setShowCreate((value) => !value)}>Tạo bài</Button></div>
           </CardHeader>
           <CardContent className="space-y-4">
+            {showCreate ? <form className="space-y-3 rounded-[var(--radius-card)] border border-[var(--border)] p-4" onSubmit={(event) => { event.preventDefault(); if (title.trim().length >= 3) createMutation.mutate(); }}>
+              <div className="space-y-2"><Label htmlFor="assignment-title">Tên bài học</Label><Input id="assignment-title" value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Ví dụ: Ôn tập trừ phân số" /></div>
+              <p className="text-sm text-[var(--text-secondary)]">Mục tiêu hiện tại: Trừ hai phân số khác mẫu · 15 phút · giao cho toàn lớp.</p>
+              {createMutation.isError ? <p role="alert" className="text-sm">Không thể tạo bài. Hãy kiểm tra backend và nội dung đã seed.</p> : null}
+              <Button type="submit" isLoading={createMutation.isPending} disabled={title.trim().length < 3}>Giao bài ngay</Button>
+            </form> : null}
             {assignments.length === 0 ? (
               <EmptyState
                 title="Chưa có bài được giao"

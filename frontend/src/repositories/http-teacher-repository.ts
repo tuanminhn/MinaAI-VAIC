@@ -7,6 +7,11 @@ import type {
   TeacherClassesResponse,
   TeacherLearningSessionEvidenceResponse,
   TeacherStudentsResponse,
+  TeacherInterventionsResponse,
+  TeacherStudentProfileResponse,
+  TeacherSupportGroupsResponse,
+  TeacherCreateAssignmentRequest,
+  TeacherCreateAssignmentResponse,
 } from "@/contracts/teacher";
 import {
   teacherAssignmentOverviewResponseSchema,
@@ -16,6 +21,9 @@ import {
   teacherClassDetailResponseSchema,
   teacherLearningSessionEvidenceResponseSchema,
   teacherStudentsResponseSchema,
+  teacherInterventionsResponseSchema,
+  teacherStudentProfileResponseSchema,
+  teacherSupportGroupsResponseSchema,
 } from "@/features/teacher/schemas/teacher-schema";
 import { httpRequest } from "@/lib/api/http-client";
 import type { TeacherRepository } from "@/repositories/teacher-repository";
@@ -96,5 +104,27 @@ export const httpTeacherRepository: TeacherRepository = {
       signal,
     });
     return teacherLearningSessionEvidenceResponseSchema.parse(response);
+  },
+
+  async listSupportGroups(signal?: AbortSignal): Promise<TeacherSupportGroupsResponse> {
+    return teacherSupportGroupsResponseSchema.parse(
+      await httpRequest<unknown>("/teacher/support-groups", { signal }),
+    );
+  },
+
+  async listInterventions(signal?: AbortSignal): Promise<TeacherInterventionsResponse> {
+    return teacherInterventionsResponseSchema.parse(
+      await httpRequest<unknown>("/teacher/interventions", { signal }),
+    );
+  },
+
+  async getStudentProfile(studentId: string, signal?: AbortSignal): Promise<TeacherStudentProfileResponse> {
+    return teacherStudentProfileResponseSchema.parse(
+      await httpRequest<unknown>(`/teacher/students/${studentId}/profile`, { signal }),
+    );
+  },
+
+  async createAssignment(classId: string, payload: TeacherCreateAssignmentRequest): Promise<TeacherCreateAssignmentResponse> {
+    return httpRequest<TeacherCreateAssignmentResponse>(`/teacher/classes/${classId}/assignments`, { method: "POST", body: payload });
   },
 };
