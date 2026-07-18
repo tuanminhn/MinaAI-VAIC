@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "students": [
+    {
+      "id": "STUDENT_DEMO_MINH",
+      "display_name": "Minh",
+      "scenario": "root_cause_gap",
+      "answers": {
+        "Q.DIAG.G7.RATIONAL.ADD.001": "B",
+        "Q.DIAG.G6.COMMON_DENOM.001": "B",
+        "Q.DIAG.G6.ADD.001": "B"
+      },
+      "expected": {
+        "status": "diagnosed",
+        "root_cause_skill_id": "MATH.G6.FRACTION.COMMON_DENOMINATOR",
+        "confidence_min": 0.8,
+        "recommended_path_id": "PATH.G6_TO_G7.COMMON_DENOM.ADD"
+      }
+    },
+    {
+      "id": "STUDENT_DEMO_AN",
+      "display_name": "An",
+      "scenario": "mastered",
+      "answers": {
+        "Q.DIAG.G7.RATIONAL.ADD.001": "A",
+        "Q.DIAG.G6.COMMON_DENOM.001": "A",
+        "Q.DIAG.G6.ADD.001": "A",
+        "Q.DIAG.G7.RATIONAL.SIGN.001": "A"
+      },
+      "expected": {
+        "status": "mastered",
+        "target_skill_id": "MATH.G7.RATIONAL.ADD_SUBTRACT"
+      }
+    },
+    {
+      "id": "STUDENT_DEMO_LAN",
+      "display_name": "Lan",
+      "scenario": "insufficient_evidence",
+      "answers": {
+        "Q.DIAG.G7.RATIONAL.ADD.001": "D"
+      },
+      "expected": {
+        "status": "insufficient_evidence",
+        "next_question_id": "Q.DIAG.G6.COMMON_DENOM.001"
+      }
+    }
+  ]
+}

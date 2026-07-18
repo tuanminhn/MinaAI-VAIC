@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_scope": {
+    "series": "KNTT",
+    "subject": "math",
+    "grades": [
+      6,
+      7
+    ]
+  },
+  "sources": [
+    {
+      "filename": "SGK Toan 6 Tap 1 KNTT.pdf",
+      "book_id": "KNTT_TOAN_6_T1",
+      "grade": 6,
+      "volume": 1,
+      "title": "Toán 6 - Tập 1",
+      "path": "raw/SGK Toan 6 Tap 1 KNTT.pdf",
+      "sha256": "0fa650f1d0de012da51c1fc6f587cc43eff9702148e9877965786a3ae54d4bbf",
+      "bytes": 24705724,
+      "pages": 125,
+      "page_size": "547.2 x 768 pts",
+      "encrypted": false,
+      "text_layer": {
+        "available": false,
+        "reason": "scan_or_missing_text_layer",
+        "sample_pages": [
+          1,
+          4,
+          63
+        ],
+        "sample_characters": 0
+      },
+      "scope": {
+        "curriculum": "GDPT_2018",
+        "publisher_series": "KNTT",
+        "subject": "math"
+      }
+    },
+    {
+      "filename": "SGK Toan 6 Tap 2 KNTT.pdf",
+      "book_id": "KNTT_TOAN_6_T2",
+      "grade": 6,
+      "volume": 2,
+      "title": "Toán 6 - Tập 2",
+      "path": "raw/SGK Toan 6 Tap 2 KNTT.pdf",
+      "sha256": "774c04c28d425cc2ece06915db655e2b74e6d922ffa9546af2fe300813acde6c",
+      "bytes": 22110049,
+      "pages": 113,
+      "page_size": "547.2 x 768 pts",
+      "encrypted": false,
+      "text_layer": {
+        "available": false,
+        "reason": "scan_or_missing_text_layer",
+        "sample_pages": [
+          1,
+          4,
+          57
+        ],
+        "sample_characters": 0
+      },
+      "scope": {
+        "curriculum": "GDPT_2018",
+        "publisher_series": "KNTT",
+        "subject": "math"
+      }
+    },
+    {
+      "filename": "SGK Toan 7 Tap 1 KNTT.pdf",
+      "book_id": "KNTT_TOAN_7_T1",
+      "grade": 7,
+      "volume": 1,
+      "title": "Toán 7 - Tập 1",
+      "path": "raw/SGK Toan 7 Tap 1 KNTT.pdf",
+      "sha256": "c438ef197f1faacfb37fa88aa48c417758365c614fd5f06d4b80fef612447b49",
+      "bytes": 22586098,
+      "pages": 121,
+      "page_size": "595 x 842 pts (A4)",
+      "encrypted": false,
+      "text_layer": {
+        "available": false,
+        "reason": "scan_or_missing_text_layer",
+        "sample_pages": [
+          1,
+          4,
+          61
+        ],
+        "sample_characters": 0
+      },
+      "scope": {
+        "curriculum": "GDPT_2018",
+        "publisher_series": "KNTT",
+        "subject": "math"
+      }
+    },
+    {
+      "filename": "SGK Toan 7 Tap 2 KNTT.pdf",
+      "book_id": "KNTT_TOAN_7_T2",
+      "grade": 7,
+      "volume": 2,
+      "title": "Toán 7 - Tập 2",
+      "path": "raw/SGK Toan 7 Tap 2 KNTT.pdf",
+      "sha256": "b47653db43358ca2185a3303b58bf90976017e0b0c3bf52b8a8397f449d574cc",
+      "bytes": 22378389,
+      "pages": 117,
+      "page_size": "595 x 842 pts (A4)",
+      "encrypted": false,
+      "text_layer": {
+        "available": false,
+        "reason": "scan_or_missing_text_layer",
+        "sample_pages": [
+          1,
+          4,
+          59
+        ],
+        "sample_characters": 0
+      },
+      "scope": {
+        "curriculum": "GDPT_2018",
+        "publisher_series": "KNTT",
+        "subject": "math"
+      }
+    }
+  ]
+}

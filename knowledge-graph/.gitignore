@@ -1,0 +1,9 @@
+output/review-pages/
+output/ocr/
+output/.swift-cache/
+.venv/
+.DS_Store
+*.pyc
+__pycache__/
+.pytest_cache/
+raw/*.pdf

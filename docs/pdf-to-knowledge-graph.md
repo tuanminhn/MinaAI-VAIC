@@ -12,6 +12,8 @@ Pipeline MVP chỉ nhận dữ liệu từ:
 
 File hoặc metadata không thuộc đúng phạm vi này phải bị từ chối trước bước trích xuất. MVP không ingest hay tạo curriculum mapping cho Cánh diều, Chân trời sáng tạo, môn khác hoặc khối khác. Canonical ontology vẫn được giữ độc lập với tên bộ sách để có thể mở rộng sau MVP.
 
+Mã nguồn triển khai pipeline nằm tại [`knowledge-graph/`](/knowledge-graph/README.md). PDF hiện có là bản scan không có text layer, vì vậy pipeline bắt buộc lưu trạng thái text layer, render trang review và chỉ dùng OCR như dữ liệu hỗ trợ kiểm duyệt. Dataset demo đầu tiên dùng chuỗi **Phân số lớp 6 → Số hữu tỉ lớp 7**.
+
 ---
 
 ## Quy trình tổng quan đề xuất

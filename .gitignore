@@ -1,1 +1,6 @@
 .DS_Store
+knowledge-graph/raw/
+__pycache__/
+.env
+.venv
+venv/

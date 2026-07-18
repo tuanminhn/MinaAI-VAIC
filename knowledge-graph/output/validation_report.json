@@ -1,0 +1,23 @@
+{
+  "valid": true,
+  "schema_version": "1.0.0",
+  "counts": {
+    "skills": 11,
+    "edges": 13,
+    "misconceptions": 4,
+    "questions": 8,
+    "remediation_paths": 1,
+    "demo_students": 3
+  },
+  "checks": [
+    "scope",
+    "unique_ids",
+    "skill_scope_and_provenance",
+    "edge_references_and_dag",
+    "misconception_references",
+    "question_references_answers_and_transfer_independence",
+    "remediation_path_references",
+    "demo_fixture_references"
+  ],
+  "human_review_required": true
+}
