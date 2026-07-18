@@ -1361,6 +1361,8 @@ Một gap chỉ được xem là closed nếu:
 
 # 24. Lịch trình phát triển
 
+> Phần này chỉ mô tả lộ trình sản phẩm dài hạn và không dùng để giao việc trong hackathon. Backlog chính thức cho hackathon, không có deadline/sprint/worklog, nằm tại [Hackathon Work Breakdown](/docs/hackathon-work-breakdown.md).
+
 ## Phase 0 — Discovery
 
 **Thời gian:** 2–3 tuần
@@ -1372,7 +1374,7 @@ Một gap chỉ được xem là closed nếu:
 - Thu thập bài tập/bài kiểm tra thật.
 - Xác định chủ đề hổng phổ biến nhất.
 - Kiểm tra điều kiện thiết bị/mạng.
-- Chọn lớp 6 hay lớp 7 làm điểm bắt đầu.
+- Chọn chương/chủ đề ưu tiên trong Toán lớp 7–8 Kết nối tri thức.
 
 ### Exit criteria
 

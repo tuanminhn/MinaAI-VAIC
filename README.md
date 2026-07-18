@@ -68,10 +68,11 @@ Bắt đầu tại [docs/INDEX.md](/docs/INDEX.md). Thứ tự đọc trước k
 1. [Problem Statement](/docs/problem-statement.md)
 2. [PRD](/docs/prd.md)
 3. [Đặc tả MVP & Acceptance Criteria](/docs/mvp-spec.md)
-4. [Yêu cầu Phi chức năng, An toàn & Dữ liệu](/docs/non-functional-requirements.md)
-5. [Product Decisions](/docs/product-decisions.md)
-6. [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md)
-7. [PDF → Knowledge Graph](/docs/pdf-to-knowledge-graph.md)
+4. [Hackathon Work Breakdown](/docs/hackathon-work-breakdown.md)
+5. [Yêu cầu Phi chức năng, An toàn & Dữ liệu](/docs/non-functional-requirements.md)
+6. [Product Decisions](/docs/product-decisions.md)
+7. [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md)
+8. [PDF → Knowledge Graph](/docs/pdf-to-knowledge-graph.md)
 
 ## Definition of Ready trước khi code
 
