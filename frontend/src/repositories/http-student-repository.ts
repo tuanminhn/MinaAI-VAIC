@@ -1,9 +1,11 @@
 import type {
+  StartDiagnosticSessionResponse,
   StudentAssignmentsQuery,
   StudentAssignmentsResponse,
   StudentHomeResponse,
 } from "@/contracts/student";
 import {
+  startDiagnosticSessionResponseSchema,
   studentAssignmentsResponseSchema,
   studentHomeResponseSchema,
 } from "@/features/student/schemas/student-schema";
@@ -41,5 +43,19 @@ export const httpStudentRepository: StudentRepository = {
   ): Promise<StudentAssignmentsResponse> {
     const response = await httpRequest<unknown>(buildAssignmentsPath(query), { signal });
     return studentAssignmentsResponseSchema.parse(response);
+  },
+
+  async startDiagnosticSession(
+    assignmentId: string,
+    signal?: AbortSignal,
+  ): Promise<StartDiagnosticSessionResponse> {
+    const response = await httpRequest<unknown>(
+      `/student/assignments/${assignmentId}/diagnostic-sessions`,
+      {
+        method: "POST",
+        signal,
+      },
+    );
+    return startDiagnosticSessionResponseSchema.parse(response);
   },
 };

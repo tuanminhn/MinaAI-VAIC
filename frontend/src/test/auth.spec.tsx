@@ -3,12 +3,17 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import { axe } from "vitest-axe";
-import { mockAuthAccounts, setMockActiveSessionForUserId } from "@/fixtures/auth";
+import {
+  clearMockActiveSession,
+  mockAuthAccounts,
+  setMockActiveSession,
+  setMockActiveSessionForUserId,
+} from "@/fixtures/auth";
 import { server } from "@/mocks/server";
 import { renderApp } from "@/test/render-app";
 
 async function waitForLoginReady() {
-  return screen.findByLabelText(/Ten dang nhap/i);
+  return screen.findByLabelText(/Tên đăng nhập|Ten dang nhap/i);
 }
 
 describe("basic authentication UI and role-aware app shell", () => {
@@ -16,7 +21,9 @@ describe("basic authentication UI and role-aware app shell", () => {
     renderApp(["/login"]);
 
     expect(await waitForLoginReady()).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Dang nhap vao Mina AI/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Đăng nhập vào Mina AI|Dang nhap vao Mina AI/i }),
+    ).toBeInTheDocument();
   });
 
   it("validates required form fields", async () => {
@@ -24,10 +31,12 @@ describe("basic authentication UI and role-aware app shell", () => {
     renderApp(["/login"]);
 
     await waitForLoginReady();
-    await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+    await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
-    expect(await screen.findByText(/Vui long nhap ten dang nhap/i)).toBeInTheDocument();
-    expect(screen.getByText(/Vui long nhap mat khau/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Vui lòng nhập tên đăng nhập|Vui long nhap ten dang nhap/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Vui lòng nhập mật khẩu|Vui long nhap mat khau/i)).toBeInTheDocument();
   });
 
   it("submits the form with Enter and redirects student", async () => {
@@ -37,7 +46,7 @@ describe("basic authentication UI and role-aware app shell", () => {
     const usernameInput = await waitForLoginReady();
     await user.type(usernameInput, mockAuthAccounts[0].credentials.username);
     await user.type(
-      screen.getByLabelText(/^Mat khau$/i),
+      screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i),
       `${mockAuthAccounts[0].credentials.password}{Enter}`,
     );
 
@@ -50,11 +59,14 @@ describe("basic authentication UI and role-aware app shell", () => {
 
     const usernameInput = await waitForLoginReady();
     await user.type(usernameInput, mockAuthAccounts[1].credentials.username);
-    await user.type(screen.getByLabelText(/^Mat khau$/i), mockAuthAccounts[1].credentials.password);
-    await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+    await user.type(
+      screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i),
+      mockAuthAccounts[1].credentials.password,
+    );
+    await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
     expect(
-      await screen.findByRole("heading", { name: /Tong quan giao vien/i }),
+      await screen.findByRole("heading", { name: /Lớp giáo viên phụ trách|Lop giao vien phu trach/i }),
     ).toBeInTheDocument();
   });
 
@@ -63,14 +75,18 @@ describe("basic authentication UI and role-aware app shell", () => {
     renderApp(["/login"]);
 
     const usernameInput = await waitForLoginReady();
-    const passwordInput = screen.getByLabelText(/^Mat khau$/i);
+    const passwordInput = screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i);
 
     await user.type(usernameInput, "sai.tai.khoan");
     await user.type(passwordInput, "khong-dung");
-    await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+    await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
-    expect(await screen.findByText(/Dang nhap chua thanh cong/i)).toBeInTheDocument();
-    expect(screen.getByText(/Ten dang nhap hoac mat khau khong dung/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Đăng nhập chưa thành công|Dang nhap chua thanh cong/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Tên đăng nhập hoặc mật khẩu không đúng|Ten dang nhap hoac mat khau khong dung/i),
+    ).toBeInTheDocument();
     expect(usernameInput).toHaveValue("sai.tai.khoan");
     expect(passwordInput).toHaveValue("");
   });
@@ -83,28 +99,40 @@ describe("basic authentication UI and role-aware app shell", () => {
 
     const usernameInput = await waitForLoginReady();
     await user.type(usernameInput, mockAuthAccounts[0].credentials.username);
-    await user.type(screen.getByLabelText(/^Mat khau$/i), mockAuthAccounts[0].credentials.password);
-    await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+    await user.type(
+      screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i),
+      mockAuthAccounts[0].credentials.password,
+    );
+    await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
-    expect(await screen.findByText(/Khong the ket noi may chu Mina/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/Khong the ket noi den may chu Mina trong truong/i),
+      await screen.findByText(/Không thể kết nối máy chủ Mina|Khong the ket noi may chu Mina/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Không thể kết nối đến máy chủ Mina trong trường|Khong the ket noi den may chu Mina trong truong/i,
+      ),
     ).toBeInTheDocument();
   });
 
   it("accepts nullable optional auth fields from backend and still redirects", async () => {
+    clearMockActiveSession();
+
+    const session = {
+      user: {
+        id: "student-002",
+        displayName: "Pham Gia Han",
+        role: "student" as const,
+        schoolName: null,
+        classroomName: null,
+      },
+    };
+
     server.use(
-      http.post("*/api/v1/auth/login", () =>
-        HttpResponse.json({
-          user: {
-            id: "student-002",
-            displayName: "Pham Gia Han",
-            role: "student",
-            schoolName: null,
-            classroomName: null,
-          },
-        }),
-      ),
+      http.post("*/api/v1/auth/login", () => {
+        setMockActiveSession(session);
+        return HttpResponse.json(session);
+      }),
     );
 
     const user = userEvent.setup();
@@ -112,8 +140,11 @@ describe("basic authentication UI and role-aware app shell", () => {
 
     const usernameInput = await waitForLoginReady();
     await user.type(usernameInput, mockAuthAccounts[0].credentials.username);
-    await user.type(screen.getByLabelText(/^Mat khau$/i), mockAuthAccounts[0].credentials.password);
-    await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+    await user.type(
+      screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i),
+      mockAuthAccounts[0].credentials.password,
+    );
+    await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
     expect(await screen.findByText(/Pham Gia Han/i)).toBeInTheDocument();
   });
@@ -141,15 +172,15 @@ describe("basic authentication UI and role-aware app shell", () => {
       const usernameInput = await waitForLoginReady();
       await user.type(usernameInput, mockAuthAccounts[0].credentials.username);
       await user.type(
-        screen.getByLabelText(/^Mat khau$/i),
+        screen.getByLabelText(/^Mật khẩu$|^Mat khau$/i),
         mockAuthAccounts[0].credentials.password,
       );
-      await user.click(screen.getByRole("button", { name: /^Dang nhap$/i }));
+      await user.click(screen.getByRole("button", { name: /^Đăng nhập$|^Dang nhap$/i }));
 
-      expect(await screen.findByText(/Khong the dang nhap/i)).toBeInTheDocument();
+      expect(await screen.findByText(/Không thể đăng nhập|Khong the dang nhap/i)).toBeInTheDocument();
       expect(
         screen.getByText(
-          /He thong Mina tam thoi chua the xu ly yeu cau dang nhap. Hay thu lai./i,
+          /Hệ thống Mina tạm thời chưa thể xử lý yêu cầu đăng nhập. Hãy thử lại.|He thong Mina tam thoi chua the xu ly yeu cau dang nhap. Hay thu lai./i,
         ),
       ).toBeInTheDocument();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
@@ -185,7 +216,9 @@ describe("basic authentication UI and role-aware app shell", () => {
     setMockActiveSessionForUserId("student-001");
     renderApp(["/teacher"]);
 
-    expect(await screen.findByText(/Khong co quyen truy cap/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Không có quyền truy cập|Khong co quyen truy cap/i),
+    ).toBeInTheDocument();
   });
 
   it("redirects authenticated users away from /login", async () => {
@@ -193,7 +226,7 @@ describe("basic authentication UI and role-aware app shell", () => {
     renderApp(["/login"]);
 
     expect(
-      await screen.findByRole("heading", { name: /Tong quan giao vien/i }),
+      await screen.findByRole("heading", { name: /Lớp giáo viên phụ trách|Lop giao vien phu trach/i }),
     ).toBeInTheDocument();
   });
 

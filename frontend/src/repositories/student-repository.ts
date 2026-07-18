@@ -1,4 +1,5 @@
 import type {
+  StartDiagnosticSessionResponse,
   StudentAssignmentsQuery,
   StudentAssignmentsResponse,
   StudentHomeResponse,
@@ -10,4 +11,8 @@ export interface StudentRepository {
     query?: StudentAssignmentsQuery,
     signal?: AbortSignal,
   ): Promise<StudentAssignmentsResponse>;
+  startDiagnosticSession(
+    assignmentId: string,
+    signal?: AbortSignal,
+  ): Promise<StartDiagnosticSessionResponse>;
 }

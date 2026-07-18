@@ -45,3 +45,7 @@ class User(Base):
     )
 
     auth_sessions = relationship("AuthSession", back_populates="user")
+    classroom_memberships = relationship("ClassroomMembership", back_populates="user")
+    created_assignments = relationship("Assignment", back_populates="created_by_user")
+    assignment_recipients = relationship("AssignmentRecipient", back_populates="student_user")
+    diagnostic_sessions = relationship("DiagnosticSession", back_populates="student_user")

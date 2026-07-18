@@ -1,15 +1,41 @@
+import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { BookOpenText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { AppErrorFallback } from "@/components/feedback/app-error-fallback";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { useAuth } from "@/features/auth/hooks/use-auth";
+import { getSessionRestoreNotice } from "@/features/auth/hooks/auth-error-messages";
 import { AssignmentCard } from "@/features/student/components/assignment-card";
 import { StudentAssignmentsSkeleton } from "@/features/student/components/student-assignments-skeleton";
 import { useStudentAssignmentsQuery } from "@/features/student/hooks/use-student-assignments-query";
+import { isApiError } from "@/lib/api/api-error";
+import { HttpRequestError } from "@/lib/api/http-client";
 import { queryKeys } from "@/lib/query/query-keys";
+
+function getApiError(error: unknown) {
+  if (error instanceof HttpRequestError) {
+    return error.apiError;
+  }
+
+  return isApiError(error) ? error : null;
+}
 
 export function StudentAssignmentsView(): JSX.Element {
   const queryClient = useQueryClient();
+  const auth = useAuth();
+  const navigate = useNavigate();
   const assignmentsQuery = useStudentAssignmentsQuery({ page: 1, pageSize: 10 });
+
+  useEffect(() => {
+    const apiError = getApiError(assignmentsQuery.error);
+    if (!apiError || (apiError.code !== "AUTH_REQUIRED" && apiError.code !== "SESSION_EXPIRED")) {
+      return;
+    }
+
+    auth.resetSession(getSessionRestoreNotice(apiError));
+    navigate("/login", { replace: true });
+  }, [assignmentsQuery.error, auth, navigate]);
 
   if (assignmentsQuery.isPending) {
     return <StudentAssignmentsSkeleton />;

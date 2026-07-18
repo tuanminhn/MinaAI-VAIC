@@ -6,9 +6,13 @@ import {
 
 type DiagnosticProgressProps = {
   progress: DiagnosticProgressData;
+  ariaLabel?: string;
 };
 
-export function DiagnosticProgress({ progress }: DiagnosticProgressProps): JSX.Element {
+export function DiagnosticProgress({
+  progress,
+  ariaLabel = "Tiến độ bài học",
+}: DiagnosticProgressProps): JSX.Element {
   const progressText = getDiagnosticProgressText(progress);
 
   if (!hasEstimatedDiagnosticTotal(progress)) {
@@ -20,7 +24,7 @@ export function DiagnosticProgress({ progress }: DiagnosticProgressProps): JSX.E
     );
   }
 
-  const total = progress.estimatedTotal ?? 1;
+  const total = progress.estimatedTotal ?? progress.total ?? 1;
 
   return (
     <div className="space-y-2">
@@ -30,7 +34,7 @@ export function DiagnosticProgress({ progress }: DiagnosticProgressProps): JSX.E
       </div>
       <div
         role="progressbar"
-        aria-label="Tiến độ bài chẩn đoán"
+        aria-label={ariaLabel}
         aria-valuemin={0}
         aria-valuemax={total}
         aria-valuenow={progress.answered}
@@ -40,10 +44,7 @@ export function DiagnosticProgress({ progress }: DiagnosticProgressProps): JSX.E
         <div
           className="motion-standard h-full rounded-[var(--radius-pill)] bg-[var(--primary)]"
           style={{
-            width: `${Math.min(
-              100,
-              Math.round((progress.answered / total) * 100),
-            )}%`,
+            width: `${Math.min(100, Math.round((progress.answered / total) * 100))}%`,
           }}
         />
       </div>

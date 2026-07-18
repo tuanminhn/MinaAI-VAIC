@@ -4,18 +4,19 @@ services:
     container_name: mina-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${MINA_POSTGRES_DB:-mina_ai}
+      POSTGRES_DB: ${MINA_POSTGRES_DB:-mina_dev}
       POSTGRES_USER: ${MINA_POSTGRES_USER:-mina_app}
       POSTGRES_PASSWORD: ${MINA_POSTGRES_PASSWORD:-mina_dev_password}
     volumes:
       - mina_postgres_data:/var/lib/postgresql/data
+      - ./backend/docker/init:/docker-entrypoint-initdb.d:ro
     ports:
       - "5432:5432"
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "pg_isready -U ${MINA_POSTGRES_USER:-mina_app} -d ${MINA_POSTGRES_DB:-mina_ai}",
+          "pg_isready -U ${MINA_POSTGRES_USER:-mina_app} -d ${MINA_POSTGRES_DB:-mina_dev}",
         ]
       interval: 10s
       timeout: 5s
@@ -30,23 +31,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    environment:
-      APP_NAME: Mina AI
-      APP_ENV: development
-      API_V1_PREFIX: /api/v1
-      DATABASE_URL: postgresql+psycopg://${MINA_POSTGRES_USER:-mina_app}:${MINA_POSTGRES_PASSWORD:-mina_dev_password}@postgres:5432/${MINA_POSTGRES_DB:-mina_ai}
-      LOG_LEVEL: INFO
-      CORS_ORIGINS: http://localhost:5173
-      AUTH_COOKIE_NAME: mina_session
-      AUTH_SESSION_TTL_MINUTES: 480
-      AUTH_COOKIE_SECURE: "false"
-      AUTH_COOKIE_SAMESITE: lax
-      DEV_STUDENT_USERNAME: ${DEV_STUDENT_USERNAME:-student01}
-      DEV_STUDENT_PASSWORD: ${DEV_STUDENT_PASSWORD:-change-me-student}
-      DEV_STUDENT_DISPLAY_NAME: ${DEV_STUDENT_DISPLAY_NAME:-Hoc sinh Mina}
-      DEV_TEACHER_USERNAME: ${DEV_TEACHER_USERNAME:-teacher01}
-      DEV_TEACHER_PASSWORD: ${DEV_TEACHER_PASSWORD:-change-me-teacher}
-      DEV_TEACHER_DISPLAY_NAME: ${DEV_TEACHER_DISPLAY_NAME:-Giao vien Mina}
+    env_file:
+      - ./backend/.env
     ports:
       - "8000:8000"
 

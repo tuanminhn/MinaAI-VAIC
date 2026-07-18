@@ -17,11 +17,14 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 logger = get_logger(__name__)
 
 
-def serialize_user(user: User) -> AuthUserResponse:
+def serialize_user(auth_service: AuthService, user: User) -> AuthUserResponse:
+    school_name, classroom_name = auth_service.get_user_context(user)
     return AuthUserResponse(
         id=user.id,
         display_name=user.display_name,
         role=user.role,
+        school_name=school_name,
+        classroom_name=classroom_name,
     )
 
 
@@ -72,7 +75,7 @@ def login(
 
     set_auth_cookie(response, result.raw_session_token)
     logger.info("Login success user_id=%s role=%s", result.user.id, result.user.role)
-    return LoginResponse(user=serialize_user(result.user))
+    return LoginResponse(user=serialize_user(auth_service, result.user))
 
 
 @router.get(
@@ -80,8 +83,12 @@ def login(
     response_model=AuthUserResponse,
     responses={401: {"model": ErrorResponse}},
 )
-def me(current_user: User = Depends(get_current_user)) -> AuthUserResponse:  # noqa: B008
-    return serialize_user(current_user)
+def me(
+    current_user: User = Depends(get_current_user),  # noqa: B008
+    db: Session = Depends(get_db),  # noqa: B008
+) -> AuthUserResponse:
+    auth_service = AuthService(db)
+    return serialize_user(auth_service, current_user)
 
 
 @router.post("/logout", status_code=204)

@@ -44,6 +44,7 @@ export function DiagnosticPlayerView(): JSX.Element {
   const sessionQuery = useDiagnosticSessionQuery(sessionId);
   const submitMutation = useSubmitDiagnosticAttemptMutation();
   const submitAbortControllerRef = useRef<AbortController | null>(null);
+  const currentClientAttemptIdRef = useRef<string | null>(null);
 
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [feedbackResponse, setFeedbackResponse] = useState<SubmitDiagnosticAttemptResponse | null>(
@@ -65,6 +66,7 @@ export function DiagnosticPlayerView(): JSX.Element {
     setSelectedOptionId(null);
     setFeedbackResponse(null);
     setSubmitError(null);
+    currentClientAttemptIdRef.current = null;
   }, [currentQuestionId]);
 
   useEffect(() => {
@@ -93,11 +95,16 @@ export function DiagnosticPlayerView(): JSX.Element {
     setSubmitError(null);
 
     try {
+      if (!currentClientAttemptIdRef.current) {
+        currentClientAttemptIdRef.current = crypto.randomUUID();
+      }
+
       const response = await submitMutation.mutateAsync({
         sessionId,
         input: {
           questionId: sessionData.currentQuestion.id,
           selectedOptionId,
+          clientAttemptId: currentClientAttemptIdRef.current,
         },
         signal: submitAbortControllerRef.current.signal,
       });

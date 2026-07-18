@@ -1,11 +1,5 @@
-import { RoutePage } from "@/routes/route-page";
+import { DiagnosticResultView } from "@/features/diagnostic/diagnostic-result-view";
 
 export default function StudentResultPage(): JSX.Element {
-  return (
-    <RoutePage
-      title="Ket qua"
-      description="Ket qua hoc tap se duoc bo sung trong FE-007."
-      backLink="/student"
-    />
-  );
+  return <DiagnosticResultView />;
 }

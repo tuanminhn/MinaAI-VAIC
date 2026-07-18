@@ -19,14 +19,16 @@ export type AssignmentSummary = {
   estimatedMinutes?: number;
   assignedAt?: string;
   dueAt?: string;
-  nextRoute?: string;
+  diagnosticAvailable: boolean;
+  nextRoute?: string | null;
 };
 
 export type StudentHomeResponse = {
   student: {
     id: string;
     displayName: string;
-    classroomName?: string;
+    classroomName?: string | null;
+    schoolName?: string | null;
   };
   currentAssignment?: AssignmentSummary;
   recentAssignments: AssignmentSummary[];
@@ -42,5 +44,12 @@ export type StudentAssignmentsResponse = {
   items: AssignmentSummary[];
   page: number;
   pageSize: number;
-  totalItems: number;
+  total: number;
+};
+
+export type StartDiagnosticSessionResponse = {
+  sessionId: string;
+  state: "diagnosing" | "gap_confirmed" | "in_remediation" | "transfer_ready" | "completed";
+  route: string;
+  resumed: boolean;
 };

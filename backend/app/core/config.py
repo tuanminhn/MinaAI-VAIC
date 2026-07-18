@@ -5,6 +5,7 @@ from typing import Annotated
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
+from sqlalchemy.engine import make_url
 
 
 class Settings(BaseSettings):
@@ -20,6 +21,7 @@ class Settings(BaseSettings):
     app_env: str = Field(validation_alias="APP_ENV")
     api_v1_prefix: str = Field(validation_alias="API_V1_PREFIX")
     database_url: str = Field(validation_alias="DATABASE_URL")
+    test_database_url: str | None = Field(default=None, validation_alias="TEST_DATABASE_URL")
     log_level: str = Field(default="INFO", validation_alias="LOG_LEVEL")
     cors_origins: Annotated[list[str], NoDecode] = Field(validation_alias="CORS_ORIGINS")
     auth_cookie_name: str = Field(default="mina_session", validation_alias="AUTH_COOKIE_NAME")
@@ -61,6 +63,13 @@ class Settings(BaseSettings):
         if value <= 0:
             raise ValueError("AUTH_SESSION_TTL_MINUTES must be greater than 0")
         return value
+
+    @staticmethod
+    def get_database_name(database_url: str) -> str:
+        database_name = make_url(database_url).database
+        if not database_name:
+            raise ValueError("Database URL must include a database name.")
+        return database_name
 
 
 @lru_cache

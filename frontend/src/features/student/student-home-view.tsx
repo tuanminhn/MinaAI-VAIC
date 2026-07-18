@@ -1,18 +1,43 @@
+import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { BookOpenText, ListChecks } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppErrorFallback } from "@/components/feedback/app-error-fallback";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { buttonVariants } from "@/components/ui/button.variants";
+import { useAuth } from "@/features/auth/hooks/use-auth";
+import { getSessionRestoreNotice } from "@/features/auth/hooks/auth-error-messages";
 import { AssignmentCard } from "@/features/student/components/assignment-card";
 import { StudentHomeSkeleton } from "@/features/student/components/student-home-skeleton";
 import { useStudentHomeQuery } from "@/features/student/hooks/use-student-home-query";
+import { isApiError } from "@/lib/api/api-error";
+import { HttpRequestError } from "@/lib/api/http-client";
 import { queryKeys } from "@/lib/query/query-keys";
 import { cn } from "@/lib/utils/cn";
 
+function getApiError(error: unknown) {
+  if (error instanceof HttpRequestError) {
+    return error.apiError;
+  }
+
+  return isApiError(error) ? error : null;
+}
+
 export function StudentHomeView(): JSX.Element {
   const queryClient = useQueryClient();
+  const auth = useAuth();
+  const navigate = useNavigate();
   const homeQuery = useStudentHomeQuery();
+
+  useEffect(() => {
+    const apiError = getApiError(homeQuery.error);
+    if (!apiError || (apiError.code !== "AUTH_REQUIRED" && apiError.code !== "SESSION_EXPIRED")) {
+      return;
+    }
+
+    auth.resetSession(getSessionRestoreNotice(apiError));
+    navigate("/login", { replace: true });
+  }, [auth, homeQuery.error, navigate]);
 
   if (homeQuery.isPending) {
     return <StudentHomeSkeleton />;
@@ -42,7 +67,10 @@ export function StudentHomeView(): JSX.Element {
           Chào em, {student.displayName}.
         </h1>
         {student.classroomName ? (
-          <p className="text-base text-[var(--text-secondary)]">Lớp {student.classroomName}</p>
+          <p className="text-base text-[var(--text-secondary)]">{student.classroomName}</p>
+        ) : null}
+        {student.schoolName ? (
+          <p className="text-base text-[var(--text-secondary)]">{student.schoolName}</p>
         ) : null}
       </section>
 

@@ -13,7 +13,7 @@ const teacherNavItems = [
   },
   {
     label: "Lớp học",
-    to: "/teacher/classes/demo-class",
+    to: "/teacher",
     icon: <School aria-hidden="true" className="size-4" />,
   },
   {
@@ -54,7 +54,7 @@ export function TeacherShell(): JSX.Element {
           <nav className="grid gap-2" aria-label="Điều hướng giáo viên">
             {teacherNavItems.map((item) => (
               <NavLink
-                key={item.to}
+                key={`${item.to}:${item.label}`}
                 to={item.to}
                 className={({ isActive }) =>
                   cn(

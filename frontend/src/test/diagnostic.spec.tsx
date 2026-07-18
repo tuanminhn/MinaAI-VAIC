@@ -64,6 +64,57 @@ describe("minimal diagnostic player contract", () => {
     expect(await screen.findByRole("button", { name: /Nộp|Nop/i })).toBeDisabled();
   });
 
+  it("sends a stable clientAttemptId for retry and reuses it before success", async () => {
+    const attemptBodies: Array<{ clientAttemptId?: string }> = [];
+
+    server.use(
+      http.post("*/api/v1/diagnostic-sessions/:sessionId/attempts", async ({ request }) => {
+        const body = (await request.json()) as {
+          questionId: string;
+          selectedOptionId: string;
+          clientAttemptId?: string;
+        };
+        attemptBodies.push({ clientAttemptId: body.clientAttemptId });
+
+        if (attemptBodies.length === 1) {
+          return HttpResponse.error();
+        }
+
+        return HttpResponse.json({
+          attemptId: "attempt-stable-id",
+          correct: true,
+          feedback: {
+            title: "Da ghi nhan cau tra loi",
+            message: "Em da hoan thanh buoc nay.",
+            tone: "encouraging",
+          },
+          nextAction: {
+            type: "next_question",
+            label: "Cau tiep theo",
+          },
+        });
+      }),
+    );
+
+    const user = userEvent.setup();
+    renderApp(["/student/diagnostic/diagnostic-fractions-001"]);
+
+    await user.click(await screen.findByLabelText("2/4"));
+    await user.click(screen.getByRole("button", { name: /Nộp|Nop/i }));
+    expect(
+      await screen.findByText(
+        /Chưa thể kết nối đến máy chủ Mina trong trường|Chua the ket noi den may chu Mina trong truong/i,
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /Nộp|Nop/i }));
+
+    expect(await screen.findByText(/Da ghi nhan cau tra loi/i)).toBeInTheDocument();
+    expect(attemptBodies).toHaveLength(2);
+    expect(attemptBodies[0].clientAttemptId).toBeTruthy();
+    expect(attemptBodies[0].clientAttemptId).toBe(attemptBodies[1].clientAttemptId);
+  });
+
   it("navigates to remediation when the API returns navigate", async () => {
     const user = userEvent.setup();
     renderApp(["/student/diagnostic/diagnostic-fractions-001"]);
@@ -72,7 +123,7 @@ describe("minimal diagnostic player contract", () => {
     await user.click(screen.getByRole("button", { name: /Nộp|Nop/i }));
     await user.click(await screen.findByRole("link", { name: /Bắt đầu|Bat dau/i }));
 
-    expect(await screen.findByText(/Remediation/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Củng cố kiến thức|Cung co kien thuc/i)).toBeInTheDocument();
   });
 
   it("shows an invalid session state with a way back", async () => {

@@ -9,6 +9,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    fileParallelism: false,
     environmentOptions: {
       jsdom: {
         url: "http://localhost:5173",

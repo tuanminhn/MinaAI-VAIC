@@ -1,5 +1,7 @@
+import { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { AssignmentSummary } from "@/contracts/student";
 import { buttonVariants } from "@/components/ui/button.variants";
 import {
@@ -9,10 +11,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { useStartDiagnosticSessionMutation } from "@/features/student/hooks/use-start-diagnostic-session-mutation";
 import { AssignmentStatusBadge } from "@/features/student/components/assignment-status-badge";
 import { LearningProgress } from "@/features/student/components/learning-progress";
 import { formatEstimatedMinutes } from "@/features/student/lib/format-assignment-meta";
 import { getAssignmentPresentation } from "@/features/student/lib/assignment-presentation";
+import { queryKeys } from "@/lib/query/query-keys";
 import { cn } from "@/lib/utils/cn";
 
 type AssignmentCardProps = {
@@ -26,9 +30,44 @@ export function AssignmentCard({
   headingLevel = "h2",
   emphasized = false,
 }: AssignmentCardProps): JSX.Element {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const startMutation = useStartDiagnosticSessionMutation();
+  const startAbortControllerRef = useRef<AbortController | null>(null);
+  const [startError, setStartError] = useState<string | null>(null);
   const presentation = getAssignmentPresentation(assignment.status);
   const estimatedMinutes = formatEstimatedMinutes(assignment.estimatedMinutes);
   const HeadingTag = headingLevel;
+
+  async function handleStartDiagnostic(): Promise<void> {
+    if (!assignment.diagnosticAvailable || assignment.nextRoute || startMutation.isPending) {
+      return;
+    }
+
+    startAbortControllerRef.current?.abort();
+    startAbortControllerRef.current = new AbortController();
+    setStartError(null);
+
+    try {
+      const response = await startMutation.mutateAsync({
+        assignmentId: assignment.id,
+        signal: startAbortControllerRef.current.signal,
+      });
+
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.student.home() }),
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.student.assignments(undefined, 1, 10),
+        }),
+      ]);
+
+      navigate(response.route);
+    } catch {
+      setStartError(
+        "Chưa thể kết nối đến máy chủ Mina trong trường. Hãy kiểm tra Wi-Fi nội bộ hoặc thử lại.",
+      );
+    }
+  }
 
   return (
     <Card variant={emphasized ? "student-focus" : "default"} className="h-full">
@@ -76,7 +115,38 @@ export function AssignmentCard({
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         </CardFooter>
-      ) : null}
+      ) : assignment.diagnosticAvailable ? (
+        <CardFooter className="flex-col items-start gap-3">
+          <button
+            type="button"
+            aria-label={`${presentation.actionLabel} ${assignment.title}`}
+            className={cn(
+              buttonVariants({
+                size: emphasized ? "lg" : "default",
+              }),
+              "no-underline",
+            )}
+            disabled={startMutation.isPending}
+            onClick={() => {
+              void handleStartDiagnostic();
+            }}
+          >
+            <span>{presentation.actionLabel}</span>
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </button>
+          {startError ? (
+            <p role="alert" className="text-sm text-[var(--error)]">
+              {startError}
+            </p>
+          ) : null}
+        </CardFooter>
+      ) : (
+        <CardFooter>
+          <p className="text-sm font-medium text-[var(--text-secondary)]">
+            Bài học đang được chuẩn bị.
+          </p>
+        </CardFooter>
+      )}
     </Card>
   );
 }

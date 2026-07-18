@@ -54,9 +54,9 @@ export function getSessionRestoreNotice(error: ApiError): AuthNotice {
 
   if (error.code === "network_error") {
     return {
-      title: "Khong the xac minh phien dang nhap",
+      title: "Không thể xác nhận phiên đăng nhập",
       message:
-        "Khong the ket noi den may chu Mina trong truong. Hay kiem tra Wi-Fi noi bo hoac thu lai.",
+        "disconect to server Mina . Hay kiểm tra Wi-Fi nội bộ hoặc thự lại.",
       variant: "warning",
     };
   }

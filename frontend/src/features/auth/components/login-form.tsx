@@ -86,17 +86,16 @@ export function LoginForm(): JSX.Element {
               Mina AI
             </p>
             <h1 className="text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
-              Dang nhap vao Mina AI
+              Đăng nhập vào Mina AI
             </h1>
           </div>
         </div>
 
         <Card className="shadow-[var(--shadow-sm)]">
           <CardHeader className="space-y-2">
-            <CardTitle className="text-xl">Truy cap he thong hoc tap tai truong</CardTitle>
+            <CardTitle className="text-xl">Truy cập hệ thống học tập tại trường</CardTitle>
             <CardDescription>
-              Dang nhap de vao dung giao dien hoc sinh hoac giao vien. Mina AI uu tien mang noi bo
-              va may truong hoc.
+              Đăng nhập để truy cập Mina AI
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -111,7 +110,7 @@ export function LoginForm(): JSX.Element {
               }}
             >
               <div className="space-y-2">
-                <Label htmlFor="username">Ten dang nhap</Label>
+                <Label htmlFor="username">Tên đăng nhập</Label>
                 <Input
                   id="username"
                   autoComplete="username"
@@ -127,7 +126,7 @@ export function LoginForm(): JSX.Element {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Mat khau</Label>
+                <Label htmlFor="password">Mật khẩu</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -166,8 +165,8 @@ export function LoginForm(): JSX.Element {
               </Button>
 
               <InputDescription>
-                Neu may chu Mina tai truong tam thoi khong san sang, vui long thu lai hoac kiem
-                tra Wi-Fi noi bo.
+                Nếu máy chủ AI MINA tại trường không sẵn sàng, vui lòng thu lai hoặc kiểm
+                tra Wi-Fi nội bộ.
               </InputDescription>
             </form>
           </CardContent>

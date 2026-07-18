@@ -1,7 +1,14 @@
 import type {
+  DiagnosticResultResponse,
   DiagnosticSessionResponse,
+  RemediationResponse,
   SubmitDiagnosticAttemptRequest,
   SubmitDiagnosticAttemptResponse,
+  SubmitRemediationAttemptRequest,
+  SubmitRemediationAttemptResponse,
+  SubmitTransferAttemptRequest,
+  SubmitTransferAttemptResponse,
+  TransferResponse,
 } from "@/contracts/diagnostic";
 
 type DiagnosticFixtureState = {
@@ -132,7 +139,7 @@ export function submitDiagnosticFixtureAttempt(
       },
       nextAction: {
         type: "navigate",
-        route: "/student/remediation/remediation-integers-001",
+        route: "/student/remediation/diagnostic-fractions-001",
         label: "Bắt đầu củng cố",
       },
     };
@@ -166,4 +173,143 @@ export function submitDiagnosticFixtureAttempt(
   }
 
   return null;
+}
+
+export function getRemediationFixture(sessionId: string): RemediationResponse | null {
+  if (sessionId !== "diagnostic-fractions-001") {
+    return null;
+  }
+
+  return {
+    sessionId,
+    assignmentTitle: "Ôn tập phân số",
+    state: "in_remediation",
+    cycleNumber: 1,
+    unit: {
+      title: "Nhân cả tử và mẫu",
+      summary: "Khi đổi mẫu số, em cần nhân tử số và mẫu số với cùng một số.",
+      explanation:
+        "Nhân cả tử và mẫu với cùng một số khác 0 sẽ tạo ra một phân số bằng phân số ban đầu.",
+      workedExample: "2/3 = 8/12 vì 2 x 4 = 8 và 3 x 4 = 12.",
+      practiceInstruction: "Tìm số cần nhân rồi áp dụng cho cả tử và mẫu.",
+    },
+    progress: {
+      answered: 0,
+      total: 2,
+    },
+    currentQuestion: {
+      id: "remediation-question-001",
+      prompt: "Phân số nào bằng 2/3 và có mẫu số 12?",
+      selectionMode: "single",
+      options: [
+        { id: "rem-option-a", label: "4/12" },
+        { id: "rem-option-b", label: "6/12" },
+        { id: "rem-option-c", label: "8/12" },
+      ],
+    },
+  };
+}
+
+export function submitRemediationFixtureAttempt(
+  sessionId: string,
+  input: SubmitRemediationAttemptRequest,
+): SubmitRemediationAttemptResponse | null {
+  if (sessionId !== "diagnostic-fractions-001" || input.questionId !== "remediation-question-001") {
+    return null;
+  }
+
+  return {
+    attemptId: "remediation-attempt-001",
+    correct: input.selectedOptionId === "rem-option-c",
+    feedback: {
+      title: "Đã ghi nhận câu trả lời",
+      message: "Mình tiếp tục thêm một bước ngắn nữa nhé.",
+      tone: input.selectedOptionId === "rem-option-c" ? "encouraging" : "neutral",
+    },
+    nextAction: {
+      type: "navigate",
+      route: "/student/transfer/diagnostic-fractions-001",
+      label: "Bắt đầu kiểm tra lại",
+    },
+  };
+}
+
+export function getTransferFixture(sessionId: string): TransferResponse | null {
+  if (sessionId !== "diagnostic-fractions-001") {
+    return null;
+  }
+
+  return {
+    sessionId,
+    assignmentTitle: "Ôn tập phân số",
+    state: "transfer_ready",
+    cycleNumber: 1,
+    progress: {
+      answered: 0,
+      total: 2,
+    },
+    currentQuestion: {
+      id: "transfer-question-001",
+      prompt: "Tìm x: x - 1/4 = 1/2",
+      selectionMode: "single",
+      options: [
+        { id: "transfer-option-a", label: "1/4" },
+        { id: "transfer-option-b", label: "2/4" },
+        { id: "transfer-option-c", label: "3/4" },
+      ],
+    },
+  };
+}
+
+export function submitTransferFixtureAttempt(
+  sessionId: string,
+  input: SubmitTransferAttemptRequest,
+): SubmitTransferAttemptResponse | null {
+  if (sessionId !== "diagnostic-fractions-001" || input.questionId !== "transfer-question-001") {
+    return null;
+  }
+
+  return {
+    attemptId: "transfer-attempt-001",
+    correct: input.selectedOptionId === "transfer-option-c",
+    feedback: {
+      title: "Em đã hoàn thành bài học",
+      message: "Em đã củng cố kiến thức nền và hoàn thành phần kiểm tra lại.",
+      tone: "encouraging",
+    },
+    nextAction: {
+      type: "completed",
+      route: "/student/result/diagnostic-fractions-001",
+      label: "Xem kết quả",
+    },
+  };
+}
+
+export function getResultFixture(sessionId: string): DiagnosticResultResponse | null {
+  if (sessionId !== "diagnostic-fractions-001" && sessionId !== "result-ratios-001") {
+    return null;
+  }
+
+  return {
+    sessionId,
+    assignment: {
+      id: "assignment-fractions-001",
+      title: "Ôn tập phân số",
+    },
+    outcome: "mastered_after_remediation",
+    summary: {
+      title: "Em đã hoàn thành bài học",
+      message: "Em đã củng cố kiến thức nền và hoàn thành phần kiểm tra lại.",
+    },
+    learningEvidence: {
+      diagnosticQuestionsAnswered: 8,
+      remediationQuestionsAnswered: 2,
+      transferQuestionsAnswered: 2,
+      remediationCycles: 1,
+    },
+    rootCause: {
+      name: "Tìm bội chung nhỏ nhất",
+    },
+    completedAt: "2026-07-18T08:00:00Z",
+  };
 }

@@ -22,14 +22,16 @@ export const assignmentSummarySchema = z.object({
   estimatedMinutes: z.number().int().min(1).optional(),
   assignedAt: z.string().optional(),
   dueAt: z.string().optional(),
-  nextRoute: z.string().optional(),
+  diagnosticAvailable: z.boolean(),
+  nextRoute: z.string().nullable().optional(),
 });
 
 export const studentHomeResponseSchema = z.object({
   student: z.object({
     id: z.string().min(1),
     displayName: z.string().min(1),
-    classroomName: z.string().optional(),
+    classroomName: z.string().nullable().optional(),
+    schoolName: z.string().nullable().optional(),
   }),
   currentAssignment: assignmentSummarySchema.optional(),
   recentAssignments: z.array(assignmentSummarySchema),
@@ -39,5 +41,18 @@ export const studentAssignmentsResponseSchema = z.object({
   items: z.array(assignmentSummarySchema),
   page: z.number().int().min(1),
   pageSize: z.number().int().min(1),
-  totalItems: z.number().int().min(0),
+  total: z.number().int().min(0),
+});
+
+export const startDiagnosticSessionResponseSchema = z.object({
+  sessionId: z.string().min(1),
+  state: z.enum([
+    "diagnosing",
+    "gap_confirmed",
+    "in_remediation",
+    "transfer_ready",
+    "completed",
+  ]),
+  route: z.string().min(1),
+  resumed: z.boolean(),
 });

@@ -7,7 +7,32 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from app.core.config import get_settings
 from app.db.base import Base
-from app.db.models import auth_session, system_metadata, user  # noqa: F401
+from app.db.models import (  # noqa: F401
+    assignment,
+    assignment_content_target,
+    assignment_recipient,
+    auth_session,
+    classroom,
+    classroom_membership,
+    content_package,
+    diagnostic_attempt,
+    diagnostic_session,
+    diagnostic_skill_evaluation,
+    learning_session_transition,
+    misconception,
+    question_item,
+    question_option,
+    remediation_attempt,
+    remediation_run,
+    remediation_unit,
+    school,
+    skill,
+    skill_prerequisite,
+    system_metadata,
+    transfer_attempt,
+    transfer_check,
+    user,
+)
 
 config = context.config
 
@@ -18,6 +43,10 @@ target_metadata = Base.metadata
 
 
 def get_database_url() -> str:
+    configured_url = config.get_main_option("sqlalchemy.url")
+    if configured_url:
+        return configured_url
+
     settings = get_settings()
     return settings.database_url
 

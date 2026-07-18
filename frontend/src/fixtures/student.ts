@@ -20,6 +20,7 @@ const studentAssignmentsFixture: AssignmentSummary[] = [
     estimatedMinutes: 15,
     assignedAt: "2026-07-15",
     dueAt: "2026-07-19",
+    diagnosticAvailable: true,
     nextRoute: "/student/diagnostic/diagnostic-fractions-001",
   },
   {
@@ -36,7 +37,8 @@ const studentAssignmentsFixture: AssignmentSummary[] = [
     estimatedMinutes: 10,
     assignedAt: "2026-07-16",
     dueAt: "2026-07-22",
-    nextRoute: "/student/diagnostic/adaptive-unknown-001",
+    diagnosticAvailable: true,
+    nextRoute: null,
   },
   {
     id: "remediation-integers-001",
@@ -52,6 +54,7 @@ const studentAssignmentsFixture: AssignmentSummary[] = [
     estimatedMinutes: 12,
     assignedAt: "2026-07-14",
     dueAt: "2026-07-20",
+    diagnosticAvailable: true,
     nextRoute: "/student/remediation/remediation-integers-001",
   },
   {
@@ -68,6 +71,7 @@ const studentAssignmentsFixture: AssignmentSummary[] = [
     estimatedMinutes: 10,
     assignedAt: "2026-07-13",
     dueAt: "2026-07-18",
+    diagnosticAvailable: true,
     nextRoute: "/student/transfer/transfer-decimals-001",
   },
   {
@@ -84,6 +88,7 @@ const studentAssignmentsFixture: AssignmentSummary[] = [
     estimatedMinutes: 8,
     assignedAt: "2026-07-10",
     dueAt: "2026-07-17",
+    diagnosticAvailable: true,
     nextRoute: "/student/result/result-ratios-001",
   },
 ];
@@ -93,7 +98,8 @@ export function getMockStudentHomeResponse(): StudentHomeResponse {
     student: {
       id: "student-001",
       displayName: "Nguyễn Hà Linh",
-      classroomName: "6A1",
+      classroomName: "Lớp 6A1",
+      schoolName: "Trường THCS Mina",
     },
     currentAssignment: studentAssignmentsFixture[0],
     recentAssignments: studentAssignmentsFixture.slice(1, 3),
@@ -105,7 +111,8 @@ export function getMockEmptyStudentHomeResponse(): StudentHomeResponse {
     student: {
       id: "student-001",
       displayName: "Nguyễn Hà Linh",
-      classroomName: "6A1",
+      classroomName: "Lớp 6A1",
+      schoolName: "Trường THCS Mina",
     },
     recentAssignments: [],
   };
@@ -126,7 +133,7 @@ export function getMockStudentAssignmentsResponse(
     items,
     page,
     pageSize,
-    totalItems: filteredItems.length,
+    total: filteredItems.length,
   };
 }
 
@@ -135,6 +142,6 @@ export function getMockEmptyStudentAssignmentsResponse(): StudentAssignmentsResp
     items: [],
     page: 1,
     pageSize: 10,
-    totalItems: 0,
+    total: 0,
   };
 }

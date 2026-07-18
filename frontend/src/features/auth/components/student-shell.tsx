@@ -11,16 +11,20 @@ const studentNavItems: ShellNavItem[] = [
 export function StudentShell(): JSX.Element {
   const { user } = useAuth();
   const location = useLocation();
-  const isDiagnosticRoute = location.pathname.includes("/student/diagnostic/");
+  const isFocusedLearningRoute =
+    location.pathname.includes("/student/diagnostic/") ||
+    location.pathname.includes("/student/remediation/") ||
+    location.pathname.includes("/student/transfer/") ||
+    location.pathname.includes("/student/result/");
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <SkipLink />
       <ShellHeader
-        brandSubtitle={isDiagnosticRoute ? "Đang làm bài chẩn đoán" : "Không gian học sinh"}
+        brandSubtitle={isFocusedLearningRoute ? "Đang thực hiện bài học" : "Không gian học sinh"}
         userName={user?.displayName ?? "Học sinh"}
         userMeta={user?.classroomName ?? undefined}
-        navItems={isDiagnosticRoute ? [] : studentNavItems}
+        navItems={isFocusedLearningRoute ? [] : studentNavItems}
         compactLabel="điều hướng học sinh"
       />
       <main

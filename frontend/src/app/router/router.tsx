@@ -23,6 +23,8 @@ const StudentTransferPage = lazy(() => import("@/routes/student-transfer-page"))
 const StudentResultPage = lazy(() => import("@/routes/student-result-page"));
 const TeacherDashboardPage = lazy(() => import("@/routes/teacher-dashboard-page"));
 const TeacherClassPage = lazy(() => import("@/routes/teacher-class-page"));
+const TeacherAssignmentPage = lazy(() => import("@/routes/teacher-assignment-page"));
+const TeacherSessionPage = lazy(() => import("@/routes/teacher-session-page"));
 const TeacherStudentPage = lazy(() => import("@/routes/teacher-student-page"));
 const TeacherGroupsPage = lazy(() => import("@/routes/teacher-groups-page"));
 const TeacherInterventionsPage = lazy(() => import("@/routes/teacher-interventions-page"));
@@ -101,6 +103,14 @@ export function buildAppRoutes({
                     {
                       path: "classes/:classId",
                       element: withSuspense(<TeacherClassPage />),
+                    },
+                    {
+                      path: "assignments/:assignmentId",
+                      element: withSuspense(<TeacherAssignmentPage />),
+                    },
+                    {
+                      path: "sessions/:sessionId",
+                      element: withSuspense(<TeacherSessionPage />),
                     },
                     {
                       path: "students/:studentId",

@@ -1,36 +1,39 @@
 # Mina AI Backend
 
-Backend tối giản cho Mina AI dùng FastAPI, PostgreSQL, SQLAlchemy 2, Alembic và auth theo cookie session HttpOnly.
+Backend foundation cho Mina AI dùng FastAPI, PostgreSQL, SQLAlchemy 2, Alembic, session cookie HttpOnly và content package MVP cho Toán phân số lớp 6.
 
 ## Yêu cầu
 
 - Docker Desktop hoặc Docker Engine + Docker Compose
 - Python 3.11
 
-## 1. Chuẩn bị môi trường
+## Biến môi trường
 
-```bash
-cd backend
-cp .env.example .env
-```
-
-PowerShell:
+Tạo file `backend/.env` từ `backend/.env.example`.
 
 ```powershell
+cd backend
 Copy-Item .env.example .env
 ```
+
+Biến chính:
+
+- `DATABASE_URL`: database development runtime, mặc định là `mina_dev`
+- `TEST_DATABASE_URL`: database dành riêng cho pytest PostgreSQL, mặc định là `mina_test`
+- `CORS_ORIGINS`: origin frontend development
+- `DEV_STUDENT_*`, `DEV_TEACHER_*`: dữ liệu seed development
 
 Lưu ý:
 
 - Không commit `backend/.env`.
-- `DATABASE_URL` phải trỏ tới PostgreSQL thật.
-- `APP_ENV=production` sẽ chặn lệnh seed development users.
+- `backend/.env` trong Docker Compose dùng host `postgres`.
+- Nếu chạy backend trực tiếp trên host thay vì trong container, đổi host DB sang `localhost`.
 
-## 2. Khởi động PostgreSQL và backend bằng Docker Compose
+## Khởi động PostgreSQL và backend
 
 Từ thư mục gốc repository:
 
-```bash
+```powershell
 docker compose build backend
 docker compose up -d postgres backend
 docker compose ps
@@ -38,169 +41,207 @@ docker compose logs postgres
 docker compose logs backend
 ```
 
-## 3. Cài dependency để chạy trên host
+PostgreSQL dùng một service nhưng có hai database:
 
-```bash
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -e .[dev]
-```
+- `mina_dev`
+- `mina_test`
 
-## 4. Chạy migration
+## Migration
 
-```bash
-alembic upgrade head
-alembic current
-alembic heads
+Chạy trong container backend:
+
+```powershell
+docker compose exec backend alembic upgrade head
+docker compose exec backend alembic current
+docker compose exec backend alembic heads
 ```
 
 Kỳ vọng:
 
-- `current` = `20260718_0002`
+- `current` = `20260718_0004`
 - chỉ có một `head`
 
-## 5. Tạo development users một cách explicit
+## Seed development
 
-```bash
-python -m app.cli.seed_dev_users --reset-password
+Tạo development users:
+
+```powershell
+docker compose exec backend python -m app.cli.seed_dev_users --reset-password
+```
+
+Tạo dữ liệu core cho demo:
+
+```powershell
+docker compose exec backend python -m app.cli.seed_dev_core
+```
+
+Tạo content package phân số:
+
+```powershell
+docker compose exec backend python -m app.cli.seed_dev_content
+docker compose exec backend python -m app.cli.validate_content
 ```
 
 Quy tắc:
 
 - Chỉ chạy khi `APP_ENV=development` hoặc `test`
 - Không tự seed khi app startup
-- Credentials lấy từ `backend/.env`
 - Không in password ra log
 
-## 6. Chạy backend trên host
+## Reset development database
 
-```bash
-uvicorn app.main:app --reload
+Lệnh reset explicit:
+
+```powershell
+docker compose exec backend python -m app.cli.reset_dev_database
+docker compose exec backend alembic upgrade head
+docker compose exec backend python -m app.cli.seed_dev_users --reset-password
+docker compose exec backend python -m app.cli.seed_dev_core
+docker compose exec backend python -m app.cli.seed_dev_content
+docker compose exec backend python -m app.cli.validate_content
 ```
 
-## 7. Health check
+Guard an toàn:
 
-```bash
+- Chỉ chạy khi `APP_ENV=development`
+- Chỉ chấp nhận database tên `mina_dev`
+- Từ chối nếu `TEST_DATABASE_URL` trỏ cùng database development
+
+## Pytest và test database
+
+Pytest PostgreSQL luôn dùng `mina_test`.
+
+Guard bắt buộc:
+
+- `TEST_DATABASE_URL` phải tồn tại
+- `TEST_DATABASE_URL` phải khác `DATABASE_URL`
+- tên database test phải chứa `test`
+
+Nếu sai, pytest sẽ fail với thông báo:
+
+```text
+Refusing to run PostgreSQL tests against the development database.
+```
+
+Chạy test:
+
+```powershell
+cd backend
+.\.venv\Scripts\pytest
+```
+
+Lint:
+
+```powershell
+.\.venv\Scripts\ruff check .
+.\.venv\Scripts\ruff format --check .
+```
+
+## Content package MVP
+
+BE-004 chỉ seed một vertical slice:
+
+- Package: `MATH6_FRACTIONS_FOUNDATION_V1`
+- Tiêu đề: `Nền tảng phân số lớp 6`
+- Môn: `math`
+- Khối: `6`
+
+Skill codes:
+
+- `MATH6.MULTIPLES.COMMON_MULTIPLE`
+- `MATH6.MULTIPLES.LCM`
+- `MATH6.FRACTIONS.EQUIVALENT_FRACTION`
+- `MATH6.FRACTIONS.COMMON_DENOMINATOR`
+- `MATH6.FRACTIONS.SUBTRACT_SAME_DENOMINATOR`
+- `MATH6.FRACTIONS.SUBTRACT_DIFFERENT_DENOMINATOR`
+- `MATH6.FRACTIONS.SIMPLE_FRACTION_EQUATION`
+
+Direction của prerequisite:
+
+- `skill_id` cần `prerequisite_skill_id`
+
+Package này chỉ là nội dung development để phục vụ deterministic diagnostic slice sau này. Đây không phải bản nội dung đã được phê duyệt chính thức. Giáo viên cần review trước khi rollout thật.
+
+## Internal content APIs
+
+Các endpoint đọc nội dung hiện có:
+
+- `GET /api/v1/content/packages/{packageCode}`
+- `GET /api/v1/content/packages/{packageCode}/skills`
+- `GET /api/v1/content/skills/{skillCode}`
+
+Các endpoint này hiện giới hạn cho teacher/internal verification.
+
+Không endpoint nào trả `isCorrect` ra JSON.
+
+## Auth hiện tại
+
+- Username + password
+- Argon2 để hash password
+- Opaque session token
+- PostgreSQL chỉ lưu `token_hash`
+- Browser nhận cookie `HttpOnly`
+- Frontend khôi phục phiên bằng `GET /api/v1/auth/me`
+
+## Health check
+
+```powershell
 curl http://localhost:8000/api/v1/health
 curl http://localhost:8000/api/v1/health/ready
 ```
 
-## 8. Kiểm tra auth thật
-
-Các endpoint hiện có:
-
-- `POST /api/v1/auth/login`
-- `GET /api/v1/auth/me`
-- `POST /api/v1/auth/logout`
-
-Kiến trúc auth:
-
-- Username + password
-- Argon2 để hash password
-- Opaque session token sinh bằng `secrets`
-- PostgreSQL chỉ lưu `token_hash` SHA-256
-- Browser nhận cookie `HttpOnly`
-- Frontend khôi phục phiên bằng `/auth/me`
-
-## 9. Chạy test
-
-Unit và integration nhẹ:
-
-```bash
-pytest -m "not postgres"
-```
-
-PostgreSQL integration:
-
-```bash
-pytest -m "integration and postgres"
-```
-
-Toàn bộ test:
-
-```bash
-pytest
-```
-
-Lint/format:
-
-```bash
-ruff check .
-ruff format --check .
-```
-
-## 10. CORS và cookie development
-
-- `CORS_ORIGINS` lấy từ env, mặc định là `http://localhost:5173`
-- `allow_credentials=true`
-- Không dùng wildcard origin
-- Trong development nên dùng nhất quán `localhost` hoặc `127.0.0.1`, không trộn lẫn tùy tiện
-- `AUTH_COOKIE_SECURE=false` chỉ phù hợp HTTP local/LAN development
-
-## 11. Frontend integration
+## Frontend integration
 
 Để frontend dùng backend thật:
 
-```bash
-cd frontend
-VITE_API_BASE_URL=http://localhost:8000/api/v1
-VITE_ENABLE_MSW=false
-npm run dev
-```
-
-PowerShell:
-
 ```powershell
+cd frontend
 $env:VITE_API_BASE_URL="http://localhost:8000/api/v1"
 $env:VITE_ENABLE_MSW="false"
-npm run dev
+npm run dev -- --host localhost
 ```
 
-## 12. Cleanup session cũ
+## CORS và cookie development
 
-```bash
-python -m app.cli.cleanup_sessions
+- `CORS_ORIGINS` lấy từ env
+- `allow_credentials=true`
+- Không dùng wildcard origin
+- Dùng nhất quán `localhost`, không trộn với `127.0.0.1`
+- `AUTH_COOKIE_SECURE=false` chỉ phù hợp development HTTP/LAN
+
+## Cách thêm question mới an toàn
+
+- Chỉ thêm qua seed data hoặc migration/seed script có kiểm soát
+- Mỗi câu phải có ít nhất 2 options
+- Mỗi câu phải có đúng 1 option `is_correct=true`
+- Không chỉnh đáp án trực tiếp trên production DB
+- Sau khi sửa dữ liệu, luôn chạy:
+
+```powershell
+docker compose exec backend python -m app.cli.validate_content
 ```
 
-Lệnh này xóa session đã hết hạn hoặc đã bị revoke. Chưa có background worker trong MVP.
+## Version package trong tương lai
 
-## 13. Reset database development
+- Tạo package code mới khi thay đổi lớn về cấu trúc hoặc nội dung
+- Giữ `code` skill ổn định nếu muốn backend diagnostic tái sử dụng
+- Không ghi đè tùy tiện content đang dùng cho rollout thật
 
-```bash
-docker compose down
-docker volume rm minaai-vaic_mina_postgres_data
-docker compose up -d postgres backend
+## Backup và restore
+
+Ví dụ backup development DB:
+
+```powershell
+docker compose exec postgres pg_dump -U mina_app -d mina_dev > mina_dev_backup.sql
 ```
 
-Sau đó chạy lại:
+Ví dụ restore development DB:
 
-```bash
-cd backend
-alembic upgrade head
-python -m app.cli.seed_dev_users --reset-password
+```powershell
+docker compose exec -T postgres psql -U mina_app -d mina_dev < mina_dev_backup.sql
 ```
 
-## 14. Backup và restore foundation
-
-Ví dụ backup:
-
-```bash
-docker compose exec postgres pg_dump -U mina_app -d mina_ai > mina_ai_backup.sql
-```
-
-Ví dụ restore:
-
-```bash
-docker compose exec -T postgres psql -U mina_app -d mina_ai < mina_ai_backup.sql
-```
-
-## 15. Lỗi thường gặp
-
-### `alembic` báo thiếu biến môi trường
-
-- Kiểm tra `backend/.env`
-- Đảm bảo đang chạy lệnh từ thư mục `backend`
+## Lỗi thường gặp
 
 ### `/api/v1/health/ready` trả `503`
 
@@ -210,20 +251,31 @@ docker compose exec -T postgres psql -U mina_app -d mina_ai < mina_ai_backup.sql
 
 ### Login luôn `401`
 
-- Chạy lại seed:
+- Chạy lại:
 
-```bash
-python -m app.cli.seed_dev_users --reset-password
+```powershell
+docker compose exec backend python -m app.cli.seed_dev_users --reset-password
 ```
 
 - Kiểm tra frontend đang dùng `credentials: include`
 
-## 16. Giới hạn bảo mật hiện tại
+### Validation content fail
 
+- Kiểm tra graph prerequisite có cycle không
+- Kiểm tra mỗi question có đúng một đáp án đúng
+- Kiểm tra assignment target đã được seed từ `seed_dev_core`
+
+## Giới hạn hiện tại
+
+- Chưa có diagnostic session
+- Chưa có engine chấm attempt runtime
+- Chưa có remediation UI
+- Chưa có transfer UI
+- Chưa có teacher analytics
 - Chưa có rate limiting
 - Chưa có HTTPS termination
 - Chưa có password reset
 - Chưa có MFA
 - Chưa có audit log đầy đủ
 
-Các mục trên cần bổ sung trước khi rollout rộng hơn ngoài LAN nội bộ của trường.
+Các mục này cần bổ sung ở các work package sau.

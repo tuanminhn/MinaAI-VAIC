@@ -1,11 +1,5 @@
-import { RoutePage } from "@/routes/route-page";
+import { TeacherClassView } from "@/features/teacher/teacher-class-view";
 
 export default function TeacherClassPage(): JSX.Element {
-  return (
-    <RoutePage
-      title="Lop hoc"
-      description="Chi tiet lop hoc se duoc xay trong FE-008."
-      backLink="/teacher"
-    />
-  );
+  return <TeacherClassView />;
 }

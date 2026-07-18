@@ -90,7 +90,11 @@ export function ShellHeader({
         {hasNavigation ? (
           <nav className="hidden flex-wrap gap-2 md:flex" aria-label={compactLabel}>
             {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} className={({ isActive }) => shellLinkClass(isActive)}>
+              <NavLink
+                key={`${item.to}:${item.label}`}
+                to={item.to}
+                className={({ isActive }) => shellLinkClass(isActive)}
+              >
                 {item.label}
               </NavLink>
             ))}
@@ -110,7 +114,7 @@ export function ShellHeader({
             <nav className="grid gap-2" aria-label={compactLabel}>
               {navItems.map((item) => (
                 <NavLink
-                  key={item.to}
+                  key={`${item.to}:${item.label}`}
                   to={item.to}
                   className={({ isActive }) => shellLinkClass(isActive)}
                   onClick={() => setIsMenuOpen(false)}

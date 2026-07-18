@@ -40,6 +40,28 @@ function parseAssignmentsQuery(request: Request): StudentAssignmentsQuery {
 }
 
 export const studentHandlers = [
+  http.post("*/api/v1/student/assignments/:assignmentId/diagnostic-sessions", ({ params }) => {
+    if (!getStudentSession()) {
+      return createUnauthorizedResponse();
+    }
+
+    if (String(params.assignmentId) === "assignment-geometry-001") {
+      return HttpResponse.json({
+        sessionId: "adaptive-unknown-001",
+        state: "diagnosing",
+        route: "/student/diagnostic/adaptive-unknown-001",
+        resumed: false,
+      });
+    }
+
+    return HttpResponse.json({
+      sessionId: "diagnostic-fractions-001",
+      state: "diagnosing",
+      route: "/student/diagnostic/diagnostic-fractions-001",
+      resumed: true,
+    });
+  }),
+
   http.get("*/api/v1/student/home", ({ request }) => {
     const url = new URL(request.url);
     const scenario = url.searchParams.get("scenario");

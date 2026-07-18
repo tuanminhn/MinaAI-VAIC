@@ -15,6 +15,7 @@ from app.core.security import (
 from app.db.models.auth_session import AuthSession
 from app.db.models.user import User
 from app.repositories.auth_session_repository import AuthSessionRepository
+from app.repositories.classroom_repository import ClassroomRepository
 from app.repositories.user_repository import UserRepository
 
 
@@ -34,6 +35,7 @@ class AuthService:
         self.session = session
         self.users = UserRepository(session)
         self.auth_sessions = AuthSessionRepository(session)
+        self.classrooms = ClassroomRepository(session)
 
     def create_user(
         self,
@@ -107,3 +109,21 @@ class AuthService:
 
     def cleanup_expired_sessions(self) -> int:
         return self.auth_sessions.delete_expired_or_revoked(datetime.now(UTC))
+
+    def get_user_context(self, user: User) -> tuple[str | None, str | None]:
+        if user.role == "student":
+            membership = self.classrooms.get_primary_membership_for_user(
+                user_id=user.id,
+                membership_role="student",
+            )
+            if membership is None:
+                return None, None
+            return membership.classroom.school.name, membership.classroom.name
+
+        membership = self.classrooms.get_primary_membership_for_user(
+            user_id=user.id,
+            membership_role="teacher",
+        )
+        if membership is None:
+            return None, None
+        return membership.classroom.school.name, None

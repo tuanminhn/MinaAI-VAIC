@@ -12,7 +12,8 @@ def test_config_load_successfully() -> None:
         APP_NAME="Mina AI",
         APP_ENV="development",
         API_V1_PREFIX="/api/v1",
-        DATABASE_URL="postgresql+psycopg://mina_app:mina_dev_password@localhost:5432/mina_ai",
+        DATABASE_URL="postgresql+psycopg://mina_app:mina_dev_password@localhost:5432/mina_dev",
+        TEST_DATABASE_URL="postgresql+psycopg://mina_app:mina_dev_password@localhost:5432/mina_test",
         LOG_LEVEL="INFO",
         CORS_ORIGINS="http://localhost:5173",
         AUTH_COOKIE_NAME="mina_session",
@@ -24,6 +25,7 @@ def test_config_load_successfully() -> None:
     assert settings.app_name == "Mina AI"
     assert settings.cors_origins == ["http://localhost:5173"]
     assert settings.auth_cookie_name == "mina_session"
+    assert settings.get_database_name(settings.test_database_url or "") == "mina_test"
 
 
 def test_config_missing_required_field_fails_clearly(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -44,3 +46,12 @@ def test_config_missing_required_field_fails_clearly(monkeypatch: pytest.MonkeyP
         )
 
     assert "DATABASE_URL" in str(exc_info.value)
+
+
+def test_config_extracts_database_name() -> None:
+    assert (
+        Settings.get_database_name(
+            "postgresql+psycopg://mina_app:mina_dev_password@localhost:5432/mina_test"
+        )
+        == "mina_test"
+    )
