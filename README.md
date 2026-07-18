@@ -55,6 +55,7 @@ Giáo viên tạo lớp và giao diagnostic
 
 - Chẩn đoán thời gian thực dựa trên knowledge graph, rule-based scoring và misconception mapping; **không phụ thuộc LLM**.
 - LLM chỉ hỗ trợ giải thích, tóm tắt và tạo bản nháp có kiểm duyệt.
+- Prototype có ba luồng AI hỗ trợ: giải thích câu sai sau khi học sinh đã nộp và khóa bài, tóm tắt lớp đã khử định danh và bản nháp kế hoạch dạy lại cho nhóm. Không có gợi ý trong lúc làm diagnostic; ba luồng không thay đổi đáp án, diagnosis, điểm hoặc trạng thái kỹ năng.
 - Dữ liệu học sinh tối thiểu hóa theo mục đích, phân quyền theo lớp và không đưa thông tin định danh vào prompt/trace của bên thứ ba.
 - Học liệu và knowledge graph có provenance, version, trạng thái duyệt và khả năng rollback.
 - Offline dùng event/attempt ID bất biến và thao tác sync idempotent để tránh tạo trùng hoặc ghi đè bài làm.
@@ -72,6 +73,8 @@ bun run dev
 ```
 
 Mở `http://localhost:3000`; student flow ở `/student`, teacher dashboard ở `/teacher`. Không đặt `NEXT_PUBLIC_` trước `DATABASE_URL`: biến này chỉ được đọc trong server code.
+
+Ba tính năng AI mặc định gọi FPT AI Inference tại `https://mkp-api.fptcloud.com/chat/completions` với model `DeepSeek-V4-Flash`. Chỉ cần đặt API key server-only trong `LLM_API_KEY`; `LLM_BASE_URL` và `LLM_MODEL` vẫn có thể đổi để dùng endpoint tương thích OpenAI khác. Có thể chỉnh `LLM_TIMEOUT_MS` (mặc định 30000 ms), `LLM_MAX_TOKENS` (1600), `LLM_MAX_RETRIES` (1) hoặc đặt `LLM_ENABLED=false`. Khi chưa có key, bị tắt, timeout, provider lỗi hoặc output sai schema, giao diện vẫn hoạt động bằng bản dự phòng deterministic và hiển thị rõ chế độ này. Không đặt `NEXT_PUBLIC_` trước bất kỳ API key nào.
 
 Các lệnh kiểm tra:
 

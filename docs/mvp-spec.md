@@ -46,7 +46,7 @@ MVP không ingest, trích xuất, ánh xạ hoặc phục vụ dữ liệu từ 
 - Import CSV theo template Mina.
 - Class-wide gap detection.
 - Exit ticket cho nhóm/lớp.
-- Teacher summary do LLM tạo từ dữ liệu đã khử định danh.
+- Teacher summary do LLM tạo từ dữ liệu đã khử định danh. Prototype đã có class summary và bản nháp re-teach plan; pilot thật vẫn cần eval, audit và teacher override đầy đủ.
 - Retention check và báo cáo trước/sau.
 - Bài nâng cao cho học sinh đã thành thạo.
 

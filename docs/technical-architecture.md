@@ -12,6 +12,7 @@ Task 2 đã hoàn tất ở mức source code, database và kiểm thử end-to-
 - PostgreSQL, kết nối bằng `pg` và biến môi trường server-only `DATABASE_URL`.
 - SQL migration thuần trong `db/migrations`; seed importer đọc dataset đã duyệt từ `knowledge-graph/output`.
 - Diagnostic engine TypeScript thuần, deterministic, không gọi LLM.
+- Lớp AI hỗ trợ mặc định gọi FPT AI Inference qua endpoint tương thích OpenAI với model `DeepSeek-V4-Flash`; provider lỗi hoặc chưa cấu hình key sẽ dùng fallback deterministic.
 - Vitest cho rule engine; TypeScript, ESLint và Next production build là quality gates.
 
 ## Thành phần
@@ -22,11 +23,13 @@ Student app / Teacher dashboard
 Next.js Route Handlers
             ↓
 Repository + transaction boundary
-       ↙                 ↘
-PostgreSQL          Diagnostic engine
-                         ↓
+       ↙          ↓             ↘
+PostgreSQL    Diagnostic engine   AI support layer
+                  ↓                   ↓
        approved knowledge graph + attempts
 ```
+
+Trong lúc làm diagnostic, trang học sinh không hiển thị đúng/sai hoặc hint để tránh làm nhiễu bằng chứng. Sau khi đã nộp đủ và server khóa kết quả, trang hiển thị từng câu đúng/sai; câu sai có AI Answer Explanation dựa trên lời giải và misconception đã duyệt. Dashboard có AI Class Summary từ số liệu tổng hợp và AI Re-teach Plan cho nhóm theo nguyên nhân gốc; cả hai là bản nháp bắt buộc giáo viên xem trước. Socratic Hint được dành cho luồng remediation/luyện tập, chưa đưa vào question runner diagnostic.
 
 Các trang công khai gồm trang chủ (`/`), trang giới thiệu luồng sản phẩm (`/how-it-works`), bản đồ kho tri thức (`/knowledge-base`), trải nghiệm học sinh (`/student`) và dashboard giáo viên (`/teacher`). Bản đồ kho tri thức đọc trực tiếp catalog đã duyệt, trong đó micro-skill chi tiết tham chiếu các trang yêu cầu cần đạt lớp 6–9 của Chương trình GDPT 2018 môn Toán. Chế độ mặc định là lộ trình Dagre trái sang phải và chỉ hiển thị bốn nhóm chủ đề; người dùng chủ động mở micro-skill, hoặc chọn một skill để focus vào tối đa hai tầng tiên quyết và một tầng học tiếp. Hai chế độ bổ sung là cây phân cấp có collapse/expand và bản đồ đầy đủ cho quản trị chuyên sâu. Bộ lọc hỗ trợ tên/mã, khối, chủ đề, trạng thái duyệt và loại quan hệ; panel bên phải giữ provenance cùng quan hệ trực tiếp. Trang giới thiệu trình bày vòng lặp diagnostic → root-cause evidence → quyết định của giáo viên → remediation và transfer test. Trong trải nghiệm học sinh, học sinh làm đủ câu hỏi rồi nộp cho giáo viên; giao diện chỉ xác nhận nộp thành công, còn diagnosis, evidence và hành động đề xuất được hiển thị trên dashboard giáo viên.
 
@@ -70,6 +73,13 @@ Tất cả endpoint trả JSON; lỗi có dạng `{ "error": "..." }`.
 | GET | `/api/teacher/dashboard` | Tổng quan và danh sách ưu tiên của lớp demo |
 | POST | `/api/remediation` | Giao remediation path cho học sinh |
 | POST | `/api/transfer` | Ghi transfer result và cập nhật gap status |
+| POST | `/api/ai/explanation` | Giải thích câu sai sau khi xác minh học sinh đã nộp đủ bài, không đưa PII vào prompt |
+| POST | `/api/ai/class-summary` | Tóm tắt lớp từ dữ liệu tổng hợp đã khử định danh |
+| POST | `/api/ai/reteach-plan` | Soạn bản nháp dạy lại 10–30 phút cho một nhóm root-cause skill |
+
+Ba API AI chỉ đọc câu hỏi, lời giải, skill, misconception trạng thái `approved`, lựa chọn đã khóa hoặc số liệu nhóm. `studentId` chỉ dùng phía server để xác minh attempt; tên, số báo danh, student ID và class code không đi vào prompt. Output LLM phải qua schema validator và citation allowlist; lỗi cấu hình, timeout, provider hoặc schema đều trả fallback deterministic cùng metadata `ai.mode`, không trả `null`. Diagnosis vẫn chạy độc lập và không gọi LLM.
+
+Biến cấu hình server-only: `LLM_ENABLED`, `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`, `LLM_TIMEOUT_MS`, `LLM_MAX_TOKENS`, `LLM_MAX_RETRIES`. Giá trị mặc định FPT là base URL `https://mkp-api.fptcloud.com`, model `DeepSeek-V4-Flash`, timeout 30 giây, tối đa 1600 output token và retry một lần cho lỗi 429/5xx. Request thực tế được gửi tới `/chat/completions` bằng Bearer authentication và không stream. Không có key trong repository; `.env` bị gitignore.
 
 Ví dụ ghi attempt:
 
@@ -106,6 +116,7 @@ bun run build
 
 - Chưa có authentication/authorization production.
 - Offline-after-download, sync queue và teacher override/audit đầy đủ chưa thuộc Task 2.
+- AI output hiện chưa lưu lịch sử prompt/output, chưa có bộ eval sư phạm hoặc workflow phê duyệt bền vững; nhãn “cần giáo viên duyệt” là rào chắn UI của prototype.
 - Khi đổi `DATABASE_URL`, phải khởi động lại Next.js để connection pool nhận cấu hình mới.
 - Production build không mở kết nối database và có thể chạy khi chưa inject `DATABASE_URL`; biến này vẫn bắt buộc ở runtime khi API thực hiện thao tác database.
 - Dataset có vòng rà soát Toán học do AI hỗ trợ theo ủy quyền; trước khi dùng trong lớp thật vẫn cần giáo viên Toán chịu trách nhiệm nội dung xác nhận.

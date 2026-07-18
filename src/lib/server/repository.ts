@@ -3,10 +3,8 @@ import { randomUUID } from "node:crypto";
 import type { QueryResultRow } from "pg";
 import type { AnswerOption, Diagnosis, KnowledgeEdge, Misconception, Question, StudentSummary, SubmittedAnswer } from "@/lib/contracts";
 import { diagnose, TARGET_SKILL_ID } from "@/lib/diagnostic/engine";
+import { DEMO_ASSIGNMENT_ID, DEMO_CLASS_ID } from "@/lib/demo-constants";
 import { query, transaction } from "./db";
-
-const DEMO_CLASS_ID = "CLASS_DEMO_7A";
-const DEMO_ASSIGNMENT_ID = "ASSIGNMENT_DEMO_G9";
 
 type QuestionRow = QueryResultRow & {
   id: string;
@@ -125,7 +123,13 @@ export async function getDemoPayload() {
     classroom: { id: classroom.rows[0].id, name: classroom.rows[0].name, grade: classroom.rows[0].grade, code: classroom.rows[0].class_code },
     assignment: { id: DEMO_ASSIGNMENT_ID, title: "Diagnostic tổng hợp Toán lớp 9" },
     students: students.rows.map((row) => ({ id: row.id, displayName: row.display_name, scenario: row.scenario, presetAnswers: row.answers })),
-    questions: questions.rows.map((row) => ({ id: row.id, type: row.question_type, grade: row.grade, stem: row.stem, options: row.options })),
+    questions: questions.rows.map((row) => ({
+      id: row.id,
+      type: row.question_type,
+      grade: row.grade,
+      stem: row.stem,
+      options: row.options.map((option) => ({ id: option.id, content: option.content })),
+    })),
   };
 }
 

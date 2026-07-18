@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { StudentSummary } from "@/lib/contracts";
+import type { AiMeta, ClassSummary, ReteachPlan } from "@/lib/ai/contracts";
 
 type Dashboard = {
   classroom: { name: string; studentCount: number };
@@ -9,6 +10,8 @@ type Dashboard = {
   metrics: { diagnosed: number; mastered: number; insufficient: number; completed: number };
   students: StudentSummary[];
 };
+type ClassSummaryResult = ClassSummary & { ai: AiMeta };
+type ReteachPlanResult = ReteachPlan & { ai: AiMeta };
 
 const labels: Record<string, string> = {
   diagnosed: "Cần củng cố",
@@ -29,6 +32,10 @@ export default function TeacherPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [filter, setFilter] = useState("all");
+  const [aiBusy, setAiBusy] = useState<"summary" | string>("");
+  const [aiError, setAiError] = useState("");
+  const [classSummary, setClassSummary] = useState<ClassSummaryResult | null>(null);
+  const [reteachPlan, setReteachPlan] = useState<ReteachPlanResult | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -63,6 +70,40 @@ export default function TeacherPage() {
       setError(reason instanceof Error ? reason.message : "Có lỗi xảy ra");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function generateClassSummary() {
+    setAiBusy("summary");
+    setAiError("");
+    try {
+      const response = await fetch("/api/ai/class-summary", { method: "POST" });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? "Chưa tạo được tóm tắt lớp");
+      setClassSummary(result);
+    } catch (reason) {
+      setAiError(reason instanceof Error ? reason.message : "Chưa tạo được tóm tắt lớp");
+    } finally {
+      setAiBusy("");
+    }
+  }
+
+  async function generateReteachPlan(rootCauseSkillId: string) {
+    setAiBusy(rootCauseSkillId);
+    setAiError("");
+    try {
+      const response = await fetch("/api/ai/reteach-plan", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ rootCauseSkillId, durationMinutes: 15 }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? "Chưa tạo được kế hoạch dạy lại");
+      setReteachPlan(result);
+    } catch (reason) {
+      setAiError(reason instanceof Error ? reason.message : "Chưa tạo được kế hoạch dạy lại");
+    } finally {
+      setAiBusy("");
     }
   }
 
@@ -110,6 +151,73 @@ export default function TeacherPage() {
         <article className="teacher-metric alert-metric"><span>Cần hỗ trợ</span><strong>{data?.metrics.diagnosed ?? 0}</strong><small>Có nguyên nhân rõ ràng</small></article>
         <article className="teacher-metric"><span>Cần xem thêm</span><strong>{data?.metrics.insufficient ?? 0}</strong><small>Chưa đủ bằng chứng</small></article>
         <article className="teacher-metric success-metric"><span>Đã nắm vững</span><strong>{data?.metrics.mastered ?? 0}</strong><small>Đạt mục tiêu hiện tại</small></article>
+      </section>
+
+      <section className="ai-teacher-panel" aria-label="Trợ lý AI cho giáo viên">
+        <div className="ai-panel-header">
+          <div>
+            <span className="pill blue">✨ Trợ lý AI · Dữ liệu ẩn danh</span>
+            <h2>Từ kết quả lớp đến hành động dạy học</h2>
+            <p>AI chỉ tóm tắt dữ liệu chẩn đoán đã duyệt. Giáo viên xem và quyết định trước khi sử dụng.</p>
+          </div>
+          <button className="button primary" disabled={aiBusy === "summary" || !data?.metrics.completed} onClick={generateClassSummary}>
+            {aiBusy === "summary" ? "Đang phân tích..." : classSummary ? "Tạo lại tóm tắt lớp" : "Tạo AI Class Summary"}
+          </button>
+        </div>
+        {aiError && <div className="notice error">{aiError}</div>}
+        {!classSummary ? (
+          <div className="ai-empty">Hãy tạo dữ liệu mẫu hoặc chờ học sinh nộp bài, sau đó Mina sẽ tìm khoảng trống chung và nhóm cần ưu tiên.</div>
+        ) : (
+          <div className="ai-summary-layout">
+            <article className="ai-summary-copy">
+              <div className="ai-result-meta">
+                <span>{classSummary.ai.mode === "llm" ? `AI · ${classSummary.ai.model}` : "Bản dự phòng theo quy tắc"}</span>
+                <span>✓ Có căn cứ nội bộ</span>
+                <span>⚑ Cần giáo viên duyệt</span>
+              </div>
+              <h3>{classSummary.headline}</h3>
+              <p>{classSummary.overview}</p>
+              <div className="ai-priorities">
+                {classSummary.priorities.map((priority) => (
+                  <div key={priority.title}><strong>{priority.title}</strong><span>{priority.studentCount} học sinh · {priority.reason}</span></div>
+                ))}
+              </div>
+              <h4>Hành động tiếp theo</h4>
+              <ol>{classSummary.nextActions.map((item) => <li key={item}>{item}</li>)}</ol>
+            </article>
+            <div className="ai-gap-groups">
+              <div><h3>Nhóm theo nhu cầu</h3><span>Tạo kế hoạch 15 phút cho từng nhóm</span></div>
+              {!classSummary.classWideGaps.length && <div className="ai-empty">Chưa có nhóm nguyên nhân gốc rõ ràng.</div>}
+              {classSummary.classWideGaps.map((gap) => (
+                <article className="ai-gap-card" key={gap.skillId}>
+                  <div><span>{gap.studentCount} học sinh</span><strong>{gap.skillName}</strong><p>{gap.reason}</p></div>
+                  <button className="button secondary" disabled={Boolean(aiBusy)} onClick={() => generateReteachPlan(gap.skillId)}>
+                    {aiBusy === gap.skillId ? "Đang soạn..." : "Tạo AI Re-teach Plan"}
+                  </button>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {reteachPlan && (
+          <article className="reteach-plan" aria-live="polite">
+            <header>
+              <div><span className="pill amber">Bản nháp · Giáo viên cần duyệt</span><h3>{reteachPlan.title}</h3><p>{reteachPlan.objective}</p></div>
+              <strong>{reteachPlan.durationMinutes} phút · {reteachPlan.group.studentCount} học sinh</strong>
+            </header>
+            <div className="reteach-agenda">
+              {reteachPlan.agenda.map((step, index) => (
+                <div key={`${step.activity}-${index}`}><b>{step.minutes}’</b><span><strong>{step.activity}</strong><small>{step.teacherMove}</small></span></div>
+              ))}
+            </div>
+            <div className="reteach-details">
+              <div><span>Ví dụ đã duyệt để bắt đầu</span><p>{reteachPlan.workedExample}</p></div>
+              <div><span>Kiểm tra nhanh</span><ul>{reteachPlan.checks.map((check) => <li key={check}>{check}</li>)}</ul></div>
+              <div><span>Phân hóa</span><p><strong>Hỗ trợ:</strong> {reteachPlan.differentiation.support}</p><p><strong>Mở rộng:</strong> {reteachPlan.differentiation.extension}</p></div>
+            </div>
+          </article>
+        )}
       </section>
 
       <div className="teacher-grid">
@@ -170,7 +278,7 @@ export default function TeacherPage() {
                 ))}
               </div>
               {selected.diagnosis.status === "diagnosed" && (
-                <div className="recommendation-box"><span>Hành động đề xuất</span><strong>Giao gói củng cố 10 phút</strong><p>Tập trung vào quy đồng mẫu số trước khi quay lại bài chính.</p><button className="button primary" disabled={busy || selected.remediationStatus === "assigned"} onClick={() => action("/api/remediation", { studentId: selected.id, pathId: selected.diagnosis?.recommendedPathId })}>{selected.remediationStatus === "assigned" ? "✓ Đã giao cho học sinh" : "Giao bài củng cố"}</button></div>
+                <div className="recommendation-box"><span>Hành động đề xuất</span><strong>Giao gói củng cố 10 phút</strong><p>Tập trung vào kỹ năng nguyên nhân gốc trước khi quay lại bài chính.</p><button className="button primary" disabled={busy || selected.remediationStatus === "assigned" || !selected.diagnosis.recommendedPathId} onClick={() => action("/api/remediation", { studentId: selected.id, pathId: selected.diagnosis?.recommendedPathId })}>{selected.remediationStatus === "assigned" ? "✓ Đã giao cho học sinh" : !selected.diagnosis.recommendedPathId ? "Chưa có gói phù hợp" : "Giao bài củng cố"}</button></div>
               )}
             </>
           )}
