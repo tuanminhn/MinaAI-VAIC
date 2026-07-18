@@ -78,8 +78,8 @@ async function main() {
       );
     }
 
-    await client.query(`INSERT INTO classrooms (id,name,grade,class_code) VALUES ('CLASS_DEMO_7A','Lớp 7A demo',7,'MINA7A')
-      ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name,class_code=EXCLUDED.class_code`);
+    await client.query(`INSERT INTO classrooms (id,name,grade,class_code) VALUES ('CLASS_DEMO_7A','Lớp 9A demo',9,'MINA9A')
+      ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name,grade=EXCLUDED.grade,class_code=EXCLUDED.class_code`);
     for (const student of studentsJson.students) {
       await client.query(
         `INSERT INTO students (id,classroom_id,display_name,scenario) VALUES ($1,'CLASS_DEMO_7A',$2,$3)
@@ -94,16 +94,16 @@ async function main() {
     }
     await client.query(
       `INSERT INTO assignments (id,classroom_id,title,target_skill_id,status,content_version)
-       VALUES ('ASSIGNMENT_DEMO_RATIONAL','CLASS_DEMO_7A','Diagnostic: Cộng trừ số hữu tỉ',
-         'MATH.G7.RATIONAL.ADD_SUBTRACT','active',$1)
+       VALUES ('ASSIGNMENT_DEMO_G9','CLASS_DEMO_7A','Diagnostic tổng hợp Toán lớp 9',
+         'MATH.G9.READINESS','active',$1)
        ON CONFLICT (id) DO UPDATE SET title=EXCLUDED.title,status=EXCLUDED.status,content_version=EXCLUDED.content_version`,
       [dataset.id],
     );
-    const diagnostic = questionsJson.questions.filter((item) => item.type === "diagnostic");
-    await client.query("DELETE FROM assignment_questions WHERE assignment_id='ASSIGNMENT_DEMO_RATIONAL'");
+    const diagnostic = questionsJson.questions.filter((item) => item.type === "diagnostic" && item.grade === 9);
+    await client.query("DELETE FROM assignment_questions WHERE assignment_id='ASSIGNMENT_DEMO_G9'");
     for (const [index, item] of diagnostic.entries()) {
       await client.query(
-        "INSERT INTO assignment_questions (assignment_id,question_id,position) VALUES ('ASSIGNMENT_DEMO_RATIONAL',$1,$2)",
+        "INSERT INTO assignment_questions (assignment_id,question_id,position) VALUES ('ASSIGNMENT_DEMO_G9',$1,$2)",
         [item.id, index + 1],
       );
     }

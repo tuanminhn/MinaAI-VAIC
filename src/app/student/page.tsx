@@ -1,29 +1,22 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import type { Diagnosis } from "@/lib/contracts";
+import { FormEvent, useEffect, useState } from "react";
 
 type DemoQuestion = { id: string; stem: string; options: { id: string; content: string }[] };
-type DemoStudent = { id: string; displayName: string; scenario: string; presetAnswers: Record<string, string> };
+type StudentIdentity = { id: string; displayName: string; studentNumber: string };
 type DemoPayload = {
   classroom: { name: string; code: string };
   assignment: { id: string; title: string };
-  students: DemoStudent[];
   questions: DemoQuestion[];
-};
-
-const statusCopy: Record<string, { title: string; body: string }> = {
-  diagnosed: { title: "Đã tìm thấy kỹ năng cần củng cố", body: "Mina đề xuất một bài luyện ngắn trước khi em quay lại bài chính." },
-  mastered: { title: "Em đang làm rất tốt", body: "Các bằng chứng hiện tại cho thấy em đã nắm được kỹ năng này." },
-  insufficient_evidence: { title: "Cần thêm một chút thông tin", body: "Mina chưa kết luận vội. Em sẽ nhận thêm một câu hỏi thăm dò." },
-  outside_mvp_scope: { title: "Nội dung nằm ngoài phạm vi hiện tại", body: "Giáo viên sẽ hỗ trợ em ở bước tiếp theo." },
 };
 
 export default function StudentPage() {
   const [data, setData] = useState<DemoPayload | null>(null);
-  const [studentId, setStudentId] = useState("");
+  const [student, setStudent] = useState<StudentIdentity | null>(null);
+  const [displayName, setDisplayName] = useState("");
+  const [studentNumber, setStudentNumber] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [diagnosis, setDiagnosis] = useState<Diagnosis | null>(null);
+  const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,36 +26,31 @@ export default function StudentPage() {
         if (!response.ok) throw new Error((await response.json()).error ?? "Không tải được dữ liệu demo");
         return response.json();
       })
-      .then((payload: DemoPayload) => {
-        setData(payload);
-        setStudentId(payload.students[0]?.id ?? "");
-      })
+      .then((payload: DemoPayload) => setData(payload))
       .catch((reason) => setError(reason.message));
   }, []);
 
-  const student = useMemo(() => data?.students.find((item) => item.id === studentId), [data, studentId]);
-
-  function changeStudent(id: string) {
-    setStudentId(id);
+  function resetStudent() {
+    setStudent(null);
     setAnswers({});
-    setDiagnosis(null);
+    setSubmitted(false);
     setError("");
   }
 
-  async function runPreset() {
-    if (!student) return;
+  async function identifyStudent(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!displayName.trim() || !studentNumber.trim()) return setError("Vui lòng nhập đầy đủ họ tên và số báo danh.");
     setBusy(true);
     setError("");
-    setAnswers(student.presetAnswers);
     try {
-      const response = await fetch("/api/demo/run", {
+      const response = await fetch("/api/students", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ studentId: student.id }),
+        body: JSON.stringify({ displayName, studentNumber }),
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error ?? "Không chạy được kịch bản");
-      setDiagnosis(result);
+      if (!response.ok) throw new Error("Không lưu được thông tin học sinh.");
+      setStudent(result);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Có lỗi xảy ra");
     } finally {
@@ -73,11 +61,10 @@ export default function StudentPage() {
   async function submitInteractive() {
     if (!data || !student) return;
     const selected = Object.entries(answers);
-    if (!selected.length) return setError("Hãy chọn ít nhất một đáp án.");
+    if (selected.length !== data.questions.length) return setError("Hãy trả lời tất cả câu hỏi trước khi nộp bài.");
     setBusy(true);
     setError("");
     try {
-      let latest: Diagnosis | null = null;
       for (const [questionId, optionId] of selected) {
         const response = await fetch("/api/attempts", {
           method: "POST",
@@ -93,9 +80,8 @@ export default function StudentPage() {
         });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error ?? "Không lưu được câu trả lời");
-        latest = result;
       }
-      setDiagnosis(latest);
+      setSubmitted(true);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Có lỗi xảy ra");
     } finally {
@@ -117,57 +103,81 @@ export default function StudentPage() {
       {error && <div className="notice error">{error}</div>}
       {!data && !error && <div className="card empty">Đang chuẩn bị bài học...</div>}
 
-      {data && (
-        <div className="grid">
-          <section className="card stack">
-            <div>
-              <span className="pill blue">Chọn hồ sơ demo</span>
-              <h2 style={{ marginTop: 12 }}>{data.assignment.title}</h2>
-              <p className="muted">Chọn một học sinh, trả lời thủ công hoặc chạy kịch bản mẫu.</p>
+      {data && !student && (
+        <section className="student-entry">
+          <div className="entry-copy">
+            <span className="pill blue">Bắt đầu bài học</span>
+            <h2>Trước tiên, cho Mina biết em là ai.</h2>
+            <p>Thông tin này giúp giáo viên nhận đúng bài làm của em trong danh sách lớp.</p>
+            <div className="entry-note">
+              <strong>{data.assignment.title}</strong>
+              <span>{data.questions.length} câu · Khoảng 5–10 phút</span>
             </div>
-            <div className="tabs">
-              {data.students.map((item) => (
-                <button key={item.id} className={`tab ${studentId === item.id ? "active" : ""}`} onClick={() => changeStudent(item.id)}>
-                  {item.displayName}
-                </button>
-              ))}
-            </div>
-            <button className="button secondary" onClick={runPreset} disabled={busy}>
-              {busy ? "Đang phân tích..." : `Chạy nhanh kịch bản ${student?.displayName ?? ""}`}
+          </div>
+          <form className="identity-form" onSubmit={identifyStudent}>
+            <label>
+              <span>Họ và tên</span>
+              <input
+                autoComplete="name"
+                maxLength={80}
+                placeholder="Ví dụ: Nguyễn Minh Anh"
+                value={displayName}
+                onChange={(event) => setDisplayName(event.target.value)}
+              />
+            </label>
+            <label>
+              <span>Số báo danh</span>
+              <input
+                maxLength={40}
+                placeholder="Nhập tự do để thử demo"
+                value={studentNumber}
+                onChange={(event) => setStudentNumber(event.target.value)}
+              />
+            </label>
+            <button className="button primary" disabled={busy || !displayName.trim() || !studentNumber.trim()}>
+              {busy ? "Đang lưu thông tin..." : "Tiếp tục làm bài"}
             </button>
-          </section>
+            <small>Có thể nhập thông tin bất kỳ để thử demo, không cần khớp danh sách lớp.</small>
+          </form>
+        </section>
+      )}
 
-          <section className="card stack">
-            {diagnosis ? (
-              <>
-                <span className={`pill ${diagnosis.status === "diagnosed" ? "amber" : diagnosis.status === "mastered" ? "" : "blue"}`}>
-                  {diagnosis.status}
-                </span>
-                <h2>{statusCopy[diagnosis.status]?.title}</h2>
-                <p className="muted">{statusCopy[diagnosis.status]?.body}</p>
-                {diagnosis.status === "diagnosed" && (
-                  <div className="notice">
-                    Kỹ năng luyện: <strong>Quy đồng mẫu số hai phân số</strong><br />
-                    Độ tin cậy: <strong>{Math.round(diagnosis.confidence * 100)}%</strong>
-                  </div>
-                )}
-                <div className="row">
-                  <span className="muted">Bằng chứng đã ghi nhận</span>
-                  <strong>{diagnosis.evidence.length} câu</strong>
-                </div>
-              </>
-            ) : (
-              <div className="empty">Kết quả sẽ xuất hiện ở đây sau khi em hoàn thành bài.</div>
-            )}
-          </section>
+      {data && student && submitted && (
+        <section className="submission-success" aria-live="polite">
+          <div className="success-mark" aria-hidden="true">✓</div>
+          <span className="pill">Đã nộp thành công</span>
+          <h2>Cảm ơn em đã hoàn thành bài!</h2>
+          <p>
+            Câu trả lời của em đã được ghi nhận. Giáo viên sẽ xem xét kết quả và hướng dẫn em ở bước tiếp theo.
+          </p>
+          <div className="submission-details">
+            <div><span>Học sinh</span><strong>{student?.displayName}</strong></div>
+            <div><span>Số báo danh</span><strong>{student.studentNumber}</strong></div>
+            <div><span>Bài học</span><strong>{data.assignment.title}</strong></div>
+            <div><span>Trạng thái</span><strong>Đã gửi giáo viên</strong></div>
+          </div>
+          <button className="button secondary" onClick={resetStudent}>Quay lại trang bắt đầu</button>
+        </section>
+      )}
 
-          <section className="card stack" style={{ gridColumn: "1 / -1" }}>
-            <div className="row">
-              <div>
-                <span className="pill">Diagnostic</span>
-                <h2 style={{ marginTop: 10 }}>Bài thăm dò ngắn</h2>
+      {data && student && !submitted && (
+        <section className="card stack student-test">
+            <header className="test-header">
+              <div className="test-title">
+                <span className="pill blue">Bài diagnostic</span>
+                <h2>{data.assignment.title}</h2>
+                <p>Hoàn thành tất cả câu hỏi rồi nộp bài cho giáo viên.</p>
               </div>
-              <span className="muted">{Object.keys(answers).length}/{data.questions.length} câu đã chọn</span>
+              <div className="test-candidate">
+                <div><span>Thí sinh</span><strong>{student.displayName}</strong></div>
+                <div><span>Số báo danh</span><strong>{student.studentNumber}</strong></div>
+                <button onClick={resetStudent}>Đổi thí sinh</button>
+              </div>
+            </header>
+            <div className="test-progress">
+              <span>Tiến độ</span>
+              <strong>{Object.keys(answers).length}/{data.questions.length} câu đã chọn</strong>
+              <div><i style={{ width: `${data.questions.length ? Object.keys(answers).length / data.questions.length * 100 : 0}%` }} /></div>
             </div>
             {data.questions.map((question, index) => (
               <div className="question" key={question.id}>
@@ -187,11 +197,10 @@ export default function StudentPage() {
                 </div>
               </div>
             ))}
-            <button className="button primary" onClick={submitInteractive} disabled={busy || !Object.keys(answers).length}>
-              {busy ? "Đang lưu và phân tích..." : "Nộp bài"}
+            <button className="button primary" onClick={submitInteractive} disabled={busy || Object.keys(answers).length !== data.questions.length}>
+              {busy ? "Đang nộp bài..." : "Nộp bài cho giáo viên"}
             </button>
-          </section>
-        </div>
+        </section>
       )}
     </main>
   );

@@ -4,7 +4,7 @@
 
 Đây là danh sách các task lớn dùng để chia việc trong hackathon. Tài liệu **không quản lý deadline, giờ công, sprint hoặc worklog**. Mỗi task có thể giao trọn cho một thành viên hoặc một nhóm nhỏ, miễn là bàn giao đúng output đã mô tả.
 
-Phạm vi nội dung bị khóa: **Kết nối tri thức với cuộc sống — môn Toán lớp 6 và lớp 7**.
+Phạm vi nội dung bị khóa: **Kết nối tri thức với cuộc sống — môn Toán lớp 6, 7, 8 và 9**.
 
 ## 2. Lát cắt demo chung
 
@@ -12,7 +12,7 @@ Toàn đội cùng nhắm một golden path duy nhất:
 
 ```text
 Giáo viên mở lớp demo
-→ giao diagnostic Toán 6 hoặc 7 Kết nối tri thức
+→ giao diagnostic Toán 6, 7, 8 hoặc 9 Kết nối tri thức
 → học sinh làm một nhóm câu hỏi
 → engine phát hiện một root-cause gap có evidence/confidence
 → dashboard xếp học sinh vào nhóm cần hỗ trợ
@@ -31,7 +31,7 @@ Seed data có tối thiểu ba học sinh giả lập:
 
 ### Task 1 — Xử lý dữ liệu và Knowledge Graph
 
-**Mục tiêu:** Chuẩn bị toàn bộ dữ liệu giáo dục cần cho kịch bản demo, chỉ sử dụng Toán lớp 6–7 bộ Kết nối tri thức.
+**Mục tiêu:** Chuẩn bị toàn bộ dữ liệu giáo dục cần cho kịch bản demo, chỉ sử dụng Toán lớp 6–9 bộ Kết nối tri thức.
 
 **Mô tả:**
 
@@ -183,7 +183,7 @@ Seed data có tối thiểu ba học sinh giả lập:
 **Mô tả:**
 
 - Xây narrative: vấn đề lớp học trình độ không đồng đều → hạn chế của cách chấm điểm hiện tại → Mina AI truy nguyên khoảng trống → giáo viên hành động → học sinh bù hổng và quay lại bài chính.
-- Trình bày phạm vi MVP chính xác: Kết nối tri thức, Toán lớp 6–7.
+- Trình bày phạm vi MVP chính xác: Kết nối tri thức, Toán lớp 6–9.
 - Minh họa một tình huống học sinh cụ thể thay vì liệt kê quá nhiều tính năng.
 - Giải thích điểm khác biệt: root-cause diagnostic, teacher intervention dashboard, Repair and Return và offline/low-bandwidth.
 - Chuẩn bị sơ đồ giải pháp/kiến trúc ở mức đủ hiểu, tránh sa vào chi tiết stack.
@@ -242,7 +242,7 @@ flowchart LR
 
 Toàn bộ công việc được coi là hoàn thành khi có:
 
-1. Một dataset demo đã duyệt thuộc Toán 6–7 Kết nối tri thức.
+1. Một dataset demo đã duyệt thuộc Toán 6–9 theo GDPT 2018.
 2. Một golden path chạy end-to-end từ giáo viên tới học sinh và quay lại dashboard.
 3. Student app và teacher dashboard thống nhất UI, copy và API contract.
 4. Diagnostic có evidence/confidence và xử lý an toàn khi chưa đủ dữ liệu hoặc ngoài phạm vi.

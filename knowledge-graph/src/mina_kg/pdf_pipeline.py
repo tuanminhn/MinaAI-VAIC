@@ -76,7 +76,7 @@ def inspect_sources(root: Path) -> dict[str, Any]:
         )
     manifest = {
         "schema_version": "1.0.0",
-        "dataset_scope": {"series": "KNTT", "subject": "math", "grades": [6, 7]},
+        "dataset_scope": {"series": "KNTT", "subject": "math", "grades": [6, 7, 8, 9]},
         "sources": sources,
     }
     output = root / "output"

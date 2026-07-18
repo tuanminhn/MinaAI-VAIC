@@ -12,7 +12,7 @@ export type AnswerOption = {
 export type Question = {
   id: string;
   type: QuestionType;
-  grade: 6 | 7;
+  grade: 6 | 7 | 8 | 9;
   stem: string;
   skill_ids: string[];
   options: AnswerOption[];
@@ -69,6 +69,7 @@ export type Diagnosis = {
 export type StudentSummary = {
   id: string;
   displayName: string;
+  studentNumber: string | null;
   scenario: string | null;
   diagnosis: Diagnosis | null;
   remediationStatus: string | null;

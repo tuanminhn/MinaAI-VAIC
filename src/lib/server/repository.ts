@@ -6,12 +6,12 @@ import { diagnose, TARGET_SKILL_ID } from "@/lib/diagnostic/engine";
 import { query, transaction } from "./db";
 
 const DEMO_CLASS_ID = "CLASS_DEMO_7A";
-const DEMO_ASSIGNMENT_ID = "ASSIGNMENT_DEMO_RATIONAL";
+const DEMO_ASSIGNMENT_ID = "ASSIGNMENT_DEMO_G9";
 
 type QuestionRow = QueryResultRow & {
   id: string;
   question_type: Question["type"];
-  grade: 6 | 7;
+  grade: 6 | 7 | 8 | 9;
   stem: string;
   skill_ids: string[];
   options: AnswerOption[];
@@ -120,12 +120,41 @@ export async function getDemoPayload() {
     `SELECT q.* FROM assignment_questions aq JOIN questions q ON q.id=aq.question_id
      WHERE aq.assignment_id=$1 ORDER BY aq.position`, [DEMO_ASSIGNMENT_ID],
   );
+  if (questions.rows.length === 0) throw new Error("DEMO_ASSIGNMENT_EMPTY");
   return {
     classroom: { id: classroom.rows[0].id, name: classroom.rows[0].name, grade: classroom.rows[0].grade, code: classroom.rows[0].class_code },
-    assignment: { id: DEMO_ASSIGNMENT_ID, title: "Diagnostic: Cộng trừ số hữu tỉ" },
+    assignment: { id: DEMO_ASSIGNMENT_ID, title: "Diagnostic tổng hợp Toán lớp 9" },
     students: students.rows.map((row) => ({ id: row.id, displayName: row.display_name, scenario: row.scenario, presetAnswers: row.answers })),
     questions: questions.rows.map((row) => ({ id: row.id, type: row.question_type, grade: row.grade, stem: row.stem, options: row.options })),
   };
+}
+
+export async function registerDemoStudent(displayName: string, studentNumber: string) {
+  const normalizedName = displayName.trim().replace(/\s+/g, " ");
+  const normalizedNumber = studentNumber.trim();
+  if (!normalizedName || normalizedName.length > 80) throw new Error("INVALID_STUDENT_NAME");
+  if (!normalizedNumber || normalizedNumber.length > 40) throw new Error("INVALID_STUDENT_NUMBER");
+
+  const existing = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+    `SELECT id,display_name,student_number FROM students
+     WHERE classroom_id=$1 AND student_number=$2`,
+    [DEMO_CLASS_ID, normalizedNumber],
+  );
+  if (existing.rows[0]) {
+    const updated = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+      `UPDATE students SET display_name=$1 WHERE id=$2
+       RETURNING id,display_name,student_number`,
+      [normalizedName, existing.rows[0].id],
+    );
+    return { id: updated.rows[0].id, displayName: updated.rows[0].display_name, studentNumber: updated.rows[0].student_number };
+  }
+
+  const created = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+    `INSERT INTO students (id,classroom_id,display_name,student_number)
+     VALUES ($1,$2,$3,$4) RETURNING id,display_name,student_number`,
+    [`STUDENT_${randomUUID()}`, DEMO_CLASS_ID, normalizedName, normalizedNumber],
+  );
+  return { id: created.rows[0].id, displayName: created.rows[0].display_name, studentNumber: created.rows[0].student_number };
 }
 
 export async function resetDemo() {
@@ -151,7 +180,10 @@ export async function runScenario(studentId: string) {
 }
 
 export async function runAllScenarios() {
-  const students = await query<QueryResultRow & { id: string }>("SELECT id FROM students WHERE classroom_id=$1 ORDER BY id", [DEMO_CLASS_ID]);
+  const students = await query<QueryResultRow & { id: string }>(
+    `SELECT s.id FROM students s JOIN demo_scenarios d ON d.student_id=s.id
+     WHERE s.classroom_id=$1 ORDER BY s.id`, [DEMO_CLASS_ID],
+  );
   const results = [];
   for (const student of students.rows) results.push({ studentId: student.id, diagnosis: await runScenario(student.id) });
   return results;
@@ -159,12 +191,12 @@ export async function runAllScenarios() {
 
 export async function getTeacherDashboard() {
   const students = await query<QueryResultRow & {
-    id: string; display_name: string; scenario: string | null; status: Diagnosis["status"] | null;
+    id: string; display_name: string; student_number: string | null; scenario: string | null; status: Diagnosis["status"] | null;
     target_skill_id: string | null; root_cause_skill_id: string | null; confidence: string | null;
     evidence: Diagnosis["evidence"] | null; recommended_path_id: string | null; next_question_id: string | null;
     engine_version: string | null; content_version: string | null; remediation_status: string | null;
   }>(
-    `SELECT s.id,s.display_name,s.scenario,d.status,d.target_skill_id,d.root_cause_skill_id,d.confidence,
+    `SELECT s.id,s.display_name,s.student_number,s.scenario,d.status,d.target_skill_id,d.root_cause_skill_id,d.confidence,
        d.evidence,d.recommended_path_id,d.next_question_id,d.engine_version,d.content_version,
        r.status AS remediation_status
      FROM students s
@@ -178,6 +210,7 @@ export async function getTeacherDashboard() {
   const summaries: StudentSummary[] = students.rows.map((row) => ({
     id: row.id,
     displayName: row.display_name,
+    studentNumber: row.student_number,
     scenario: row.scenario,
     diagnosis: row.status ? {
       status: row.status,

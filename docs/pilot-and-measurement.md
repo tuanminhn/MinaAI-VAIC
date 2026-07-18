@@ -13,7 +13,7 @@ Pilot không chỉ kiểm tra “app có chạy không”, mà phải trả lờ
 
 - Quy mô: 2–5 giáo viên, 3–8 lớp, 100–300 học sinh.
 - Thời lượng: 4–6 tuần sau một tuần onboarding/baseline.
-- Cụm nội dung: một chuỗi prerequisite thuộc Toán lớp 6–7, bộ Kết nối tri thức, đã chốt trong Q-003.
+- Cụm nội dung: một chuỗi prerequisite thuộc Toán lớp 6–9, bộ Kết nối tri thức, đã chốt trong Q-003.
 - So sánh: baseline trong cùng lớp trước can thiệp; nếu khả thi, staggered rollout giữa các lớp để giảm bias.
 - Nhịp: diagnostic đầu vào → 2–3 vòng giao/remediation → transfer test → retention check sau 7–14 ngày.
 

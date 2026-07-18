@@ -14,8 +14,8 @@ Mức ưu tiên:
 
 | ID | Quyết định baseline | Trạng thái |
 | --- | --- | --- |
-| DEC-001 | Beachhead là giáo viên Toán lớp 6–7 dạy bộ Kết nối tri thức, có lớp đông và trình độ chênh lệch | Đã thống nhất |
-| DEC-002 | Dataset MVP chỉ gồm bộ Kết nối tri thức với cuộc sống, môn Toán lớp 6 và lớp 7; không xử lý dữ liệu bộ/môn/khối khác | Đã thống nhất |
+| DEC-001 | Beachhead là giáo viên Toán lớp 9 và sử dụng đồ thị prerequisite lớp 6–9, có lớp đông và trình độ chênh lệch | Đã thống nhất |
+| DEC-002 | Dataset MVP gồm ontology Toán lớp 6–9 theo GDPT 2018; diagnostic dành cho lớp 9, curriculum mapping SGK được bổ sung độc lập | Đã thống nhất |
 | DEC-003 | Giáo viên là người dùng chính và giữ quyền phê duyệt/can thiệp | Đã thống nhất |
 | DEC-004 | Diagnostic realtime không phụ thuộc LLM | Đã thống nhất |
 | DEC-005 | AI-generated content không tự phát hành nếu chưa được người có chuyên môn duyệt | Đã thống nhất |
@@ -28,7 +28,7 @@ Mức ưu tiên:
 | --- | --- | --- | --- |
 | Q-001 | MVP phục vụ **hackathon demo**, **prototype kiểm chứng với giáo viên**, hay **pilot trong lớp thật**? Deadline cụ thể? | Quyết định độ sâu auth, consent, offline, monitoring và content QA | Prototype có thể demo + chuẩn bị pilot nhỏ; không tuyên bố production-ready |
 | Q-002 | Ai là người chịu trách nhiệm sản phẩm và ai là chuyên gia Toán duyệt knowledge graph/câu hỏi? | Cần owner ký duyệt nội dung và xử lý chẩn đoán tranh chấp | 1 product owner + ít nhất 1 giáo viên Toán THCS reviewer |
-| Q-003 | Chương/chủ đề nào của Toán 6–7 Kết nối tri thức được ưu tiên ingest và demo trước? | Toàn bộ hai khối có thể quá lớn cho lần triển khai đầu; cần thứ tự xử lý | Chọn một chuỗi prerequisite liên thông giữa lớp 6 và lớp 7 |
+| Q-003 | Chương/chủ đề nào của Toán 6–9 theo GDPT 2018 được ưu tiên ingest và demo trước? | Toàn bộ bốn khối có thể quá lớn cho lần triển khai đầu; cần thứ tự xử lý | Chọn một chuỗi prerequisite liên thông giữa lớp 6, 7, 8 và 9 |
 | Q-004 | Học sinh đăng nhập thế nào và có thu thập họ tên thật không? | Chặn schema người dùng, consent và phân quyền | Mã lớp + alias/pseudonymous ID; không yêu cầu email/số điện thoại học sinh |
 | Q-005 | Trường/giáo viên có đồng ý lưu dữ liệu học sinh trên cloud và dùng nhà cung cấp AI bên thứ ba không? | Chặn kiến trúc dữ liệu và provider routing | Không gửi PII tới LLM/trace; consent rõ; có thể tắt tính năng LLM |
 | Q-006 | “Offline” nghĩa là thiết bị cá nhân mất mạng sau khi tải bài, hay cả trường không có Internet trong nhiều ngày? | Hai mức này cần kiến trúc và chi phí rất khác | MVP hỗ trợ offline-after-download tối đa 7 ngày, chưa có school hub |
@@ -64,7 +64,8 @@ Khi trả lời câu hỏi, thêm dòng; không xóa lịch sử.
 | --- | --- | --- | --- | --- |
 | 2026-07-18 | INIT | Tạo baseline pre-code; các mục Q-* vẫn mở | Chờ xác nhận | README, PRD, MVP Spec, NFR, Pilot |
 | 2026-07-18 | DEC-001/002 (đã thay thế) | Từng khóa dataset MVP ở Kết nối tri thức, môn Toán lớp 7–8; quyết định này không còn hiệu lực | Chủ sản phẩm | Được thay thế bởi DEC-001/002 v2 |
-| 2026-07-18 | DEC-001/002 v2 | Thay phạm vi lớp 7–8 bằng Toán lớp 6–7; vẫn giữ bộ Kết nối tri thức | Chủ sản phẩm | README, Problem Statement, PRD, MVP Spec, PDF pipeline, backlog hackathon |
+| 2026-07-18 | DEC-001/002 v2 | Thay phạm vi lớp 7–8 bằng Toán lớp 6–9; vẫn giữ bộ Kết nối tri thức | Chủ sản phẩm | README, Problem Statement, PRD, MVP Spec, PDF pipeline, backlog hackathon |
+| 2026-07-18 | DEC-001/002 v3 | Mở ontology ra toàn bộ Toán THCS lớp 6–9 theo GDPT 2018; bài diagnostic tập trung học sinh lớp 9 | Chủ sản phẩm | Dataset, engine, UI Knowledge Base, README và docs |
 | 2026-07-18 | DEC-008 | Hackathon prototype dùng Next.js + TypeScript full-stack, PostgreSQL qua `DATABASE_URL`; diagnostic engine rule-based chạy server và không phụ thuộc LLM | Chủ sản phẩm | README, PRD, kiến trúc kỹ thuật, Task 2 |
 
 ## 7. Definition of Ready

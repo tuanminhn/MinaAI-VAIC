@@ -20,15 +20,19 @@ function createPool() {
   });
 }
 
-export const pool = globalThis.minaPool ?? createPool();
-if (process.env.NODE_ENV !== "production") globalThis.minaPool = pool;
+function getPool() {
+  if (!globalThis.minaPool) {
+    globalThis.minaPool = createPool();
+  }
+  return globalThis.minaPool;
+}
 
 export async function query<T extends QueryResultRow>(text: string, values: unknown[] = []) {
-  return pool.query<T>(text, values);
+  return getPool().query<T>(text, values);
 }
 
 export async function transaction<T>(work: (client: PoolClient) => Promise<T>): Promise<T> {
-  const client = await pool.connect();
+  const client = await getPool().connect();
   try {
     await client.query("BEGIN");
     const result = await work(client);

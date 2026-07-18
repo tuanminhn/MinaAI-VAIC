@@ -2,11 +2,11 @@
   "valid": true,
   "schema_version": "1.0.0",
   "counts": {
-    "skills": 11,
-    "edges": 13,
-    "misconceptions": 5,
-    "questions": 8,
-    "remediation_paths": 1,
+    "skills": 156,
+    "edges": 175,
+    "misconceptions": 21,
+    "questions": 28,
+    "remediation_paths": 3,
     "demo_students": 3
   },
   "checks": [

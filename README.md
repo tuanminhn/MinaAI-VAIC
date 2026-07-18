@@ -9,13 +9,13 @@ Dự án đang ở giai đoạn **hackathon prototype**. Task 1 (dataset/knowled
 ## Beachhead và phạm vi MVP
 
 - Người dùng chính: giáo viên Toán THCS và học sinh trong lớp của họ.
-- Phạm vi dữ liệu MVP: duy nhất **SGK Kết nối tri thức với cuộc sống, môn Toán lớp 6 và lớp 7**.
-- Knowledge graph, câu hỏi, misconception và nội dung remediation của MVP chỉ được tạo từ phạm vi dữ liệu này.
+- Phạm vi dữ liệu MVP: **Toán lớp 6–9 theo Chương trình GDPT 2018**; bài diagnostic dành cho học sinh lớp 9 và truy ngược prerequisite về lớp 6–8.
+- Knowledge graph dùng ontology chương trình độc lập bộ sách. Provenance SGK Kết nối tri thức hiện có cho lát cắt lớp 6–7; node lớp 8–9 dùng văn bản chương trình chính thức và cần bổ sung mapping trang SGK trước pilot.
 - Nền tảng: web app/PWA cho giáo viên và học sinh.
 - Điều kiện vận hành: hỗ trợ mạng yếu và học sinh tiếp tục làm nhiệm vụ đã tải khi offline.
-- Chuẩn nội dung: Chương trình GDPT 2018 theo cấu trúc chương/bài của bộ Kết nối tri thức.
+- Chuẩn nội dung: Chương trình GDPT 2018; mapping bộ sách được lưu riêng khi có nguồn trang đã kiểm duyệt.
 
-Ngoài MVP: dữ liệu lớp 1–5 hoặc lớp 8–12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
+Ngoài MVP: dữ liệu lớp 1–5 hoặc lớp 10–12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
 
 ## Giá trị cốt lõi
 

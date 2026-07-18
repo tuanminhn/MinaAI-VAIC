@@ -162,7 +162,8 @@
         {
           "id": "B",
           "content": "-1/4",
-          "is_correct": false
+          "is_correct": false,
+          "misconception_id": "MIS.RATIONAL.SUBTRACT_WITHOUT_OPPOSITE"
         },
         {
           "id": "C",
@@ -189,6 +190,295 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G6.EQUIVALENT.001",
+      "type": "diagnostic",
+      "grade": 6,
+      "stem": "Phân số nào bằng 3/5?",
+      "skill_ids": [
+        "MATH.G6.FRACTION.EQUIVALENT"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "9/15",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "9/5",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.EQUIVALENT_CHANGE_ONE_PART"
+        },
+        {
+          "id": "C",
+          "content": "3/15",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.EQUIVALENT_CHANGE_ONE_PART"
+        },
+        {
+          "id": "D",
+          "content": "6/15",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Nhân cả tử và mẫu của 3/5 với 3 được 9/15.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_6_T2",
+          "pdf_pages": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G6.REDUCE.001",
+      "type": "diagnostic",
+      "grade": 6,
+      "stem": "Rút gọn phân số 18/24 về dạng tối giản.",
+      "skill_ids": [
+        "MATH.G6.FRACTION.REDUCE"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "3/4",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "9/24",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.REDUCE_ONE_PART"
+        },
+        {
+          "id": "C",
+          "content": "18/12",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.REDUCE_ONE_PART"
+        },
+        {
+          "id": "D",
+          "content": "6/8",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Chia cả tử và mẫu cho ước chung lớn nhất 6, được 3/4.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_6_T2",
+          "pdf_pages": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G6.MIXED_NUMBER.001",
+      "type": "diagnostic",
+      "grade": 6,
+      "stem": "Đổi hỗn số 2 1/3 thành phân số.",
+      "skill_ids": [
+        "MATH.G6.FRACTION.MIXED_NUMBER"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "7/3",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "1/3",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.MIXED_NUMBER_IGNORE_WHOLE"
+        },
+        {
+          "id": "C",
+          "content": "3/3",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "5/3",
+          "is_correct": false
+        }
+      ],
+      "explanation": "2 1/3 = (2×3+1)/3 = 7/3.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_6_T2",
+          "pdf_pages": [
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "lesson": "Bài 24. So sánh phân số. Hỗn số dương",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G6.RECIPROCAL.001",
+      "type": "diagnostic",
+      "grade": 6,
+      "stem": "Phân số nghịch đảo của -3/7 là gì?",
+      "skill_ids": [
+        "MATH.G6.FRACTION.RECIPROCAL"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "-7/3",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "3/7",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.RECIPROCAL_NEGATE"
+        },
+        {
+          "id": "C",
+          "content": "7/3",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "-3/7",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Hoán đổi tử và mẫu, đồng thời giữ dấu âm: -7/3.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_6_T2",
+          "pdf_pages": [
+            20,
+            21,
+            22
+          ],
+          "lesson": "Bài 26. Phép nhân và phép chia phân số",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G7.OPPOSITE.001",
+      "type": "diagnostic",
+      "grade": 7,
+      "stem": "Tính 2/5 - (-3/10).",
+      "skill_ids": [
+        "MATH.G7.RATIONAL.OPPOSITE",
+        "MATH.G7.RATIONAL.ADD_SUBTRACT"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "7/10",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "1/10",
+          "is_correct": false,
+          "misconception_id": "MIS.RATIONAL.SUBTRACT_WITHOUT_OPPOSITE"
+        },
+        {
+          "id": "C",
+          "content": "-7/10",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "-1/10",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Trừ số âm là cộng số đối: 2/5 + 3/10 = 7/10.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_7_T1",
+          "pdf_pages": [
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G7.COMPARE.001",
+      "type": "diagnostic",
+      "grade": 7,
+      "stem": "Khẳng định nào đúng?",
+      "skill_ids": [
+        "MATH.G7.RATIONAL.COMPARE"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "-2/3 > -5/6",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "-2/3 < -5/6",
+          "is_correct": false,
+          "misconception_id": "MIS.RATIONAL.NEGATIVE_ORDER_REVERSED"
+        },
+        {
+          "id": "C",
+          "content": "-2/3 = -5/6",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Không thể so sánh",
+          "is_correct": false
+        }
+      ],
+      "explanation": "-2/3 = -4/6, mà -4/6 > -5/6.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_7_T1",
+          "pdf_pages": [
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "lesson": "Bài 1. Tập hợp các số hữu tỉ",
           "review_status": "approved"
         }
       ],
@@ -290,6 +580,102 @@
       "review_status": "approved"
     },
     {
+      "id": "Q.REMED.G6.EQUIVALENT.001",
+      "type": "remediation",
+      "grade": 6,
+      "stem": "Điền số thích hợp: 4/7 = ?/21.",
+      "skill_ids": [
+        "MATH.G6.FRACTION.EQUIVALENT"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "12",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "4",
+          "is_correct": false,
+          "misconception_id": "MIS.FRACTION.EQUIVALENT_CHANGE_ONE_PART"
+        },
+        {
+          "id": "C",
+          "content": "8",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "24",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Mẫu được nhân 3 nên tử cũng phải nhân 3: 4×3=12.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_6_T2",
+          "pdf_pages": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.REMED.G7.OPPOSITE.001",
+      "type": "remediation",
+      "grade": 7,
+      "stem": "Phép tính 1/3 - (-1/4) được đổi thành phép cộng nào?",
+      "skill_ids": [
+        "MATH.G7.RATIONAL.OPPOSITE"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "1/3 + 1/4",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "1/3 + (-1/4)",
+          "is_correct": false,
+          "misconception_id": "MIS.RATIONAL.SUBTRACT_WITHOUT_OPPOSITE"
+        },
+        {
+          "id": "C",
+          "content": "-1/3 + 1/4",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "-1/3 + (-1/4)",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Trừ -1/4 là cộng với số đối của nó, tức 1/4.",
+      "provenance": [
+        {
+          "book_id": "KNTT_TOAN_7_T1",
+          "pdf_pages": [
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
       "id": "Q.TRANSFER.G7.RATIONAL.ADD.001",
       "type": "transfer",
       "grade": 7,
@@ -382,6 +768,517 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.IDENTITY.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Khai triển (x+3)^2.",
+      "skill_ids": [
+        "MATH.G8.ALGEBRA.IDENTITIES"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "x²+6x+9",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "x²+9",
+          "is_correct": false,
+          "misconception_id": "MIS.ALGEBRA.IDENTITY.SQUARE_SUM"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là x²+6x+9.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.RADICAL.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Rút gọn √72.",
+      "skill_ids": [
+        "MATH.G9.RADICAL.SIMPLIFY"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "6√2",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "8√2",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là 6√2.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.SYSTEM.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Nghiệm của hệ x+y=5, x-y=1 là gì?",
+      "skill_ids": [
+        "MATH.G9.EQUATION.LINEAR_SYSTEM"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "(3; 2)",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "(2; 3)",
+          "is_correct": false,
+          "misconception_id": "MIS.SYSTEM.ELIMINATION_SIGN"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là (3; 2).",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.INEQUALITY.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Giải bất phương trình -2x > 6.",
+      "skill_ids": [
+        "MATH.G9.INEQUALITY.LINEAR"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "x < -3",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "x > -3",
+          "is_correct": false,
+          "misconception_id": "MIS.INEQUALITY.FLIP_SIGN"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là x < -3.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.QUADRATIC.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Giải phương trình x²=9.",
+      "skill_ids": [
+        "MATH.G9.EQUATION.QUADRATIC"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "x=3 hoặc x=-3",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "x=3",
+          "is_correct": false,
+          "misconception_id": "MIS.QUADRATIC.ONE_ROOT"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là x=3 hoặc x=-3.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.FUNCTION.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Đồ thị y=x² đi qua điểm nào?",
+      "skill_ids": [
+        "MATH.G9.FUNCTION.QUADRATIC"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "(2; 4)",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "(2; 2)",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là (2; 4).",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.TRIG.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Trong tam giác vuông, tan A bằng tỉ số nào?",
+      "skill_ids": [
+        "MATH.G9.TRIGONOMETRY.RIGHT_TRIANGLE"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "cạnh đối/cạnh kề",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "cạnh kề/cạnh đối",
+          "is_correct": false,
+          "misconception_id": "MIS.TRIG.RATIO_SWAP"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là cạnh đối/cạnh kề.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.CIRCLE.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Góc nội tiếp chắn nửa đường tròn có số đo bao nhiêu?",
+      "skill_ids": [
+        "MATH.G9.GEOMETRY.CIRCLE"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "90°",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "180°",
+          "is_correct": false,
+          "misconception_id": "MIS.CIRCLE.CENTRAL_INSCRIBED"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là 90°.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.SOLID.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Thể tích hình trụ bán kính r, chiều cao h là gì?",
+      "skill_ids": [
+        "MATH.G9.GEOMETRY.SOLID"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "πr²h",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "2πrh",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là πr²h.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.DATA.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Giá trị 2 xuất hiện 3 lần, giá trị 5 xuất hiện 1 lần. Trung bình là bao nhiêu?",
+      "skill_ids": [
+        "MATH.G9.DATA.GROUPED"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "2,75",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "3,5",
+          "is_correct": false,
+          "misconception_id": "MIS.DATA.MEAN.FREQUENCY"
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là 2,75.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.PROBABILITY.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Gieo xúc xắc cân đối. Xác suất ra số chẵn là bao nhiêu?",
+      "skill_ids": [
+        "MATH.G9.PROBABILITY.COMPOUND"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "1/2",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "1/3",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là 1/2.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
+          "review_status": "approved"
+        }
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "Q.DIAG.G9.MODELING.001",
+      "type": "diagnostic",
+      "grade": 9,
+      "stem": "Tổng hai số là 10 và hiệu là 4. Hai số đó là gì?",
+      "skill_ids": [
+        "MATH.G9.MODELING.ALGEBRA"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "content": "7 và 3",
+          "is_correct": true
+        },
+        {
+          "id": "B",
+          "content": "6 và 4",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "content": "Không đủ dữ kiện",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "content": "Kết quả khác",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Đáp án đúng là 7 và 3.",
+      "provenance": [
+        {
+          "book_id": "CTGDPT2018_TOAN",
+          "pdf_pages": [],
+          "lesson": "Chương trình GDPT 2018 môn Toán - yêu cầu cần đạt cấp THCS",
+          "source_url": "https://moet.gov.vn/content/vanban/Lists/VBPQ/Attachments/1453/vbhn-322018-202021-ttbgddt-trinh-ky-xt.pdf",
           "review_status": "approved"
         }
       ],

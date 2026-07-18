@@ -6,15 +6,14 @@
       "display_name": "Minh",
       "scenario": "root_cause_gap",
       "answers": {
-        "Q.DIAG.G7.RATIONAL.ADD.001": "B",
-        "Q.DIAG.G6.COMMON_DENOM.001": "B",
-        "Q.DIAG.G6.ADD.001": "B"
+        "Q.DIAG.G9.IDENTITY.001": "B",
+        "Q.DIAG.G9.QUADRATIC.001": "B",
+        "Q.DIAG.G9.SYSTEM.001": "A"
       },
       "expected": {
         "status": "diagnosed",
-        "root_cause_skill_id": "MATH.G6.FRACTION.COMMON_DENOMINATOR",
-        "confidence_min": 0.8,
-        "recommended_path_id": "PATH.G6_TO_G7.COMMON_DENOM.ADD"
+        "root_cause_skill_id": "MATH.G8.ALGEBRA.IDENTITIES",
+        "confidence_min": 0.75
       }
     },
     {
@@ -22,14 +21,22 @@
       "display_name": "An",
       "scenario": "mastered",
       "answers": {
-        "Q.DIAG.G7.RATIONAL.ADD.001": "A",
-        "Q.DIAG.G6.COMMON_DENOM.001": "A",
-        "Q.DIAG.G6.ADD.001": "A",
-        "Q.DIAG.G7.RATIONAL.SIGN.001": "A"
+        "Q.DIAG.G9.IDENTITY.001": "A",
+        "Q.DIAG.G9.RADICAL.001": "A",
+        "Q.DIAG.G9.SYSTEM.001": "A",
+        "Q.DIAG.G9.INEQUALITY.001": "A",
+        "Q.DIAG.G9.QUADRATIC.001": "A",
+        "Q.DIAG.G9.FUNCTION.001": "A",
+        "Q.DIAG.G9.TRIG.001": "A",
+        "Q.DIAG.G9.CIRCLE.001": "A",
+        "Q.DIAG.G9.SOLID.001": "A",
+        "Q.DIAG.G9.DATA.001": "A",
+        "Q.DIAG.G9.PROBABILITY.001": "A",
+        "Q.DIAG.G9.MODELING.001": "A"
       },
       "expected": {
         "status": "mastered",
-        "target_skill_id": "MATH.G7.RATIONAL.ADD_SUBTRACT"
+        "target_skill_id": "MATH.G9.READINESS"
       }
     },
     {
@@ -37,11 +44,11 @@
       "display_name": "Lan",
       "scenario": "insufficient_evidence",
       "answers": {
-        "Q.DIAG.G7.RATIONAL.ADD.001": "D"
+        "Q.DIAG.G9.RADICAL.001": "D"
       },
       "expected": {
         "status": "insufficient_evidence",
-        "next_question_id": "Q.DIAG.G6.COMMON_DENOM.001"
+        "next_question_id": "Q.DIAG.G9.IDENTITY.001"
       }
     }
   ]

@@ -107,7 +107,7 @@ Nguyên nhân sâu hơn: chưa biết quy đồng phân số.
 | Chứng minh hiệu quả học tập   | Học sinh đóng được lỗ hổng và quay lại bài chính                   |
 | Chứng minh willingness to pay | Có trường/giáo viên trả phí sau pilot                              |
 | Tạo moat dữ liệu              | Tích lũy knowledge graph, misconception data, intervention outcome |
-| Mở rộng sản phẩm              | Từ Toán lớp 6–7 Kết nối tri thức sang khối/bộ sách khác sau MVP     |
+| Mở rộng sản phẩm              | Từ Toán lớp 6–9 theo GDPT 2018 sang khối/bộ sách khác sau MVP     |
 
 ## 5.2. Revenue model đề xuất
 
@@ -189,7 +189,7 @@ Lớp học Việt Nam có ability gap lớn. Học sinh sai bài hiện tại t
 Customer đầu tiên:
 
 ```text
-Giáo viên Toán lớp 6–7 dạy bộ Kết nối tri thức, có lớp đông và nhiều học sinh chênh lệch trình độ.
+Giáo viên Toán lớp 9 và sử dụng đồ thị prerequisite lớp 6–9, có lớp đông và nhiều học sinh chênh lệch trình độ.
 ```
 
 Không chọn toàn bộ học sinh K–12 ngay từ đầu vì scope quá rộng.
@@ -213,7 +213,7 @@ Giáo viên cần thêm một app AI.
 Beachhead:
 
 ```text
-Toán lớp 6–7, bộ Kết nối tri thức với cuộc sống
+Toán lớp 6–9 theo GDPT 2018
 Cụm kiến thức đầu tiên: một chuỗi prerequisite liên thông giữa hai khối, chờ chốt tại Q-003
 ```
 
@@ -249,8 +249,8 @@ Localized Knowledge Graph
 | Môn học              | Toán                                                         |
 | Bộ sách              | Kết nối tri thức với cuộc sống                               |
 | Khối chính           | Lớp 6 và lớp 7                                               |
-| Kiến thức truy ngược | Chỉ các skill đã duyệt trong dataset Toán 6–7                |
-| Chủ đề               | Theo SGK Toán 6–7 Kết nối tri thức; thứ tự ingest theo Q-003 |
+| Kiến thức truy ngược | Chỉ các skill đã duyệt trong dataset Toán 6–9                |
+| Chủ đề               | Theo SGK Toán 6–9 theo GDPT 2018; thứ tự ingest theo Q-003 |
 | Người dùng           | Giáo viên + học sinh                                         |
 | Nền tảng             | Web app + PWA                                                |
 | FE deploy            | Vercel                                                       |
@@ -267,7 +267,7 @@ Không làm trong MVP:
 - Tất cả môn học.
 - Toán toàn bộ lớp 1–12.
 - Dữ liệu từ bộ Cánh diều, Chân trời sáng tạo hoặc bộ sách khác.
-- Dữ liệu môn khác hoặc khối ngoài lớp 6–7.
+- Dữ liệu môn khác hoặc khối ngoài lớp 6–9.
 - Chatbot tự do cho học sinh.
 - Video bài giảng dài.
 - Livestream.
@@ -286,7 +286,7 @@ Không làm trong MVP:
 Mina AI chia kiến thức thành micro-skill và nối bằng quan hệ prerequisite.
 
 **Giới hạn bộ sách trong MVP:**
-MVP chỉ ingest và phục vụ dữ liệu **Kết nối tri thức với cuộc sống, môn Toán lớp 6–7**. Knowledge Graph vẫn dùng canonical skill để có thể mở rộng về sau, nhưng curriculum mapping trong MVP chỉ có Kết nối tri thức. Giao diện không cho chọn Cánh diều, Chân trời sáng tạo, môn khác hoặc khối khác. Việc hỗ trợ đa bộ sách là hậu MVP.
+MVP chỉ ingest và phục vụ dữ liệu **Kết nối tri thức với cuộc sống, môn Toán lớp 6–9**. Knowledge Graph vẫn dùng canonical skill để có thể mở rộng về sau, nhưng curriculum mapping trong MVP chỉ có Kết nối tri thức. Giao diện không cho chọn Cánh diều, Chân trời sáng tạo, môn khác hoặc khối khác. Việc hỗ trợ đa bộ sách là hậu MVP.
 
 Ví dụ:
 
@@ -306,7 +306,7 @@ Mỗi skill có:
 - Lớp.
 - Chủ đề.
 - Chuẩn GDPT 2018.
-- **SGK Mapping Metadata** (vị trí bài học trong Toán 6–7 Kết nối tri thức; các bộ khác ngoài MVP).
+- **SGK Mapping Metadata** (vị trí bài học trong Toán 6–9 theo GDPT 2018; các bộ khác ngoài MVP).
 - Prerequisite skills.
 - Dependent skills.
 - Misconception thường gặp.
@@ -431,7 +431,7 @@ Giáo viên đăng nhập
 → Chọn lớp 6 hoặc lớp 7
 → Thêm học sinh bằng cách import file xuất từ VnEdu/SMAS/CSDL Ngành hoặc chia sẻ mã lớp
 → Chọn chủ đề “Số hữu tỉ và phương trình”
-→ Hệ thống dùng phạm vi truy ngược đã duyệt trong dataset Toán 6–7
+→ Hệ thống dùng phạm vi truy ngược đã duyệt trong dataset Toán 6–9
 → Giao diagnostic 15 phút
 → Học sinh nhận nhiệm vụ
 ```
@@ -1376,7 +1376,7 @@ Một gap chỉ được xem là closed nếu:
 - Thu thập bài tập/bài kiểm tra thật.
 - Xác định chủ đề hổng phổ biến nhất.
 - Kiểm tra điều kiện thiết bị/mạng.
-- Chọn chương/chủ đề ưu tiên trong Toán lớp 6–7 Kết nối tri thức.
+- Chọn chương/chủ đề ưu tiên trong Toán lớp 6–9 theo GDPT 2018.
 
 ### Exit criteria
 
@@ -1549,7 +1549,7 @@ Một gap chỉ được xem là closed nếu:
 | Risk                         | Mức độ     | Giảm thiểu                                                   |
 | ---------------------------- | ---------- | ------------------------------------------------------------ |
 | Chẩn đoán sai                | Cao        | Evidence, confidence, giáo viên sửa được                     |
-| Scope quá rộng               | Cao        | Chỉ dữ liệu Toán lớp 6–7, bộ Kết nối tri thức trong MVP      |
+| Scope quá rộng               | Cao        | Chỉ dữ liệu Toán lớp 6–9, bộ Kết nối tri thức trong MVP      |
 | AI latency cao               | Cao        | No-LLM diagnostic, cache, timeout, async, same-region deploy |
 | FPT provider lỗi             | Cao        | OpenRouter fallback                                          |
 | LLM hallucination            | Cao        | RAG, citation validator, groundedness judge                  |

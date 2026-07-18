@@ -17,6 +17,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <span>Mina AI</span>
           </Link>
           <nav aria-label="Điều hướng chính">
+            <Link href="/how-it-works">Cách hoạt động</Link>
+            <Link href="/knowledge-base">Kho tri thức</Link>
             <Link href="/student">Học sinh</Link>
             <Link href="/teacher">Giáo viên</Link>
           </nav>

@@ -44,8 +44,8 @@ def _validate_dag(skill_ids: set[str], edges: list[dict[str, Any]]) -> None:
 def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
     dataset = dataset or build_dataset()
     checks: list[str] = []
-    if dataset["dataset"]["grades"] != [6, 7] or dataset["dataset"]["series"] != "KNTT":
-        raise ValidationError("dataset is outside the locked KNTT Math 6-7 scope")
+    if dataset["dataset"]["grades"] != [6, 7, 8, 9] or dataset["dataset"]["series"] != "GDPT2018":
+        raise ValidationError("dataset is outside the GDPT 2018 Math 6-9 scope")
     checks.append("scope")
 
     allowed_relationships = {"prerequisite", "supporting", "part_of", "equivalent", "related", "next_skill"}
@@ -77,12 +77,13 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
     checks.append("unique_ids")
 
     for skill in dataset["skills"]:
-        if skill["grade"] not in (6, 7) or skill["publisher_series"] != "KNTT":
+        if skill["grade"] not in (6, 7, 8, 9):
             raise ValidationError(f"skill outside scope: {skill['id']}")
-        if not skill["canonical_name"].split()[0] in {"Biểu", "Nhận", "Rút", "So", "Quy", "Cộng", "Nhân"}:
+        if not skill["canonical_name"].split()[0] in {"Biểu", "Nhận", "Rút", "So", "Quy", "Cộng", "Nhân", "Chia", "Vận", "Thực", "Giải", "Đọc", "Mô", "Tính", "Phân", "Đánh", "Xác", "Chứng", "Thiết", "Trục", "Làm", "Thu", "Vẽ", "Chuyển", "Trừ", "Bỏ"}:
             raise ValidationError(f"skill name is not action-oriented: {skill['id']}")
         for source in skill["provenance"]:
-            if source["book_id"] not in BOOK_BY_ID or not source["pdf_pages"]:
+            is_curriculum = source["book_id"] == "CTGDPT2018_TOAN" and source.get("source_url")
+            if not is_curriculum and (source["book_id"] not in BOOK_BY_ID or not source["pdf_pages"]):
                 raise ValidationError(f"invalid provenance: {skill['id']}")
     checks.append("skill_scope_and_provenance")
 
@@ -102,9 +103,15 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
     checks.append("misconception_references")
 
     stems_by_type: dict[str, set[str]] = {}
+    allowed_question_types = {"diagnostic", "remediation", "transfer"}
     for question in dataset["questions"]:
-        if question["grade"] not in (6, 7) or not set(question["skill_ids"]).issubset(skill_ids):
+        if question["grade"] not in (6, 7, 8, 9) or not set(question["skill_ids"]).issubset(skill_ids):
             raise ValidationError(f"question outside scope or broken skill reference: {question['id']}")
+        if question["type"] not in allowed_question_types:
+            raise ValidationError(f"invalid question type: {question['id']}")
+        option_ids = [item["id"] for item in question["options"]]
+        if len(option_ids) < 2 or len(option_ids) != len(set(option_ids)):
+            raise ValidationError(f"question has too few or duplicate options: {question['id']}")
         if sum(1 for item in question["options"] if item["is_correct"]) != 1:
             raise ValidationError(f"question must have exactly one correct option: {question['id']}")
         for answer in question["options"]:
@@ -122,6 +129,13 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
             raise ValidationError(f"broken path skill reference: {path['id']}")
         if not set(path["question_ids"] + path["transfer_question_ids"]).issubset(question_ids):
             raise ValidationError(f"broken path question reference: {path['id']}")
+        question_by_id = {question["id"]: question for question in dataset["questions"]}
+        if any(question_by_id[item]["type"] != "remediation" for item in path["question_ids"]):
+            raise ValidationError(f"path contains a non-remediation question: {path['id']}")
+        if any(question_by_id[item]["type"] != "transfer" for item in path["transfer_question_ids"]):
+            raise ValidationError(f"path contains a non-transfer question: {path['id']}")
+        if not 0 < path["pass_threshold"] <= 1:
+            raise ValidationError(f"invalid path pass threshold: {path['id']}")
     checks.append("remediation_path_references")
 
     for student in dataset["demo_students"]:

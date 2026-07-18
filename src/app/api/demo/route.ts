@@ -9,6 +9,7 @@ export async function GET() {
     return NextResponse.json(await getDemoPayload());
   } catch (error) {
     const message = error instanceof Error ? error.message : "UNKNOWN_ERROR";
-    return NextResponse.json({ error: message }, { status: message === "DEMO_NOT_SEEDED" ? 503 : 500 });
+    const unavailable = message === "DEMO_NOT_SEEDED" || message === "DEMO_ASSIGNMENT_EMPTY";
+    return NextResponse.json({ error: message }, { status: unavailable ? 503 : 500 });
   }
 }

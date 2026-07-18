@@ -4,10 +4,10 @@ Pipeline Python cho Task 1 - xử lý dữ liệu và Knowledge Graph từ bốn
 
 ## Phạm vi
 
-- Bộ sách: Kết nối tri thức với cuộc sống.
+- Chuẩn chính: Chương trình GDPT 2018; mapping SGK Kết nối tri thức được giữ cho nguồn lớp 6–7 hiện có.
 - Môn: Toán.
-- Khối: lớp 6 và lớp 7.
-- Lát cắt demo: Phân số lớp 6 -> Số hữu tỉ lớp 7.
+- Khối: lớp 6, 7, 8 và 9.
+- Đồ thị demo: bản đồ chương trình Toán THCS lớp 6–9; bài diagnostic tổng hợp dành cho học sinh lớp 9.
 
 PDF hiện tại là bản scan, không có text layer. Pipeline không coi text rỗng là dữ liệu hợp lệ. Nó tạo manifest/checksum, render trang cần review và xuất dataset curated có provenance. OCR tự động chưa được bật trong phiên bản này vì môi trường chưa có OCR tiếng Việt đáng tin cậy; không dùng OCR kém chất lượng để tự phát hành dữ liệu giáo dục.
 
@@ -57,7 +57,13 @@ PYTHONPATH=knowledge-graph/src python3 -m mina_kg.cli validate --root knowledge-
 - Nội dung curated mặc định ở trạng thái `pending`; dataset demo V1 hiện ở trạng thái `approved` sau vòng rà soát Toán học có ghi metadata người/phương thức duyệt trong `dataset`.
 - Chỉ edge `prerequisite` phải tạo DAG.
 - Question loại `transfer` không được trùng stem với question `remediation`.
-- Không ingest dữ liệu ngoài Toán 6-7 Kết nối tri thức.
+- Không đưa dữ liệu ngoài Toán lớp 6–9 theo GDPT 2018 vào dataset.
+
+Dataset hiện có 156 skills và 175 edges phủ bốn lớp 6–9 theo ba mạch của Chương trình GDPT 2018: Số và Đại số; Hình học và Đo lường; Thống kê và Xác suất. Các năng lực tổng hợp vẫn được giữ để tương thích diagnostic, đồng thời micro-skill chi tiết có provenance tới trang yêu cầu cần đạt tương ứng (lớp 6: trang 47–54; lớp 7: 55–62; lớp 8: 63–69; lớp 9: 71–77).
+
+Mapping SGK Kết nối tri thức Toán 6 Tập 1 được đối chiếu từ metadata 22 bài/41 kỹ năng: 27 micro-skill chưa có đã được bổ sung và các kỹ năng trùng nghĩa được gắn provenance vào canonical node thay vì tạo bản sao. Tổng cộng 43 canonical node hiện tham chiếu `KNTT_TOAN_6_T1`, phủ trang 5–111. Dataset câu hỏi hiện có 21 misconceptions, 28 câu hỏi và 3 lộ trình Repair-and-Return; 12 câu diagnostic lớp 9 phủ Đại số, Hình học, Thống kê và Xác suất.
+
+Độ phủ catalog không đồng nghĩa mọi node đều đã có đủ diagnostic/remediation. Validation phân biệt tính hợp lệ cấu trúc của graph với độ phủ ngân hàng câu hỏi; trước pilot, giáo viên Toán vẫn phải xác nhận nội dung và quan hệ sư phạm.
 
 ## Human review bắt buộc
 

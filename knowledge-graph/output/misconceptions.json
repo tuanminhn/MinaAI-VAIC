@@ -54,6 +54,171 @@
         "MATH.G7.RATIONAL.MULTIPLY_DIVIDE"
       ],
       "review_status": "approved"
+    },
+    {
+      "id": "MIS.FRACTION.EQUIVALENT_CHANGE_ONE_PART",
+      "description": "Chỉ nhân hoặc chia tử số mà không biến đổi mẫu số cùng hệ số",
+      "error_pattern": "a/b = ka/b",
+      "severity": "fundamental",
+      "skill_ids": [
+        "MATH.G6.FRACTION.EQUIVALENT"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.FRACTION.REDUCE_ONE_PART",
+      "description": "Rút gọn riêng tử số hoặc mẫu số",
+      "error_pattern": "ka/kb = a/kb or ka/b",
+      "severity": "fundamental",
+      "skill_ids": [
+        "MATH.G6.FRACTION.EQUIVALENT",
+        "MATH.G6.FRACTION.REDUCE"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.FRACTION.MIXED_NUMBER_IGNORE_WHOLE",
+      "description": "Bỏ phần nguyên khi đổi hỗn số thành phân số",
+      "error_pattern": "n a/b = a/b",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G6.FRACTION.MIXED_NUMBER"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.FRACTION.RECIPROCAL_NEGATE",
+      "description": "Nhầm phân số nghịch đảo với số đối",
+      "error_pattern": "reciprocal(a/b) = -a/b",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G6.FRACTION.RECIPROCAL",
+        "MATH.G6.FRACTION.MULTIPLY_DIVIDE"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.RATIONAL.SUBTRACT_WITHOUT_OPPOSITE",
+      "description": "Không đổi phép trừ thành cộng với số đối",
+      "error_pattern": "a - (-b) = a - b",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G7.RATIONAL.OPPOSITE",
+        "MATH.G7.RATIONAL.ADD_SUBTRACT"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.RATIONAL.NEGATIVE_ORDER_REVERSED",
+      "description": "Cho rằng số âm có giá trị tuyệt đối lớn hơn thì lớn hơn",
+      "error_pattern": "a>b implies -a>-b",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G7.RATIONAL.COMPARE"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.ALGEBRA.IDENTITY.SQUARE_SUM",
+      "description": "Khai triển sai bình phương của một tổng",
+      "error_pattern": "(a+b)^2=a^2+b^2",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G8.ALGEBRA.IDENTITIES",
+        "MATH.G9.EQUATION.QUADRATIC"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.EQUATION.DIVIDE_ZERO",
+      "description": "Chia hai vế cho biểu thức có thể bằng 0",
+      "error_pattern": "divide by expression without zero case",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G8.EQUATION.LINEAR",
+        "MATH.G9.EQUATION.QUADRATIC"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.SYSTEM.ELIMINATION_SIGN",
+      "description": "Sai dấu khi khử ẩn trong hệ phương trình",
+      "error_pattern": "subtract equations without distributing sign",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.EQUATION.LINEAR_SYSTEM"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.INEQUALITY.FLIP_SIGN",
+      "description": "Không đổi chiều bất phương trình khi nhân hoặc chia số âm",
+      "error_pattern": "a<b => a/c<b/c for c<0",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.INEQUALITY.LINEAR"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.RADICAL.DISTRIBUTE_SUM",
+      "description": "Phân phối căn bậc hai qua phép cộng",
+      "error_pattern": "sqrt(a+b)=sqrt(a)+sqrt(b)",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.RADICAL.SIMPLIFY"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.QUADRATIC.ONE_ROOT",
+      "description": "Bỏ sót một nghiệm của phương trình bậc hai",
+      "error_pattern": "x^2=a => x=sqrt(a)",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.EQUATION.QUADRATIC"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.TRIG.RATIO_SWAP",
+      "description": "Nhầm cạnh đối và cạnh kề trong tỉ số lượng giác",
+      "error_pattern": "tan=adjacent/opposite",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.TRIGONOMETRY.RIGHT_TRIANGLE"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.CIRCLE.CENTRAL_INSCRIBED",
+      "description": "Nhầm số đo góc ở tâm với góc nội tiếp",
+      "error_pattern": "central angle = inscribed angle",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.GEOMETRY.CIRCLE"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.DATA.MEAN.FREQUENCY",
+      "description": "Tính trung bình mà bỏ qua tần số",
+      "error_pattern": "mean=sum(values)/number of groups",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.DATA.GROUPED"
+      ],
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.PROBABILITY.ADD_OVERLAP",
+      "description": "Cộng xác suất mà không xử lí phần giao",
+      "error_pattern": "P(A union B)=P(A)+P(B)",
+      "severity": "major",
+      "skill_ids": [
+        "MATH.G9.PROBABILITY.COMPOUND"
+      ],
+      "review_status": "approved"
     }
   ]
 }

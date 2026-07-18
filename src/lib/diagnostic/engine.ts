@@ -1,10 +1,16 @@
 import type { Diagnosis, KnowledgeEdge, Misconception, Question, SubmittedAnswer } from "@/lib/contracts";
 
 export const ENGINE_VERSION = "rules-v1.0.0";
-export const TARGET_SKILL_ID = "MATH.G7.RATIONAL.ADD_SUBTRACT";
-export const CONTENT_VERSION = "MINA_KNTT_MATH_G6_G7_DEMO_V1";
+export const TARGET_SKILL_ID = "MATH.G9.READINESS";
+export const CONTENT_VERSION = "MINA_GDPT2018_MATH_G6_G9_V2";
 export const DEFAULT_PATH_ID = "PATH.G6_TO_G7.COMMON_DENOM.ADD";
-export const NEXT_PROBE_QUESTION_ID = "Q.DIAG.G6.COMMON_DENOM.001";
+export const NEXT_PROBE_QUESTION_ID = "Q.DIAG.G9.IDENTITY.001";
+
+const PATH_BY_ROOT_CAUSE: Record<string, string> = {
+  "MATH.G6.FRACTION.COMMON_DENOMINATOR": DEFAULT_PATH_ID,
+  "MATH.G6.FRACTION.EQUIVALENT": "PATH.G6_TO_G7.EQUIVALENT.ADD",
+  "MATH.G7.RATIONAL.OPPOSITE": "PATH.G7.OPPOSITE.ADD_SUBTRACT",
+};
 
 type EngineInput = {
   answers: SubmittedAnswer[];
@@ -91,7 +97,7 @@ export function diagnose({
     if (!item.misconceptionId) continue;
     const misconception = misconceptionById.get(item.misconceptionId);
     for (const skillId of misconception?.skill_ids ?? []) {
-      if (!skillId.startsWith("MATH.G6.")) continue;
+      if (skillId === targetSkillId || !/^MATH\.G[6-9]\./.test(skillId)) continue;
       const specificity = skillId === "MATH.G6.FRACTION.COMMON_DENOMINATOR" ? 1.25 : 1;
       candidateScores.set(skillId, (candidateScores.get(skillId) ?? 0) + specificity);
     }
@@ -138,7 +144,7 @@ export function diagnose({
     rootCauseSkillId,
     confidence: Number(confidence.toFixed(2)),
     evidence,
-    recommendedPathId: rootCauseSkillId === "MATH.G6.FRACTION.COMMON_DENOMINATOR" ? DEFAULT_PATH_ID : null,
+    recommendedPathId: PATH_BY_ROOT_CAUSE[rootCauseSkillId] ?? null,
     nextQuestionId: null,
   };
 }
