@@ -17,6 +17,25 @@ describe("student home and assignments contract", () => {
     setMockActiveSessionForUserId("student-001");
   });
 
+  it("accepts nullable assignment metadata returned by the backend", async () => {
+    server.use(
+      http.get("*/api/v1/student/home", () =>
+        HttpResponse.json({
+          ...getMockStudentHomeResponse(),
+          currentAssignment: {
+            ...getMockStudentHomeResponse().currentAssignment,
+            description: null,
+            dueAt: null,
+          },
+        }),
+      ),
+    );
+
+    renderApp(["/student"]);
+
+    expect(await screen.findByText("Bài hiện tại")).toBeInTheDocument();
+  });
+
   it("shows a loading state on student home", async () => {
     server.use(
       http.get("*/api/v1/student/home", async () => {

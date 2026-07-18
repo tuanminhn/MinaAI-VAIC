@@ -11,7 +11,7 @@ export const assignmentStatusSchema = z.enum([
 export const assignmentSummarySchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
-  description: z.string().optional(),
+  description: z.string().nullish().transform((value) => value ?? undefined),
   subject: z.literal("math"),
   grade: z.number().int().min(1),
   status: assignmentStatusSchema,
@@ -19,9 +19,9 @@ export const assignmentSummarySchema = z.object({
     completed: z.number().int().min(0),
     total: z.number().int().min(0),
   }),
-  estimatedMinutes: z.number().int().min(1).optional(),
-  assignedAt: z.string().optional(),
-  dueAt: z.string().optional(),
+  estimatedMinutes: z.number().int().min(1).nullish().transform((value) => value ?? undefined),
+  assignedAt: z.string().nullish().transform((value) => value ?? undefined),
+  dueAt: z.string().nullish().transform((value) => value ?? undefined),
   diagnosticAvailable: z.boolean(),
   nextRoute: z.string().nullable().optional(),
 });
@@ -33,7 +33,7 @@ export const studentHomeResponseSchema = z.object({
     classroomName: z.string().nullable().optional(),
     schoolName: z.string().nullable().optional(),
   }),
-  currentAssignment: assignmentSummarySchema.optional(),
+  currentAssignment: assignmentSummarySchema.nullish().transform((value) => value ?? undefined),
   recentAssignments: z.array(assignmentSummarySchema),
 });
 

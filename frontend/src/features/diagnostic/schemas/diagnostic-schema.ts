@@ -22,8 +22,8 @@ export const diagnosticQuestionSchema = z.object({
 
 export const diagnosticProgressSchema = z.object({
   answered: z.number().int().min(0),
-  estimatedTotal: z.number().int().min(1).optional(),
-  total: z.number().int().min(1).optional(),
+  estimatedTotal: z.number().int().min(1).nullish().transform((value) => value ?? undefined),
+  total: z.number().int().min(1).nullish().transform((value) => value ?? undefined),
 });
 
 export const diagnosticSessionResponseSchema = z.object({
@@ -32,8 +32,8 @@ export const diagnosticSessionResponseSchema = z.object({
   assignmentTitle: z.string().min(1),
   state: diagnosticSessionStateSchema,
   progress: diagnosticProgressSchema,
-  currentQuestion: diagnosticQuestionSchema.optional(),
-  nextRoute: z.string().min(1).optional(),
+  currentQuestion: diagnosticQuestionSchema.nullish().transform((value) => value ?? undefined),
+  nextRoute: z.string().min(1).nullish().transform((value) => value ?? undefined),
 });
 
 export const submitDiagnosticAttemptRequestSchema = z.object({
@@ -44,7 +44,7 @@ export const submitDiagnosticAttemptRequestSchema = z.object({
 
 export const submitDiagnosticAttemptResponseSchema = z.object({
   attemptId: z.string().min(1),
-  correct: z.boolean().optional(),
+  correct: z.boolean().nullish().transform((value) => value ?? undefined),
   feedback: z.object({
     title: z.string().min(1),
     message: z.string().min(1),
@@ -92,13 +92,13 @@ export const remediationResponseSchema = z.object({
   cycleNumber: z.number().int().min(1).max(2),
   unit: remediationUnitSchema,
   progress: diagnosticProgressSchema,
-  currentQuestion: diagnosticQuestionSchema.optional(),
-  nextRoute: z.string().min(1).optional(),
+  currentQuestion: diagnosticQuestionSchema.nullish().transform((value) => value ?? undefined),
+  nextRoute: z.string().min(1).nullish().transform((value) => value ?? undefined),
 });
 
 export const submitRemediationAttemptResponseSchema = z.object({
   attemptId: z.string().min(1),
-  correct: z.boolean().optional(),
+  correct: z.boolean().nullish().transform((value) => value ?? undefined),
   feedback: z.object({
     title: z.string().min(1),
     message: z.string().min(1),
@@ -132,8 +132,8 @@ export const transferResponseSchema = z.object({
   state: diagnosticSessionStateSchema,
   cycleNumber: z.number().int().min(1).max(2),
   progress: diagnosticProgressSchema,
-  currentQuestion: diagnosticQuestionSchema.optional(),
-  nextRoute: z.string().min(1).optional(),
+  currentQuestion: diagnosticQuestionSchema.nullish().transform((value) => value ?? undefined),
+  nextRoute: z.string().min(1).nullish().transform((value) => value ?? undefined),
 });
 
 export const submitTransferAttemptResponseSchema = submitDiagnosticAttemptResponseSchema;
