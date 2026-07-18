@@ -5,16 +5,15 @@ import { queryKeys } from "@/lib/query/query-keys";
 import { httpStudentRepository } from "@/repositories/http-student-repository";
 
 export function useStudentAssignmentsQuery(query: StudentAssignmentsQuery = {}) {
-  const { session } = useAuth();
-  const accessToken = session?.accessToken ?? null;
+  const { user } = useAuth();
   const page = query.page ?? 1;
   const pageSize = query.pageSize ?? 10;
 
   return useQuery({
-    queryKey: queryKeys.student.assignments(accessToken, query.status, page, pageSize),
+    queryKey: queryKeys.student.assignments(query.status, page, pageSize),
     queryFn: ({ signal }) =>
-      httpStudentRepository.listAssignments(accessToken as string, { ...query, page, pageSize }, signal),
-    enabled: Boolean(accessToken),
+      httpStudentRepository.listAssignments({ ...query, page, pageSize }, signal),
+    enabled: Boolean(user),
     retry: 0,
   });
 }

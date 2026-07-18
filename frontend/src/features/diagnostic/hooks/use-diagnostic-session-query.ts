@@ -4,14 +4,12 @@ import { queryKeys } from "@/lib/query/query-keys";
 import { httpDiagnosticRepository } from "@/repositories/http-diagnostic-repository";
 
 export function useDiagnosticSessionQuery(sessionId: string) {
-  const { session } = useAuth();
-  const accessToken = session?.accessToken ?? null;
+  const { user } = useAuth();
 
   return useQuery({
-    queryKey: queryKeys.diagnostic.session(accessToken, sessionId),
-    queryFn: ({ signal }) =>
-      httpDiagnosticRepository.getSession(sessionId, accessToken as string, signal),
-    enabled: Boolean(accessToken) && sessionId.length > 0,
+    queryKey: queryKeys.diagnostic.session(sessionId),
+    queryFn: ({ signal }) => httpDiagnosticRepository.getSession(sessionId, signal),
+    enabled: Boolean(user) && sessionId.length > 0,
     retry: 0,
   });
 }

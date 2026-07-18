@@ -1,8 +1,8 @@
-import { NavLink, Outlet } from "react-router-dom";
 import { ClipboardList, LayoutDashboard, School, Users } from "lucide-react";
+import { NavLink, Outlet } from "react-router-dom";
 import { SkipLink } from "@/components/common/skip-link";
-import { useAuth } from "@/features/auth/hooks/use-auth";
 import { ShellHeader } from "@/features/auth/components/shell-header";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 import { cn } from "@/lib/utils/cn";
 
 const teacherNavItems = [
@@ -77,7 +77,7 @@ export function TeacherShell(): JSX.Element {
         <ShellHeader
           brandSubtitle="Không gian giáo viên"
           userName={user?.displayName ?? "Giáo viên"}
-          userMeta={user?.schoolName}
+          userMeta={user?.schoolName ?? undefined}
           navItems={teacherNavItems.map(({ label, to }) => ({ label, to }))}
           compactLabel="điều hướng bổ sung giáo viên"
         />

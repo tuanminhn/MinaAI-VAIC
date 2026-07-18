@@ -6,7 +6,7 @@ const healthSuccessPayload = {
 };
 
 export const healthHandlers = [
-  http.get("/api/v1/health", ({ request }) => {
+  http.get("*/api/v1/health", ({ request }) => {
     const url = new URL(request.url);
 
     if (url.searchParams.get("scenario") === "error") {

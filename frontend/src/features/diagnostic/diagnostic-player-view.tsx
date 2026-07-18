@@ -130,7 +130,7 @@ export function DiagnosticPlayerView(): JSX.Element {
     setSelectedOptionId(null);
 
     await queryClient.invalidateQueries({
-      queryKey: queryKeys.diagnostic.session(auth.session?.accessToken ?? null, sessionId),
+      queryKey: queryKeys.diagnostic.session(sessionId),
     });
   }
 
@@ -176,7 +176,7 @@ export function DiagnosticPlayerView(): JSX.Element {
         description={message.description}
         onRetry={() => {
           void queryClient.invalidateQueries({
-            queryKey: queryKeys.diagnostic.session(auth.session?.accessToken ?? null, sessionId),
+            queryKey: queryKeys.diagnostic.session(sessionId),
           });
         }}
       />

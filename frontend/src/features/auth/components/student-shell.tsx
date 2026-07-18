@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { SkipLink } from "@/components/common/skip-link";
-import { useAuth } from "@/features/auth/hooks/use-auth";
 import { ShellHeader, type ShellNavItem } from "@/features/auth/components/shell-header";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 
 const studentNavItems: ShellNavItem[] = [
   { label: "Trang chính", to: "/student" },
@@ -19,7 +19,7 @@ export function StudentShell(): JSX.Element {
       <ShellHeader
         brandSubtitle={isDiagnosticRoute ? "Đang làm bài chẩn đoán" : "Không gian học sinh"}
         userName={user?.displayName ?? "Học sinh"}
-        userMeta={user?.classroomName}
+        userMeta={user?.classroomName ?? undefined}
         navItems={isDiagnosticRoute ? [] : studentNavItems}
         compactLabel="điều hướng học sinh"
       />

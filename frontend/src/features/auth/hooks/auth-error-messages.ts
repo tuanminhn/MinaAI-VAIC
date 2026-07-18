@@ -2,7 +2,7 @@ import type { ApiError } from "@/lib/api/api-error";
 import type { AuthNotice } from "@/features/auth/types/auth-notice";
 
 export function getLoginNotice(error: ApiError): AuthNotice {
-  if (error.code === "invalid_credentials") {
+  if (error.code === "INVALID_CREDENTIALS") {
     return {
       title: "Dang nhap chua thanh cong",
       message: "Ten dang nhap hoac mat khau khong dung.",
@@ -19,7 +19,15 @@ export function getLoginNotice(error: ApiError): AuthNotice {
     };
   }
 
-  if (error.status === 503 || error.code === "server_unavailable") {
+  if (error.code === "AUTH_RESPONSE_INVALID") {
+    return {
+      title: "Khong the dang nhap",
+      message: "He thong Mina tam thoi chua the xu ly yeu cau dang nhap. Hay thu lai.",
+      variant: "error",
+    };
+  }
+
+  if (error.status === 503 || error.code === "SERVER_UNAVAILABLE") {
     return {
       title: "May chu Mina chua san sang",
       message:
@@ -36,7 +44,7 @@ export function getLoginNotice(error: ApiError): AuthNotice {
 }
 
 export function getSessionRestoreNotice(error: ApiError): AuthNotice {
-  if (error.code === "session_expired" || error.status === 401) {
+  if (error.code === "SESSION_EXPIRED" || error.status === 401) {
     return {
       title: "Phien dang nhap da het han",
       message: "Vui long dang nhap lai de tiep tuc su dung Mina AI.",
@@ -53,11 +61,19 @@ export function getSessionRestoreNotice(error: ApiError): AuthNotice {
     };
   }
 
-  if (error.status === 503 || error.code === "server_unavailable") {
+  if (error.status === 503 || error.code === "SERVER_UNAVAILABLE") {
     return {
       title: "May chu Mina chua san sang",
       message:
         "May chu Mina trong truong hien chua san sang. Vui long dang nhap lai khi may chu hoat dong.",
+      variant: "warning",
+    };
+  }
+
+  if (error.code === "AUTH_RESPONSE_INVALID") {
+    return {
+      title: "Khong the khoi phuc phien lam viec",
+      message: "Mina AI can dang nhap lai de tiep tuc.",
       variant: "warning",
     };
   }

@@ -4,13 +4,12 @@ export type AuthUser = {
   id: string;
   displayName: string;
   role: UserRole;
-  schoolName?: string;
-  classroomName?: string;
+  schoolName?: string | null;
+  classroomName?: string | null;
 };
 
 export type AuthSession = {
   user: AuthUser;
-  accessToken: string;
 };
 
 export type LoginRequest = {

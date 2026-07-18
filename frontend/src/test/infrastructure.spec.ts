@@ -1,6 +1,6 @@
 import path from "node:path";
 import { readFileSync } from "node:fs";
-import { httpRequest, HttpRequestError } from "@/lib/api/http-client";
+import { HttpRequestError, httpRequest } from "@/lib/api/http-client";
 import { shouldEnableMsw } from "@/mocks/config";
 
 describe("infrastructure guards", () => {
@@ -12,6 +12,30 @@ describe("infrastructure guards", () => {
 
   it("does not fall back to fixture data when the API returns an error", async () => {
     await expect(httpRequest("/health?scenario=error")).rejects.toBeInstanceOf(HttpRequestError);
+  });
+
+  it("sends cookie credentials with API requests", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ status: "ok" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    await httpRequest("/health");
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ credentials: "include" }),
+    );
+  });
+
+  it("does not keep auth tokens in the auth provider source", () => {
+    const authProviderPath = path.resolve(process.cwd(), "src/features/auth/hooks/auth-provider.tsx");
+    const authProviderSource = readFileSync(authProviderPath, "utf8");
+
+    expect(authProviderSource).not.toContain("localStorage");
+    expect(authProviderSource).not.toContain("accessToken");
   });
 
   it("stores shell labels with full Vietnamese accents in source files", () => {

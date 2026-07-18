@@ -1,24 +1,20 @@
 import { HttpResponse, http } from "msw";
-import { findMockAccountByCredentials, findMockSessionByToken } from "@/fixtures/auth";
-
-function getBearerToken(headerValue: string | null): string | null {
-  if (!headerValue) {
-    return null;
-  }
-
-  const [scheme, token] = headerValue.split(" ");
-  return scheme === "Bearer" && token ? token : null;
-}
+import {
+  clearMockActiveSession,
+  findMockAccountByCredentials,
+  getMockActiveSession,
+  setMockActiveSession,
+} from "@/fixtures/auth";
 
 export const authHandlers = [
-  http.post("/api/v1/auth/login", async ({ request }) => {
+  http.post("*/api/v1/auth/login", async ({ request }) => {
     const url = new URL(request.url);
     const scenario = url.searchParams.get("scenario");
 
     if (scenario === "server-unavailable") {
       return HttpResponse.json(
         {
-          code: "server_unavailable",
+          code: "SERVER_UNAVAILABLE",
           message: "May chu Mina trong truong hien chua san sang.",
         },
         { status: 503 },
@@ -34,24 +30,31 @@ export const authHandlers = [
     if (!account) {
       return HttpResponse.json(
         {
-          code: "invalid_credentials",
+          code: "INVALID_CREDENTIALS",
           message: "Ten dang nhap hoac mat khau khong dung.",
         },
         { status: 401 },
       );
     }
 
-    return HttpResponse.json(account.session);
+    setMockActiveSession(account.session);
+
+    return HttpResponse.json(account.session, {
+      headers: {
+        "Set-Cookie": "mina_session=mock-cookie; HttpOnly; Path=/; SameSite=Lax",
+      },
+    });
   }),
 
-  http.get("/api/v1/auth/me", ({ request }) => {
+  http.get("*/api/v1/auth/me", ({ request }) => {
     const url = new URL(request.url);
     const scenario = url.searchParams.get("scenario");
 
     if (scenario === "session-expired") {
+      clearMockActiveSession();
       return HttpResponse.json(
         {
-          code: "session_expired",
+          code: "SESSION_EXPIRED",
           message: "Phien dang nhap da het han.",
         },
         { status: 401 },
@@ -61,32 +64,20 @@ export const authHandlers = [
     if (scenario === "server-unavailable") {
       return HttpResponse.json(
         {
-          code: "server_unavailable",
+          code: "SERVER_UNAVAILABLE",
           message: "May chu Mina trong truong hien chua san sang.",
         },
         { status: 503 },
       );
     }
 
-    const accessToken = getBearerToken(request.headers.get("authorization"));
-
-    if (!accessToken) {
-      return HttpResponse.json(
-        {
-          code: "session_expired",
-          message: "Phien dang nhap da het han.",
-        },
-        { status: 401 },
-      );
-    }
-
-    const session = findMockSessionByToken(accessToken);
+    const session = getMockActiveSession();
 
     if (!session) {
       return HttpResponse.json(
         {
-          code: "session_expired",
-          message: "Phien dang nhap da het han.",
+          code: "AUTH_REQUIRED",
+          message: "Ban can dang nhap de tiep tuc.",
         },
         { status: 401 },
       );
@@ -95,19 +86,13 @@ export const authHandlers = [
     return HttpResponse.json(session.user);
   }),
 
-  http.post("/api/v1/auth/logout", ({ request }) => {
-    const accessToken = getBearerToken(request.headers.get("authorization"));
-
-    if (!accessToken) {
-      return HttpResponse.json(
-        {
-          code: "session_expired",
-          message: "Phien dang nhap da het han.",
-        },
-        { status: 401 },
-      );
-    }
-
-    return new HttpResponse(null, { status: 204 });
+  http.post("*/api/v1/auth/logout", () => {
+    clearMockActiveSession();
+    return new HttpResponse(null, {
+      status: 204,
+      headers: {
+        "Set-Cookie": "mina_session=\"\"; HttpOnly; Max-Age=0; Path=/; SameSite=Lax",
+      },
+    });
   }),
 ];

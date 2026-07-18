@@ -1,19 +1,14 @@
 export const queryKeys = {
   health: ["health"] as const,
   auth: {
-    me: (accessToken: string | null) => ["auth", "me", accessToken] as const,
+    me: () => ["auth", "me"] as const,
   },
   diagnostic: {
-    session: (accessToken: string | null, sessionId: string) =>
-      ["diagnostic", "session", accessToken, sessionId] as const,
+    session: (sessionId: string) => ["diagnostic", "session", sessionId] as const,
   },
   student: {
-    home: (accessToken: string | null) => ["student", "home", accessToken] as const,
-    assignments: (
-      accessToken: string | null,
-      status?: string,
-      page = 1,
-      pageSize = 10,
-    ) => ["student", "assignments", accessToken, status ?? "all", page, pageSize] as const,
+    home: () => ["student", "home"] as const,
+    assignments: (status?: string, page = 1, pageSize = 10) =>
+      ["student", "assignments", status ?? "all", page, pageSize] as const,
   },
 };

@@ -1,8 +1,10 @@
 import type { AuthRepository } from "@/repositories/auth-repository";
 import type { AuthSession, AuthUser, LoginRequest } from "@/contracts/auth";
 import {
+  clearMockActiveSession,
   findMockAccountByCredentials,
-  findMockSessionByToken,
+  getMockActiveSession,
+  setMockActiveSession,
 } from "@/fixtures/auth";
 import { createApiError } from "@/lib/api/api-error";
 import { HttpRequestError } from "@/lib/api/http-client";
@@ -16,26 +18,27 @@ export const mockAuthRepository: AuthRepository = {
         new HttpRequestError(
           createApiError({
             status: 401,
-            code: "invalid_credentials",
+            code: "INVALID_CREDENTIALS",
             message: "Ten dang nhap hoac mat khau khong dung.",
           }),
         ),
       );
     }
 
+    setMockActiveSession(account.session);
     return Promise.resolve(account.session);
   },
 
-  getCurrentUser(accessToken: string): Promise<AuthUser> {
-    const session = findMockSessionByToken(accessToken);
+  getCurrentUser(): Promise<AuthUser> {
+    const session = getMockActiveSession();
 
     if (!session) {
       return Promise.reject(
         new HttpRequestError(
           createApiError({
             status: 401,
-            code: "session_expired",
-            message: "Phien dang nhap da het han.",
+            code: "AUTH_REQUIRED",
+            message: "Ban can dang nhap de tiep tuc.",
           }),
         ),
       );
@@ -45,6 +48,7 @@ export const mockAuthRepository: AuthRepository = {
   },
 
   async logout(): Promise<void> {
+    clearMockActiveSession();
     return Promise.resolve();
   },
 };

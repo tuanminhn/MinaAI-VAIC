@@ -1,21 +1,40 @@
 # Mina AI Frontend
 
-Frontend foundation for Mina AI using React, Vite, TypeScript, React Router, Tailwind CSS, shadcn-style primitives, TanStack Query, and MSW.
+Frontend cho Mina AI dùng React, Vite, TypeScript, React Router, Tailwind CSS, shadcn-style primitives, TanStack Query và Vitest.
 
-## Requirements
+## Yêu cầu
 
 - Node.js `>=20.12.0`
 - npm `>=10`
 
-## Install
+## Cài dependency
 
 ```bash
 npm install
 ```
 
-## Development
+## Chạy development
+
+Dùng MSW:
 
 ```bash
+VITE_ENABLE_MSW=true
+npm run dev
+```
+
+Dùng backend thật:
+
+```bash
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_ENABLE_MSW=false
+npm run dev
+```
+
+PowerShell:
+
+```powershell
+$env:VITE_API_BASE_URL="http://localhost:8000/api/v1"
+$env:VITE_ENABLE_MSW="false"
 npm run dev
 ```
 
@@ -25,33 +44,37 @@ npm run dev
 npm run build
 ```
 
+Production build sẽ xóa `mockServiceWorker.js` khỏi `dist`.
+
 ## Test
-
-```bash
-npm run test:run
-```
-
-## Typecheck and Lint
 
 ```bash
 npm run typecheck
 npm run lint
+npm run test:run
 ```
 
-## Environment Variables
+## Environment variables
 
-Copy `.env.example` to `.env` if needed.
+- `VITE_API_BASE_URL`: base URL của FastAPI backend
+- `VITE_ENABLE_MSW`: chỉ bật browser MSW trong development khi giá trị là `true`
 
-- `VITE_API_BASE_URL`: Base URL for the future FastAPI backend.
-- `VITE_ENABLE_MSW`: Enables browser MSW bootstrapping in development when set to `true`.
+## MSW boundary
 
-## MSW
+- Browser MSW chỉ chạy trong development
+- Test MSW nằm ở `src/test/setup.ts`
+- Mock handlers nằm trong `src/mocks/handlers`
+- Khi backend lỗi, frontend không fallback sang business fixture
 
-- Browser MSW starts only in development and only when `VITE_ENABLE_MSW=true`.
-- Test MSW is configured in `src/test/setup.ts`.
-- Mock handlers live under `src/mocks/handlers/`.
+## Auth boundary
 
-## Directory Structure
+- Frontend không lưu access token trong `localStorage` hoặc `sessionStorage`
+- Auth thật dùng cookie `HttpOnly` do backend set
+- Frontend luôn gọi request với `credentials: "include"`
+- Frontend route guards chỉ phục vụ UX
+- Backend vẫn phải enforce authentication và role
+
+## Cấu trúc chính
 
 ```text
 frontend/
@@ -70,28 +93,18 @@ frontend/
     test/
 ```
 
-## Architecture Boundary
-
-Keep this flow:
+## Boundary kiến trúc
 
 ```text
-Page -> Hook/Query -> Repository -> HTTP or Mock adapter
+Page -> Hook/Query -> Repository -> HTTP hoặc Mock adapter
 ```
 
-Pages must not import raw fixture data directly.
+Page không được import fixture trực tiếp.
 
-## Authentication Boundary
+## Chưa triển khai
 
-- FE-003 uses MSW fixtures and a mock token only for development and test flows.
-- Frontend route guards are for UX only; the future FastAPI backend must enforce authentication and role access.
-- The mock session store keeps only an access token in local storage.
-- Passwords are never stored or logged by the frontend.
-
-## Not Implemented Yet
-
-- Backend-enforced authentication
-- Backend integration
-- Student and teacher business screens
+- Backend business APIs cho assignments/diagnostic
+- Teacher dashboard thật
 - Charts
 - Dark mode
-- PWA/service worker
+- PWA

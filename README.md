@@ -1,481 +1,98 @@
-# MINA AI
+# Mina AI
 
-# 1. Tóm tắt dự án
+Mina AI là web app học thích ứng cho học sinh THCS và giáo viên Toán, tối ưu cho môi trường trường học, mạng LAN nội bộ và thiết bị cấu hình phổ thông.
 
-Mina AI là gia sư AI có khả năng tư vấn cho người học ở nhiều trình độ khác nhau. Hệ thống phân tích năng lực, tốc độ tiếp thu và kết quả học tập của từng người học để đề xuất bài học, bài tập và lộ trình phù hợp, đồng thời hỗ trợ giáo viên tạo nội dung cá nhân hóa và theo dõi tiến độ của cả lớp.
+## Thành phần hiện có
 
-## Giá trị cốt lõi
+- `frontend/`: React + Vite + TypeScript
+- `backend/`: FastAPI + PostgreSQL + Alembic
+- `docker-compose.yml`: PostgreSQL + backend container cho development
 
+## Quick start
 
+### 1. Backend
 
----
+```bash
+docker compose build backend
+docker compose up -d postgres backend
 
-# 2. Bài toán
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -e .[dev]
+alembic upgrade head
+python -m app.cli.seed_dev_users --reset-password
+```
 
-## Bối cảnh
+### 2. Frontend với backend thật
 
-Trong giáo dục phổ thông Việt Nam, vấn đề lớn không phải là thiếu nội dung học tập mà là sự chênh lệch năng lực giữa học sinh trong cùng một lớp học. Đặc biệt ở các khu vực khó khăn, một giáo viên phải phụ trách lớp khoảng 40 học sinh với trình độ và nền tảng kiến thức khác nhau. Điều này khiến học sinh yếu bị bỏ lại phía sau, trong khi học sinh khá giỏi không được phát huy hết khả năng.
+```bash
+cd frontend
+npm install
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_ENABLE_MSW=false
+npm run dev
+```
 
-## Đối tượng người dùng
+PowerShell:
 
-- Học sinh phổ thông
-- Giáo viên phổ thông
+```powershell
+$env:VITE_API_BASE_URL="http://localhost:8000/api/v1"
+$env:VITE_ENABLE_MSW="false"
+npm run dev
+```
 
-## Vấn đề gặp phải
+## Development mode với MSW
 
-- Học sinh trong cùng một lớp có nền tảng kiến thức và tốc độ tiếp thu khác nhau.
+Nếu chỉ muốn phát triển frontend độc lập:
 
-- Các ứng dụng học tập hiện nay chủ yếu cung cấp bài học theo một lộ trình cố định, chưa thực sự thích ứng với từng học sinh.
+```bash
+cd frontend
+VITE_ENABLE_MSW=true
+npm run dev
+```
 
-- Các giải pháp hiện tại chưa hỗ trợ giáo viên theo dõi, phân nhóm và xác định những nội dung cần được giảng dạy lại cho cả lớp.
+## Health check
 
+```bash
+curl http://localhost:8000/api/v1/health
+curl http://localhost:8000/api/v1/health/ready
+```
 
-## Bằng chứng
+## Test commands
 
-### Thống kê
+### Frontend
 
--
+```bash
+cd frontend
+npm run typecheck
+npm run lint
+npm run test:run
+npm run build
+```
 
-### Nghiên cứu
+### Backend
 
--
+```bash
+cd backend
+ruff check .
+ruff format --check .
+pytest -m "not postgres"
+pytest -m "integration and postgres"
+pytest
+```
 
-### Khảo sát / Phỏng vấn
+## Auth hiện tại
 
--
+- Backend xác thực username/password với Argon2
+- Session dùng cookie `HttpOnly`
+- PostgreSQL chỉ lưu `token_hash`, không lưu raw token
+- Frontend gọi `/api/v1/auth/me` để khôi phục phiên
+- Frontend không lưu token trong `localStorage`
 
-### Nguồn tham khảo
+## Lưu ý development
 
--
-
-## Hạn chế của các giải pháp hiện tại
-
--
-
--
-
--
-
----
-
-# 3. Mục tiêu
-
-## Mục tiêu của dự án
-
-- Chẩn đoán khoảng trống kiến thức gốc của từng học sinh (ví dụ: học sinh làm sai Toán lớp 7 do thiếu kiến thức về phân số từ lớp 5).
-
-- Tạo lộ trình luyện tập cá nhân hóa để bù đúng khoảng trống kiến thức đó.
-
-- Cung cấp bảng điều khiển (dashboard) cho giáo viên nhằm:
-
-    + Tự động phân nhóm học sinh theo nhu cầu hỗ trợ.
-    + Đề xuất học sinh cần được ưu tiên hỗ trợ.
-    + Phát hiện các lỗ hổng kiến thức chung của cả lớp để giáo viên giảng lại.
-
-- Hệ thống phải:
-    + Hoạt động ngoại tuyến (offline) hoặc trên kết nối Internet băng thông thấp.
-    + Nội dung học tập phải phù hợp với Chương trình Giáo dục Phổ thông 2018.
-
-## Chỉ số đánh giá thành công (KPI)
-
--
-
--
-
--
-
----
-
-# 4. Chân dung người dùng (User Persona)
-
-## Persona 1
-
-**Tên:**
-
-**Vai trò:**
-
-### Mục tiêu
-
--
-
-### Khó khăn
-
--
-
-### Quy trình hiện tại
-
--
-
----
-
-## Persona 2
-
-**Tên:**
-
-**Vai trò:**
-
-### Mục tiêu
-
--
-
-### Khó khăn
-
--
-
-### Quy trình hiện tại
-
--
-
----
-
-# 5. Hành trình người dùng (User Journey)
-
-## Quy trình hiện tại
-
-1.
-2.
-3.
-4.
-
-### Những điểm gây khó khăn
-
--
-
--
-
----
-
-## Quy trình sau khi sử dụng sản phẩm
-
-1.
-2.
-3.
-4.
-
-### Lợi ích
-
--
-
--
-
----
-
-# 6. Giải pháp đề xuất
-
-## Tổng quan
-
-(Mô tả giải pháp.)
-
-## Giá trị mang lại
-
--
-
--
-
-## Tại sao giải pháp này hiệu quả?
-
--
-
--
-
----
-
-# 7. Các tính năng chính
-
-| Tính năng | Mô tả | Mức độ ưu tiên |
-|------------|-------|----------------|
-| | | Cao |
-| | | Cao |
-| | | Trung bình |
-| | | Thấp |
-
----
-
-# 8. Thành phần AI
-
-| Chức năng | Công nghệ AI | Mô hình | Mục đích |
-|------------|--------------|----------|----------|
-| | | | |
-| | | | |
-| | | | |
-
----
-
-# 9. Kiến trúc hệ thống
-
-## Sơ đồ kiến trúc
-
-(Chèn sơ đồ)
-
-## Frontend
-
--
-
-## Backend
-
--
-
-## Cơ sở dữ liệu
-
--
-
-## AI
-
--
-
-## API
-
--
-
-## Hạ tầng triển khai
-
--
-
----
-
-# 10. Luồng hoạt động của hệ thống
-
-1.
-2.
-3.
-4.
-5.
-
----
-
-# 11. Nghiên cứu
-
-## Nghiên cứu về ngành
-
--
-
-## Nghiên cứu người dùng
-
--
-
-## Nghiên cứu thị trường
-
--
-
-## Nghiên cứu học thuật
-
--
-
----
-
-# 12. Phân tích đối thủ
-
-| Đối thủ | Điểm mạnh | Điểm yếu | Lợi thế của chúng tôi |
-|----------|-----------|----------|-----------------------|
-| | | | |
-| | | | |
-| | | | |
-
----
-
-# 13. Điểm đổi mới
-
-## Điều gì làm dự án khác biệt?
-
--
-
--
-
-## Vì sao cần AI?
-
--
-
--
-
----
-
-# 14. Phạm vi MVP
-
-## Những gì sẽ hoàn thành
-
--
-
--
-
--
-
-## Những gì chưa làm
-
--
-
--
-
--
-
----
-
-# 15. Công nghệ sử dụng
-
-## Frontend
-
--
-
-## Backend
-
--
-
-## Database
-
--
-
-## AI Models
-
--
-
-## Framework
-
--
-
-## Cloud / Triển khai
-
--
-
----
-
-# 16. Kế hoạch thực hiện
-
-## Giai đoạn nghiên cứu
-
--
-
-## Giai đoạn thiết kế
-
--
-
-## Giai đoạn phát triển
-
--
-
-## Giai đoạn kiểm thử
-
--
-
----
-
-# 17. Kịch bản Demo
-
-## Tình huống
-
--
-
-## Các bước Demo
-
-1.
-2.
-3.
-4.
-5.
-
----
-
-# 18. Thách thức và rủi ro
-
-| Rủi ro | Mức độ ảnh hưởng | Giải pháp |
-|---------|------------------|-----------|
-| | | |
-| | | |
-
----
-
-# 19. Định hướng phát triển
-
-## Sau Hackathon
-
-### 1 tháng
-
--
-
-### 3 tháng
-
--
-
-### 6 tháng
-
--
-
-### 1 năm
-
--
-
----
-
-# 20. Mô hình kinh doanh (Nếu có)
-
-## Khách hàng mục tiêu
-
--
-
-## Mô hình doanh thu
-
--
-
-## Chiến lược tiếp cận
-
--
-
-## Kế hoạch mở rộng
-
--
-
----
-
-# 21. Tác động xã hội
-
-## Giá trị mang lại
-
--
-
--
-
-## Đối tượng hưởng lợi
-
--
-
-## Khả năng mở rộng
-
--
-
----
-
-# 22. Tài liệu tham khảo
-
-## Báo cáo
-
--
-
-## Bài báo khoa học
-
--
-
-## Website
-
--
-
-## API / AI Models
-
--
-
----
-
-# PHỤ LỤC
-
-## Ý tưởng ban đầu
-
--
-
-## Ghi chú cuộc họp
-
--
-
-## Câu hỏi cần nghiên cứu
-
--
-
-## Link tham khảo
-
--
+- Không commit `backend/.env`
+- Không commit `frontend/dist` hoặc `frontend/node_modules`
+- Trong development, tránh trộn `localhost` và `127.0.0.1` khi test cookie/CORS
+- Trước rollout rộng hơn cần bổ sung HTTPS, rate limiting và các hardening security khác

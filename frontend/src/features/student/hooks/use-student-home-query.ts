@@ -4,13 +4,12 @@ import { queryKeys } from "@/lib/query/query-keys";
 import { httpStudentRepository } from "@/repositories/http-student-repository";
 
 export function useStudentHomeQuery() {
-  const { session } = useAuth();
-  const accessToken = session?.accessToken ?? null;
+  const { user } = useAuth();
 
   return useQuery({
-    queryKey: queryKeys.student.home(accessToken),
-    queryFn: ({ signal }) => httpStudentRepository.getHome(accessToken as string, signal),
-    enabled: Boolean(accessToken),
+    queryKey: queryKeys.student.home(),
+    queryFn: ({ signal }) => httpStudentRepository.getHome(signal),
+    enabled: Boolean(user),
     retry: 0,
   });
 }

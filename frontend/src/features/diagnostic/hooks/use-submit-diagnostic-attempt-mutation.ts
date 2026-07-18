@@ -3,7 +3,6 @@ import type {
   SubmitDiagnosticAttemptRequest,
   SubmitDiagnosticAttemptResponse,
 } from "@/contracts/diagnostic";
-import { useAuth } from "@/features/auth/hooks/use-auth";
 import { httpDiagnosticRepository } from "@/repositories/http-diagnostic-repository";
 
 type SubmitDiagnosticAttemptVariables = {
@@ -13,16 +12,13 @@ type SubmitDiagnosticAttemptVariables = {
 };
 
 export function useSubmitDiagnosticAttemptMutation() {
-  const { session } = useAuth();
-  const accessToken = session?.accessToken ?? null;
-
   return useMutation<
     SubmitDiagnosticAttemptResponse,
     Error,
     SubmitDiagnosticAttemptVariables
   >({
     mutationFn: ({ sessionId, input, signal }) =>
-      httpDiagnosticRepository.submitAttempt(sessionId, accessToken as string, input, signal),
+      httpDiagnosticRepository.submitAttempt(sessionId, input, signal),
     retry: 0,
   });
 }

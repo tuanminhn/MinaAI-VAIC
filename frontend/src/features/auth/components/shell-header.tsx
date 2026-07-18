@@ -1,6 +1,6 @@
+import { LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useLogoutMutation } from "@/features/auth/hooks/use-auth-mutations";

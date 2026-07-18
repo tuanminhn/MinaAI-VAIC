@@ -99,6 +99,7 @@ export async function httpRequest<TResponse>(
       method,
       headers: requestHeaders,
       body: requestBody,
+      credentials: "include",
       signal,
     });
   } catch (error) {

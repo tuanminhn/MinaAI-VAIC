@@ -2,7 +2,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { BookOpenText } from "lucide-react";
 import { AppErrorFallback } from "@/components/feedback/app-error-fallback";
 import { EmptyState } from "@/components/feedback/empty-state";
-import { useAuth } from "@/features/auth/hooks/use-auth";
 import { AssignmentCard } from "@/features/student/components/assignment-card";
 import { StudentAssignmentsSkeleton } from "@/features/student/components/student-assignments-skeleton";
 import { useStudentAssignmentsQuery } from "@/features/student/hooks/use-student-assignments-query";
@@ -10,7 +9,6 @@ import { queryKeys } from "@/lib/query/query-keys";
 
 export function StudentAssignmentsView(): JSX.Element {
   const queryClient = useQueryClient();
-  const { session } = useAuth();
   const assignmentsQuery = useStudentAssignmentsQuery({ page: 1, pageSize: 10 });
 
   if (assignmentsQuery.isPending) {
@@ -24,7 +22,7 @@ export function StudentAssignmentsView(): JSX.Element {
         description="Chưa thể tải bài được giao từ máy chủ Mina trong trường. Hãy kiểm tra kết nối Wi-Fi nội bộ hoặc thử lại."
         onRetry={() => {
           void queryClient.invalidateQueries({
-            queryKey: queryKeys.student.assignments(session?.accessToken ?? null, undefined, 1, 10),
+            queryKey: queryKeys.student.assignments(undefined, 1, 10),
           });
         }}
       />

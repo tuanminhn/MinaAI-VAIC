@@ -1,10 +1,9 @@
 import { type PropsWithChildren, useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AuthSession, LoginRequest } from "@/contracts/auth";
 import { AppLoading } from "@/components/feedback/app-loading";
 import { getSessionRestoreNotice } from "@/features/auth/hooks/auth-error-messages";
 import { AuthContext } from "@/features/auth/hooks/auth-context";
-import { authSessionStorage } from "@/features/auth/hooks/auth-session-storage";
 import type { AuthNotice } from "@/features/auth/types/auth-notice";
 import type { AuthContextValue, AuthStatus } from "@/features/auth/types/auth-context";
 import { isApiError } from "@/lib/api/api-error";
@@ -13,21 +12,29 @@ import { queryKeys } from "@/lib/query/query-keys";
 import { httpAuthRepository } from "@/repositories/http-auth-repository";
 
 export function AuthProvider({ children }: PropsWithChildren): JSX.Element {
+  const queryClient = useQueryClient();
   const [session, setSession] = useState<AuthSession | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(() =>
-    authSessionStorage.getAccessToken(),
-  );
+  const [restoredSession, setRestoredSession] = useState<AuthSession | null>(null);
+  const [hasResolvedRestore, setHasResolvedRestore] = useState(false);
   const [notice, setNotice] = useState<AuthNotice | null>(null);
 
   const restoreQuery = useQuery({
-    queryKey: queryKeys.auth.me(accessToken),
-    queryFn: ({ signal }) => httpAuthRepository.getCurrentUser(accessToken as string, signal),
-    enabled: Boolean(accessToken) && !session,
+    queryKey: queryKeys.auth.me(),
+    queryFn: ({ signal }) => httpAuthRepository.getCurrentUser(signal),
     retry: 0,
   });
 
   useEffect(() => {
-    if (!restoreQuery.error || !accessToken) {
+    if (!restoreQuery.data) {
+      return;
+    }
+
+    setRestoredSession({ user: restoreQuery.data });
+    setHasResolvedRestore(true);
+  }, [restoreQuery.data]);
+
+  useEffect(() => {
+    if (!restoreQuery.error) {
       return;
     }
 
@@ -38,9 +45,15 @@ export function AuthProvider({ children }: PropsWithChildren): JSX.Element {
           ? restoreQuery.error
           : null;
 
-    authSessionStorage.clear();
-    setAccessToken(null);
     setSession(null);
+    setRestoredSession(null);
+    setHasResolvedRestore(true);
+
+    if (apiError?.code === "AUTH_REQUIRED") {
+      setNotice(null);
+      return;
+    }
+
     setNotice(
       apiError
         ? getSessionRestoreNotice(apiError)
@@ -50,57 +63,54 @@ export function AuthProvider({ children }: PropsWithChildren): JSX.Element {
             variant: "warning",
           },
     );
-  }, [accessToken, restoreQuery.error]);
+  }, [restoreQuery.error]);
 
   const activeSession = useMemo(
-    () =>
-      session ??
-      (accessToken && restoreQuery.data
-        ? {
-            user: restoreQuery.data,
-            accessToken,
-          }
-        : null),
-    [accessToken, restoreQuery.data, session],
+    () => session ?? restoredSession,
+    [restoredSession, session],
   );
 
-  const status: AuthStatus =
-    accessToken && !activeSession && (restoreQuery.isPending || restoreQuery.isFetching)
-      ? "restoring"
-      : activeSession
-        ? "authenticated"
-        : "unauthenticated";
+  const status: AuthStatus = !hasResolvedRestore || restoreQuery.isPending
+    ? "restoring"
+    : activeSession
+      ? "authenticated"
+      : "unauthenticated";
 
-  const signIn = useCallback(async (input: LoginRequest): Promise<AuthSession> => {
-    const nextSession = await httpAuthRepository.login(input);
-    authSessionStorage.setAccessToken(nextSession.accessToken);
-    setAccessToken(nextSession.accessToken);
-    setSession(nextSession);
-    setNotice(null);
-    return nextSession;
-  }, []);
+  const signIn = useCallback(
+    async (input: LoginRequest): Promise<AuthSession> => {
+      const nextSession = await httpAuthRepository.login(input);
+      setSession(nextSession);
+      setRestoredSession(nextSession);
+      setHasResolvedRestore(true);
+      queryClient.setQueryData(queryKeys.auth.me(), nextSession.user);
+      setNotice(null);
+      return nextSession;
+    },
+    [queryClient],
+  );
 
   const signOut = useCallback(async (): Promise<void> => {
-    const currentAccessToken = activeSession?.accessToken ?? accessToken;
-
     try {
-      if (currentAccessToken) {
-        await httpAuthRepository.logout(currentAccessToken);
-      }
+      await httpAuthRepository.logout();
     } finally {
-      authSessionStorage.clear();
-      setAccessToken(null);
       setSession(null);
+      setRestoredSession(null);
+      setHasResolvedRestore(true);
       setNotice(null);
+      queryClient.removeQueries({ queryKey: queryKeys.auth.me() });
     }
-  }, [accessToken, activeSession?.accessToken]);
+  }, [queryClient]);
 
-  const resetSession = useCallback((nextNotice?: AuthNotice): void => {
-    authSessionStorage.clear();
-    setAccessToken(null);
-    setSession(null);
-    setNotice(nextNotice ?? null);
-  }, []);
+  const resetSession = useCallback(
+    (nextNotice?: AuthNotice): void => {
+      setSession(null);
+      setRestoredSession(null);
+      setHasResolvedRestore(true);
+      queryClient.removeQueries({ queryKey: queryKeys.auth.me() });
+      setNotice(nextNotice ?? null);
+    },
+    [queryClient],
+  );
 
   const clearNotice = useCallback((): void => {
     setNotice(null);

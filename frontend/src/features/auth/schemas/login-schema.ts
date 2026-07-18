@@ -12,13 +12,12 @@ const authUserSchema = z.object({
   id: z.string(),
   displayName: z.string(),
   role: z.enum(["student", "teacher"]),
-  schoolName: z.string().optional(),
-  classroomName: z.string().optional(),
+  schoolName: z.string().nullable().optional().transform((value) => value ?? undefined),
+  classroomName: z.string().nullable().optional().transform((value) => value ?? undefined),
 });
 
 export const authSessionSchema: z.ZodType<AuthSession> = z.object({
   user: authUserSchema,
-  accessToken: z.string(),
 });
 
 export const authUserSchemaForApi = authUserSchema;

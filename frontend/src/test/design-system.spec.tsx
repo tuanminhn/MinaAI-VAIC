@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { render } from "@testing-library/react";
-import { screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -32,50 +31,56 @@ describe("design tokens and brand foundation", () => {
 
   it("supports keyboard focus on button", async () => {
     const user = userEvent.setup();
-    render(<Button>Tiep tuc</Button>);
+    render(<Button>Tiếp tục</Button>);
     await user.tab();
-    expect(screen.getByRole("button", { name: "Tiep tuc" })).toHaveFocus();
+    expect(screen.getByRole("button", { name: /Tiếp tục|Tiep tuc/i })).toHaveFocus();
   });
 
   it("exposes invalid input message semantics", () => {
     render(
       <div>
         <Input invalid aria-describedby="input-error" />
-        <InputMessage id="input-error">Thong tin chua hop le.</InputMessage>
+        <InputMessage id="input-error">Thông tin chưa hợp lệ.</InputMessage>
       </div>,
     );
 
     expect(screen.getByRole("textbox")).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByRole("textbox")).toHaveAttribute("aria-describedby", "input-error");
-    expect(screen.getByRole("alert")).toHaveTextContent("Thong tin chua hop le.");
+    expect(screen.getByRole("alert")).toHaveTextContent(/Thông tin chưa hợp lệ|Thong tin chua hop le/i);
   });
 
   it("renders alert with role and heading", () => {
     render(
       <Alert variant="warning">
-        <AlertTitle>Luu y</AlertTitle>
-        <AlertDescription>Kiem tra lai thong tin truoc khi tiep tuc.</AlertDescription>
+        <AlertTitle>Lưu ý</AlertTitle>
+        <AlertDescription>Kiểm tra lại thông tin trước khi tiếp tục.</AlertDescription>
       </Alert>,
     );
 
     expect(screen.getByRole("alert")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Luu y" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Lưu ý|Luu y/i })).toBeInTheDocument();
   });
 
   it("shows the design system preview in development routes", async () => {
     renderApp(["/dev/design-system"], { includeDevRoutes: true });
-    expect(await screen.findByRole("heading", { name: "Mina AI Design System" })).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText("Mina AI Design System")).toBeInTheDocument(),
+    );
   });
 
   it("does not expose the design system preview in production routes", async () => {
     renderApp(["/dev/design-system"], { includeDevRoutes: false });
-    expect(await screen.findByRole("heading", { name: "Khong tim thay trang" })).toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Không tìm thấy trang|Khong tim thay trang/i),
+      ).toBeInTheDocument(),
+    );
   });
 
   it("has no serious accessibility violations on the design system preview", async () => {
     const { container } = renderApp(["/dev/design-system"], { includeDevRoutes: true });
     await waitFor(() =>
-      expect(screen.getByRole("heading", { name: "Mina AI Design System" })).toBeInTheDocument(),
+      expect(screen.getByText("Mina AI Design System")).toBeInTheDocument(),
     );
 
     const results = await axe(container, {

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { AppErrorFallback } from "@/components/feedback/app-error-fallback";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { buttonVariants } from "@/components/ui/button.variants";
-import { useAuth } from "@/features/auth/hooks/use-auth";
 import { AssignmentCard } from "@/features/student/components/assignment-card";
 import { StudentHomeSkeleton } from "@/features/student/components/student-home-skeleton";
 import { useStudentHomeQuery } from "@/features/student/hooks/use-student-home-query";
@@ -13,7 +12,6 @@ import { cn } from "@/lib/utils/cn";
 
 export function StudentHomeView(): JSX.Element {
   const queryClient = useQueryClient();
-  const { session } = useAuth();
   const homeQuery = useStudentHomeQuery();
 
   if (homeQuery.isPending) {
@@ -26,9 +24,7 @@ export function StudentHomeView(): JSX.Element {
         title="Chưa thể tải bài được giao"
         description="Chưa thể tải bài được giao từ máy chủ Mina trong trường. Hãy kiểm tra kết nối Wi-Fi nội bộ hoặc thử lại."
         onRetry={() => {
-          void queryClient.invalidateQueries({
-            queryKey: queryKeys.student.home(session?.accessToken ?? null),
-          });
+          void queryClient.invalidateQueries({ queryKey: queryKeys.student.home() });
         }}
       />
     );

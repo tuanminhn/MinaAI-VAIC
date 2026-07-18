@@ -10,12 +10,6 @@ import {
 import { httpRequest } from "@/lib/api/http-client";
 import type { StudentRepository } from "@/repositories/student-repository";
 
-function createStudentRequestHeaders(accessToken: string): HeadersInit {
-  return {
-    Authorization: `Bearer ${accessToken}`,
-  };
-}
-
 function buildAssignmentsPath(query: StudentAssignmentsQuery = {}): string {
   const searchParams = new URLSearchParams();
 
@@ -36,23 +30,16 @@ function buildAssignmentsPath(query: StudentAssignmentsQuery = {}): string {
 }
 
 export const httpStudentRepository: StudentRepository = {
-  async getHome(accessToken: string, signal?: AbortSignal): Promise<StudentHomeResponse> {
-    const response = await httpRequest<unknown>("/student/home", {
-      headers: createStudentRequestHeaders(accessToken),
-      signal,
-    });
+  async getHome(signal?: AbortSignal): Promise<StudentHomeResponse> {
+    const response = await httpRequest<unknown>("/student/home", { signal });
     return studentHomeResponseSchema.parse(response);
   },
 
   async listAssignments(
-    accessToken: string,
     query: StudentAssignmentsQuery = {},
     signal?: AbortSignal,
   ): Promise<StudentAssignmentsResponse> {
-    const response = await httpRequest<unknown>(buildAssignmentsPath(query), {
-      headers: createStudentRequestHeaders(accessToken),
-      signal,
-    });
+    const response = await httpRequest<unknown>(buildAssignmentsPath(query), { signal });
     return studentAssignmentsResponseSchema.parse(response);
   },
 };

@@ -7,7 +7,7 @@ type MockAccount = {
 
 const studentUser: AuthUser = {
   id: "student-001",
-  displayName: "Nguyễn Hà Linh",
+  displayName: "Nguyen Ha Linh",
   role: "student",
   schoolName: "THCS Minh Khai",
   classroomName: "6A1",
@@ -15,7 +15,7 @@ const studentUser: AuthUser = {
 
 const teacherUser: AuthUser = {
   id: "teacher-001",
-  displayName: "Cô Trần Thu Hà",
+  displayName: "Co Tran Thu Ha",
   role: "teacher",
   schoolName: "THCS Minh Khai",
 };
@@ -28,7 +28,6 @@ export const mockAuthAccounts: MockAccount[] = [
     },
     session: {
       user: studentUser,
-      accessToken: "mock-token-student-001",
     },
   },
   {
@@ -38,10 +37,11 @@ export const mockAuthAccounts: MockAccount[] = [
     },
     session: {
       user: teacherUser,
-      accessToken: "mock-token-teacher-001",
     },
   },
 ];
+
+let activeMockSession: AuthSession | null = null;
 
 export function findMockAccountByCredentials(
   credentials: LoginRequest,
@@ -53,6 +53,19 @@ export function findMockAccountByCredentials(
   );
 }
 
-export function findMockSessionByToken(token: string): AuthSession | undefined {
-  return mockAuthAccounts.find((account) => account.session.accessToken === token)?.session;
+export function getMockActiveSession(): AuthSession | null {
+  return activeMockSession;
+}
+
+export function setMockActiveSession(session: AuthSession | null): void {
+  activeMockSession = session;
+}
+
+export function setMockActiveSessionForUserId(userId: string): void {
+  activeMockSession =
+    mockAuthAccounts.find((account) => account.session.user.id === userId)?.session ?? null;
+}
+
+export function clearMockActiveSession(): void {
+  activeMockSession = null;
 }

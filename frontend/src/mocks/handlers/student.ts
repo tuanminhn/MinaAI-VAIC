@@ -1,7 +1,6 @@
 import { HttpResponse, http } from "msw";
-import type { AuthSession } from "@/contracts/auth";
 import type { StudentAssignmentsQuery } from "@/contracts/student";
-import { findMockSessionByToken } from "@/fixtures/auth";
+import { getMockActiveSession } from "@/fixtures/auth";
 import {
   getMockEmptyStudentAssignmentsResponse,
   getMockEmptyStudentHomeResponse,
@@ -9,36 +8,19 @@ import {
   getMockStudentHomeResponse,
 } from "@/fixtures/student";
 
-function getBearerToken(headerValue: string | null): string | null {
-  if (!headerValue) {
-    return null;
-  }
-
-  const [scheme, token] = headerValue.split(" ");
-  return scheme === "Bearer" && token ? token : null;
-}
-
-function getStudentSessionFromRequest(request: Request): AuthSession | null {
-  const accessToken = getBearerToken(request.headers.get("authorization"));
-
-  if (!accessToken) {
-    return null;
-  }
-
-  const session = findMockSessionByToken(accessToken);
-
+function getStudentSession() {
+  const session = getMockActiveSession();
   if (!session || session.user.role !== "student") {
     return null;
   }
-
   return session;
 }
 
 function createUnauthorizedResponse() {
   return HttpResponse.json(
     {
-      code: "session_expired",
-      message: "Phiên đăng nhập đã hết hạn.",
+      code: "SESSION_EXPIRED",
+      message: "Phien dang nhap da het han.",
     },
     { status: 401 },
   );
@@ -58,19 +40,19 @@ function parseAssignmentsQuery(request: Request): StudentAssignmentsQuery {
 }
 
 export const studentHandlers = [
-  http.get("/api/v1/student/home", ({ request }) => {
+  http.get("*/api/v1/student/home", ({ request }) => {
     const url = new URL(request.url);
     const scenario = url.searchParams.get("scenario");
 
-    if (!getStudentSessionFromRequest(request)) {
+    if (!getStudentSession()) {
       return createUnauthorizedResponse();
     }
 
     if (scenario === "server-unavailable") {
       return HttpResponse.json(
         {
-          code: "server_unavailable",
-          message: "Máy chủ Mina trong trường hiện chưa sẵn sàng.",
+          code: "SERVER_UNAVAILABLE",
+          message: "May chu Mina trong truong hien chua san sang.",
         },
         { status: 503 },
       );
@@ -83,19 +65,19 @@ export const studentHandlers = [
     return HttpResponse.json(getMockStudentHomeResponse());
   }),
 
-  http.get("/api/v1/student/assignments", ({ request }) => {
+  http.get("*/api/v1/student/assignments", ({ request }) => {
     const url = new URL(request.url);
     const scenario = url.searchParams.get("scenario");
 
-    if (!getStudentSessionFromRequest(request)) {
+    if (!getStudentSession()) {
       return createUnauthorizedResponse();
     }
 
     if (scenario === "server-unavailable") {
       return HttpResponse.json(
         {
-          code: "server_unavailable",
-          message: "Máy chủ Mina trong trường hiện chưa sẵn sàng.",
+          code: "SERVER_UNAVAILABLE",
+          message: "May chu Mina trong truong hien chua san sang.",
         },
         { status: 503 },
       );
