@@ -9,13 +9,13 @@ Dự án đang ở giai đoạn **product discovery / pre-code**. Chưa bắt đ
 ## Beachhead và phạm vi MVP
 
 - Người dùng chính: giáo viên Toán THCS và học sinh trong lớp của họ.
-- Phạm vi dữ liệu MVP: duy nhất **SGK Kết nối tri thức với cuộc sống, môn Toán lớp 7 và lớp 8**.
+- Phạm vi dữ liệu MVP: duy nhất **SGK Kết nối tri thức với cuộc sống, môn Toán lớp 6 và lớp 7**.
 - Knowledge graph, câu hỏi, misconception và nội dung remediation của MVP chỉ được tạo từ phạm vi dữ liệu này.
 - Nền tảng: web app/PWA cho giáo viên và học sinh.
 - Điều kiện vận hành: hỗ trợ mạng yếu và học sinh tiếp tục làm nhiệm vụ đã tải khi offline.
 - Chuẩn nội dung: Chương trình GDPT 2018 theo cấu trúc chương/bài của bộ Kết nối tri thức.
 
-Ngoài MVP: dữ liệu lớp 1–6 hoặc lớp 9–12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
+Ngoài MVP: dữ liệu lớp 1–5 hoặc lớp 8–12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
 
 ## Giá trị cốt lõi
 

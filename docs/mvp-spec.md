@@ -12,11 +12,11 @@ MVP **không** nhằm chứng minh Mina AI dạy thay giáo viên hoặc chẩn 
 | --- | --- |
 | Bộ sách | **Kết nối tri thức với cuộc sống** |
 | Môn | **Toán** |
-| Khối | **Lớp 7 và lớp 8** |
+| Khối | **Lớp 6 và lớp 7** |
 | Nguồn dữ liệu | SGK/học liệu được phép sử dụng thuộc đúng bộ sách, môn và khối trên |
-| Đầu ra được tạo | Canonical skills, curriculum mappings, prerequisite edges, misconceptions, questions, remediation và transfer tests trong phạm vi lớp 7–8 |
+| Đầu ra được tạo | Canonical skills, curriculum mappings, prerequisite edges, misconceptions, questions, remediation và transfer tests trong phạm vi lớp 6–7 |
 
-MVP không ingest, trích xuất, ánh xạ hoặc phục vụ dữ liệu từ bộ Cánh diều, Chân trời sáng tạo, môn khác hay khối ngoài lớp 7–8. Diagnostic chỉ được truy ngược qua các skill đã duyệt nằm trong dataset này. Nếu nguyên nhân có thể thuộc kiến thức lớp 6 trở xuống, hệ thống trả về `outside_mvp_scope` hoặc `insufficient_evidence`, không tự suy đoán một skill chưa có dữ liệu.
+MVP không ingest, trích xuất, ánh xạ hoặc phục vụ dữ liệu từ bộ Cánh diều, Chân trời sáng tạo, môn khác hay khối ngoài lớp 6–7. Diagnostic chỉ được truy ngược qua các skill đã duyệt nằm trong dataset này. Nếu nguyên nhân có thể thuộc kiến thức lớp 5 trở xuống, hệ thống trả về `outside_mvp_scope` hoặc `insufficient_evidence`, không tự suy đoán một skill chưa có dữ liệu.
 
 ## 2. Vai trò và quyền
 
@@ -32,7 +32,7 @@ MVP không ingest, trích xuất, ánh xạ hoặc phục vụ dữ liệu từ 
 ### P0 — phải có để chạy luồng end-to-end
 
 - Lớp học, mã lớp và danh sách học sinh pseudonymous.
-- Knowledge graph Toán 7–8 Kết nối tri thức đã duyệt; question bank có misconception mapping.
+- Knowledge graph Toán 6–7 Kết nối tri thức đã duyệt; question bank có misconception mapping.
 - Tạo và giao diagnostic.
 - Học sinh làm bài, lưu attempt và tiếp tục sau khi mất mạng nếu nhiệm vụ đã tải.
 - Rule-based root-cause diagnosis với evidence, confidence và trạng thái “chưa đủ dữ liệu”.
@@ -56,13 +56,13 @@ MVP không ingest, trích xuất, ánh xạ hoặc phục vụ dữ liệu từ 
 - Dashboard tổ/trường, thanh toán, parent summary.
 - School offline hub, nhiều môn/khối, authoring CMS đầy đủ.
 - Chatbot tự do hoặc sinh bài tự động ở quy mô lớn.
-- Dữ liệu bộ Cánh diều, Chân trời sáng tạo hoặc bất kỳ khối nào ngoài lớp 7–8.
+- Dữ liệu bộ Cánh diều, Chân trời sáng tạo hoặc bất kỳ khối nào ngoài lớp 6–7.
 
 ## 4. Quy tắc nghiệp vụ chung
 
 - Mọi diagnosis phải có `target_skill`, `root_cause_skill`, `confidence`, `evidence`, `status` và version của graph/rule/content.
 - Khi evidence không đạt ngưỡng tối thiểu, trả về “chưa đủ dữ liệu” và câu hỏi thăm dò tiếp theo; không ép kết luận.
-- Khi prerequisite cần thiết nằm ngoài Toán 7–8 Kết nối tri thức, trả về `outside_mvp_scope`; không tạo node hoặc nội dung ngoài dataset để lấp khoảng trống.
+- Khi prerequisite cần thiết nằm ngoài Toán 6–7 Kết nối tri thức, trả về `outside_mvp_scope`; không tạo node hoặc nội dung ngoài dataset để lấp khoảng trống.
 - Giáo viên có thể chấp nhận, sửa hoặc bác diagnosis; quyết định này không xóa output gốc.
 - Remediation chỉ được dùng nội dung trạng thái `approved` và tương thích content-pack version.
 - Một gap chỉ “closed” khi hoàn thành remediation, đạt transfer test và đạt retention check theo cấu hình pilot. Nếu chưa chạy retention check, dùng trạng thái `provisionally_closed`.
@@ -91,7 +91,7 @@ Acceptance criteria:
 
 - Chỉ chọn được question/content version đã duyệt.
 - Trước khi giao, hiển thị chủ đề, số câu, thời lượng dự kiến, phạm vi prerequisite và dung lượng tải offline.
-- Giáo viên chỉ có thể chọn nội dung Toán lớp 7 hoặc lớp 8 thuộc Kết nối tri thức; MVP không hiển thị bộ sách/môn/khối khác để lựa chọn.
+- Giáo viên chỉ có thể chọn nội dung Toán lớp 6 hoặc lớp 7 thuộc Kết nối tri thức; MVP không hiển thị bộ sách/môn/khối khác để lựa chọn.
 - Assignment giữ snapshot/version để thay đổi học liệu sau này không làm đổi bài đã giao.
 - Có trạng thái draft, scheduled/assigned, active, closed.
 
@@ -116,7 +116,7 @@ Acceptance criteria:
 - Với cùng input + cùng version, engine trả kết quả xác định (deterministic).
 - Kết quả liệt kê evidence dễ đọc và liên kết tới attempts liên quan.
 - Có confidence đã hiệu chỉnh và trạng thái `insufficient_evidence`.
-- Có trạng thái `outside_mvp_scope` khi không thể chẩn đoán tiếp bằng dataset Toán 7–8 Kết nối tri thức.
+- Có trạng thái `outside_mvp_scope` khi không thể chẩn đoán tiếp bằng dataset Toán 6–7 Kết nối tri thức.
 - Không gọi LLM trên critical path chẩn đoán.
 - Mọi thay đổi rule/graph có version và test fixture hồi quy.
 - Giáo viên có thể override và chọn lý do; audit giữ cả hai kết quả.
