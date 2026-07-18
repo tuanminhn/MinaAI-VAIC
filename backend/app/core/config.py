@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     log_level: str = Field(default="INFO", validation_alias="LOG_LEVEL")
     cors_origins: Annotated[list[str], NoDecode] = Field(validation_alias="CORS_ORIGINS")
     auth_cookie_name: str = Field(default="mina_session", validation_alias="AUTH_COOKIE_NAME")
-    auth_session_ttl_minutes: int = Field(default=480, validation_alias="AUTH_SESSION_TTL_MINUTES")
+    auth_session_ttl_minutes: int = Field(default=60, validation_alias="AUTH_SESSION_TTL_MINUTES")
     auth_cookie_secure: bool = Field(default=False, validation_alias="AUTH_COOKIE_SECURE")
     auth_cookie_samesite: str = Field(default="lax", validation_alias="AUTH_COOKIE_SAMESITE")
     dev_student_username: str | None = Field(default=None, validation_alias="DEV_STUDENT_USERNAME")

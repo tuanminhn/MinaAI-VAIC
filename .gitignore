@@ -1,8 +1,61 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+credentials.json
+service-account*.json
+secrets.*
+
+# Python
 backend/.venv/
 backend/.pytest_cache/
 backend/.ruff_cache/
 backend/*.egg-info/
 backend/**/__pycache__/
-backend/.env
+*.py[cod]
+.coverage
+htmlcov/
+
+# Frontend
 frontend/node_modules/
 frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+
+# Logs and runtime files
+*.log
+*.out
+*.pid
+*.cookies
+mina.cookies
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local databases and backups
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# Temporary files
+.cache/
+tmp/
+temp/
+*.tmp
