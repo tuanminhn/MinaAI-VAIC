@@ -1,0 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./typography.css";
+@import "./base.css";
+@import "./utilities.css";
