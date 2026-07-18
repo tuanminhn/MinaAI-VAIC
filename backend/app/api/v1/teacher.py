@@ -19,6 +19,11 @@ from app.schemas.teacher import (
     TeacherClassesResponse,
     TeacherLearningSessionEvidenceResponse,
     TeacherStudentsResponse,
+    TeacherInterventionsResponse,
+    TeacherStudentProfileResponse,
+    TeacherSupportGroupsResponse,
+    TeacherCreateAssignmentRequest,
+    TeacherCreateAssignmentResponse,
 )
 from app.services.teacher_analytics_service import TeacherAnalyticsService
 from app.services.teacher_class_service import TeacherClassService
@@ -103,6 +108,16 @@ def teacher_class_assignments(
     )
 
 
+@router.post("/classes/{class_id}/assignments", response_model=TeacherCreateAssignmentResponse, status_code=201)
+def teacher_create_assignment(
+    class_id: uuid.UUID,
+    payload: TeacherCreateAssignmentRequest,
+    current_user: User = Depends(require_teacher),  # noqa: B008
+    db: Session = Depends(get_db),  # noqa: B008
+) -> TeacherCreateAssignmentResponse:
+    return get_teacher_analytics_service(db).create_assignment(user=current_user, class_id=class_id, payload=payload)
+
+
 @router.get(
     "/assignments/{assignment_id}/overview",
     response_model=TeacherAssignmentOverviewResponse,
@@ -164,4 +179,31 @@ def teacher_learning_session(
     return get_teacher_analytics_service(db).get_learning_session_evidence(
         user=current_user,
         session_id=session_id,
+    )
+
+
+@router.get("/support-groups", response_model=TeacherSupportGroupsResponse)
+def teacher_support_groups(
+    current_user: User = Depends(require_teacher),  # noqa: B008
+    db: Session = Depends(get_db),  # noqa: B008
+) -> TeacherSupportGroupsResponse:
+    return get_teacher_analytics_service(db).list_support_groups(user=current_user)
+
+
+@router.get("/interventions", response_model=TeacherInterventionsResponse)
+def teacher_interventions(
+    current_user: User = Depends(require_teacher),  # noqa: B008
+    db: Session = Depends(get_db),  # noqa: B008
+) -> TeacherInterventionsResponse:
+    return get_teacher_analytics_service(db).list_interventions(user=current_user)
+
+
+@router.get("/students/{student_id}/profile", response_model=TeacherStudentProfileResponse)
+def teacher_student_profile(
+    student_id: uuid.UUID,
+    current_user: User = Depends(require_teacher),  # noqa: B008
+    db: Session = Depends(get_db),  # noqa: B008
+) -> TeacherStudentProfileResponse:
+    return get_teacher_analytics_service(db).get_student_profile(
+        user=current_user, student_id=student_id
     )

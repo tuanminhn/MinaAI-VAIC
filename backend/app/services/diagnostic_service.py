@@ -32,6 +32,7 @@ from app.services.diagnostic_state_machine import (
     EvaluationSnapshot,
 )
 from app.services.skill_graph_service import SkillGraphService
+from app.services.mastery_service import record_skill_evidence
 
 QUESTION_LIMIT_PER_SKILL = 2
 
@@ -243,6 +244,13 @@ class DiagnosticService:
                 sequence_number=self.diagnostic_repository.get_attempt_count(session.id) + 1,
                 is_correct=bool(selected_option.is_correct),
             )
+        )
+        record_skill_evidence(
+            self.diagnostic_repository.session,
+            student_user_id=user.id,
+            skill_id=current_evaluation.skill_id,
+            is_correct=attempt.is_correct,
+            phase="diagnostic",
         )
 
         current_evaluation.answered_count += 1

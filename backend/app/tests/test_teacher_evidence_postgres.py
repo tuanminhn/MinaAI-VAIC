@@ -163,23 +163,32 @@ def create_second_student_recipient() -> None:
         session.flush()
         classroom_id = session.execute(text("SELECT id FROM classrooms LIMIT 1")).scalar_one()
         assignment_id = session.execute(text("SELECT id FROM assignments LIMIT 1")).scalar_one()
-        session.add(
-            ClassroomMembership(
-                classroom_id=classroom_id,
-                user_id=student.id,
-                membership_role="student",
-                is_primary=False,
+        session.add(ClassroomMembership(
+            classroom_id=classroom_id, user_id=student.id,
+            membership_role="student", is_primary=False,
+        ))
+        session.add(AssignmentRecipient(
+            assignment_id=assignment_id, student_user_id=student.id,
+            status="not_started", progress_completed=0, progress_total=0,
+        ))
+
+
+def expand_class_to_40_students() -> None:
+    with session_scope() as session:
+        classroom_id = session.execute(text("SELECT id FROM classrooms LIMIT 1")).scalar_one()
+        auth_service = AuthService(session)
+        for index in range(2, 41):
+            student = auth_service.create_user(
+                username=f"capacity-student-{index:02d}",
+                display_name=f"Học sinh {index:02d}",
+                role="student",
+                password="capacity-test-password",
             )
-        )
-        session.add(
-            AssignmentRecipient(
-                assignment_id=assignment_id,
-                student_user_id=student.id,
-                status="not_started",
-                progress_completed=0,
-                progress_total=0,
-            )
-        )
+            session.flush()
+            session.add(ClassroomMembership(
+                classroom_id=classroom_id, user_id=student.id,
+                membership_role="student", is_primary=False,
+            ))
 
 
 @pytest.mark.integration
@@ -310,3 +319,32 @@ def test_student_cannot_access_teacher_assignment_evidence_endpoints() -> None:
         response = client.get(f"/api/v1/teacher/assignments/{assignment_id}/overview")
 
     assert response.status_code == 403
+
+
+@pytest.mark.integration
+@pytest.mark.postgres
+def test_teacher_can_create_assignment_for_class_of_40_students() -> None:
+    seed_default_learning_flow()
+    expand_class_to_40_students()
+    class_id = get_class_id()
+
+    with TestClient(create_app()) as client:
+        login(client, "teacher01", "test-teacher-password")
+        response = client.post(
+            f"/api/v1/teacher/classes/{class_id}/assignments",
+            json={
+                "title": "Kiểm tra tải lớp 40 học sinh",
+                "targetSkillCode": "MATH6.FRACTIONS.SUBTRACT_DIFFERENT_DENOMINATOR",
+                "estimatedMinutes": 15,
+                "publish": True,
+            },
+        )
+
+    assert response.status_code == 201
+    assert response.json()["studentCount"] == 40
+    with session_scope() as session:
+        recipient_count = session.execute(
+            text("SELECT COUNT(*) FROM assignment_recipients WHERE assignment_id = :assignment_id"),
+            {"assignment_id": response.json()["id"]},
+        ).scalar_one()
+    assert recipient_count == 40

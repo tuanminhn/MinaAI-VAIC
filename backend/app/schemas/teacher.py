@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
+from pydantic import Field
 
 from app.schemas.base import ApiSchema
 
@@ -55,6 +56,22 @@ class TeacherAssignmentSummaryResponse(ApiSchema):
 
 class TeacherClassAssignmentsResponse(ApiSchema):
     items: list[TeacherAssignmentSummaryResponse]
+
+
+class TeacherCreateAssignmentRequest(ApiSchema):
+    title: str = Field(min_length=3, max_length=200)
+    description: str | None = Field(default=None, max_length=2000)
+    target_skill_code: str = Field(min_length=3, max_length=150)
+    estimated_minutes: int = Field(default=15, ge=1, le=240)
+    due_at: datetime | None = None
+    publish: bool = True
+
+
+class TeacherCreateAssignmentResponse(ApiSchema):
+    id: uuid.UUID
+    title: str
+    status: str
+    student_count: int
 
 
 class TeacherAssignmentOverviewAssignmentResponse(ApiSchema):
@@ -146,3 +163,62 @@ class TeacherLearningSessionEvidenceResponse(ApiSchema):
     root_cause: TeacherEvidenceRootCauseResponse | None
     timeline: list[TeacherTimelineEventResponse]
     attempts: list[TeacherEvidenceAttemptResponse]
+
+
+class TeacherSupportGroupResponse(ApiSchema):
+    skill_id: uuid.UUID
+    skill_name: str
+    student_count: int
+    needs_support_count: int
+    classroom_names: list[str]
+
+
+class TeacherSupportGroupsResponse(ApiSchema):
+    items: list[TeacherSupportGroupResponse]
+
+
+class TeacherInterventionResponse(ApiSchema):
+    student_id: uuid.UUID
+    student_name: str
+    classroom_name: str
+    assignment_id: uuid.UUID
+    assignment_title: str
+    session_id: uuid.UUID
+    root_cause_skill_name: str | None
+    priority: str
+    priority_score: int
+    reason: str
+    updated_at: datetime
+
+
+class TeacherInterventionsResponse(ApiSchema):
+    items: list[TeacherInterventionResponse]
+
+
+class TeacherStudentMasteryResponse(ApiSchema):
+    skill_id: uuid.UUID
+    skill_name: str
+    status: str
+    mastery_score: float
+    confidence: float
+    evidence_count: int
+    last_evaluated_at: datetime | None
+
+
+class TeacherStudentSessionResponse(ApiSchema):
+    session_id: uuid.UUID
+    assignment_id: uuid.UUID
+    assignment_title: str
+    state: str
+    outcome: str | None
+    root_cause_skill_name: str | None
+    updated_at: datetime
+
+
+class TeacherStudentProfileResponse(ApiSchema):
+    id: uuid.UUID
+    display_name: str
+    classroom_name: str
+    school_name: str
+    masteries: list[TeacherStudentMasteryResponse]
+    recent_sessions: list[TeacherStudentSessionResponse]

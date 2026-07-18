@@ -50,6 +50,7 @@ def test_migration_upgrade_on_empty_postgres() -> None:
     assert "system_metadata" in table_names
     assert "users" in table_names
     assert "auth_sessions" in table_names
+    assert "student_skill_masteries" in table_names
 
 
 @pytest.mark.integration
@@ -90,7 +91,7 @@ def test_alembic_current_matches_head() -> None:
             text("SELECT version_num FROM alembic_version")
         ).scalar_one()
 
-    assert current_revision == "20260718_0006"
+    assert current_revision == "20260718_0007"
 
 
 @pytest.mark.integration
@@ -99,7 +100,7 @@ def test_there_is_only_one_head() -> None:
     config = make_alembic_config()
     script = ScriptDirectory.from_config(config)
     heads = script.get_heads()
-    assert heads == ["20260718_0006"]
+    assert heads == ["20260718_0007"]
 
 
 @pytest.mark.integration

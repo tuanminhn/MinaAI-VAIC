@@ -38,6 +38,7 @@ from app.schemas.diagnostic import (
     TransferResponse,
 )
 from app.services.learning_state_machine import LearningStateMachine
+from app.services.mastery_service import record_skill_evidence
 
 QUESTION_COUNT_PER_PHASE = 2
 
@@ -238,6 +239,13 @@ class LearningFlowService:
                 is_correct=bool(selected_option.is_correct),
             )
         )
+        record_skill_evidence(
+            self.diagnostic_repository.session,
+            student_user_id=user.id,
+            skill_id=current_question.skill_id,
+            is_correct=attempt.is_correct,
+            phase="remediation",
+        )
 
         answered_after = answered_before + 1
         if answered_after < QUESTION_COUNT_PER_PHASE:
@@ -418,6 +426,13 @@ class LearningFlowService:
                 + 1,
                 is_correct=bool(selected_option.is_correct),
             )
+        )
+        record_skill_evidence(
+            self.diagnostic_repository.session,
+            student_user_id=user.id,
+            skill_id=current_question.skill_id,
+            is_correct=attempt.is_correct,
+            phase="transfer",
         )
         transfer_check.answered_count += 1
         if attempt.is_correct:

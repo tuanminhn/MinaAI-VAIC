@@ -22,6 +22,15 @@ from app.schemas.teacher import (
     TeacherLearningSessionEvidenceResponse,
     TeacherRootCauseGroupResponse,
     TeacherTimelineEventResponse,
+    TeacherInterventionResponse,
+    TeacherInterventionsResponse,
+    TeacherStudentMasteryResponse,
+    TeacherStudentProfileResponse,
+    TeacherStudentSessionResponse,
+    TeacherSupportGroupResponse,
+    TeacherSupportGroupsResponse,
+    TeacherCreateAssignmentRequest,
+    TeacherCreateAssignmentResponse,
 )
 
 
@@ -80,6 +89,19 @@ class TeacherAnalyticsService:
                 for assignment, student_count in rows
             ]
         )
+
+    def create_assignment(self, *, user: User, class_id: uuid.UUID, payload: TeacherCreateAssignmentRequest) -> TeacherCreateAssignmentResponse:
+        result = self.teacher_repository.create_assignment_for_class(
+            teacher_user_id=user.id, class_id=class_id, title=payload.title,
+            description=payload.description, target_skill_code=payload.target_skill_code,
+            estimated_minutes=payload.estimated_minutes, due_at=payload.due_at, publish=payload.publish,
+        )
+        if result is None:
+            raise ApiErrorException(404, "CLASSROOM_NOT_FOUND", "Không tìm thấy lớp học.")
+        if result == "skill_not_found":
+            raise ApiErrorException(400, "TARGET_SKILL_NOT_FOUND", "Không tìm thấy kỹ năng mục tiêu đã chọn.")
+        assignment, student_count = result
+        return TeacherCreateAssignmentResponse(id=assignment.id, title=assignment.title, status=assignment.status, student_count=student_count)
 
     def get_assignment_overview(
         self,
@@ -241,4 +263,61 @@ class TeacherAnalyticsService:
                 )
                 for item in attempts
             ],
+        )
+
+    def list_support_groups(self, *, user: User) -> TeacherSupportGroupsResponse:
+        rows = self.teacher_repository.list_support_groups(teacher_user_id=user.id)
+        return TeacherSupportGroupsResponse(items=[
+            TeacherSupportGroupResponse(
+                skill_id=row.skill_id,
+                skill_name=row.skill_name,
+                student_count=row.student_count,
+                needs_support_count=row.needs_support_count or 0,
+                classroom_names=sorted(row.classroom_names or []),
+            ) for row in rows
+        ])
+
+    def list_interventions(self, *, user: User) -> TeacherInterventionsResponse:
+        items = []
+        for row in self.teacher_repository.list_interventions(teacher_user_id=user.id):
+            needs_support = row.outcome == "needs_teacher_support"
+            priority_score = 100 if needs_support else 70 if row.state == "in_remediation" else 50
+            skill_label = row.root_cause_skill_name or "kỹ năng mục tiêu"
+            reason = (
+                f"Đã hoàn thành nhưng chưa vượt qua kiểm tra chuyển giao ở {skill_label}."
+                if needs_support
+                else f"Đang cần củng cố {skill_label} và chưa hoàn thành lộ trình."
+            )
+            items.append(TeacherInterventionResponse(
+                student_id=row.student_id, student_name=row.student_name,
+                classroom_name=row.classroom_name, assignment_id=row.assignment_id,
+                assignment_title=row.assignment_title, session_id=row.session_id,
+                root_cause_skill_name=row.root_cause_skill_name,
+                priority="high" if priority_score >= 90 else "medium",
+                priority_score=priority_score, reason=reason, updated_at=row.updated_at,
+            ))
+        return TeacherInterventionsResponse(items=items)
+
+    def get_student_profile(self, *, user: User, student_id: uuid.UUID) -> TeacherStudentProfileResponse:
+        result = self.teacher_repository.get_student_profile(
+            teacher_user_id=user.id, student_user_id=student_id
+        )
+        if result is None:
+            raise ApiErrorException(404, "STUDENT_NOT_FOUND", "Không tìm thấy học sinh trong lớp phụ trách.")
+        identity, mastery_rows, session_rows = result
+        student, classroom, school = identity
+        return TeacherStudentProfileResponse(
+            id=student.id, display_name=student.display_name,
+            classroom_name=classroom.name, school_name=school.name,
+            masteries=[TeacherStudentMasteryResponse(
+                skill_id=mastery.skill_id, skill_name=skill.name, status=mastery.status,
+                mastery_score=mastery.mastery_score, confidence=mastery.confidence,
+                evidence_count=mastery.evidence_count, last_evaluated_at=mastery.last_evaluated_at,
+            ) for mastery, skill in mastery_rows],
+            recent_sessions=[TeacherStudentSessionResponse(
+                session_id=session.id, assignment_id=assignment.id,
+                assignment_title=assignment.title, state=session.state,
+                outcome=_to_teacher_outcome(session.outcome),
+                root_cause_skill_name=root_name, updated_at=session.updated_at,
+            ) for session, assignment, root_name in session_rows],
         )

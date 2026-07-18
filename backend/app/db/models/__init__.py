@@ -19,6 +19,7 @@ from app.db.models.school import School
 from app.db.models.skill import Skill
 from app.db.models.skill_prerequisite import SkillPrerequisite
 from app.db.models.system_metadata import SystemMetadata
+from app.db.models.student_skill_mastery import StudentSkillMastery
 from app.db.models.transfer_attempt import TransferAttempt
 from app.db.models.transfer_check import TransferCheck
 from app.db.models.user import User
@@ -45,29 +46,8 @@ __all__ = [
     "Skill",
     "SkillPrerequisite",
     "SystemMetadata",
+    "StudentSkillMastery",
     "TransferAttempt",
     "TransferCheck",
-    "User",
-]
-
-__all__ = [
-    "Assignment",
-    "AssignmentContentTarget",
-    "AssignmentRecipient",
-    "AuthSession",
-    "Classroom",
-    "ClassroomMembership",
-    "ContentPackage",
-    "DiagnosticAttempt",
-    "DiagnosticSession",
-    "DiagnosticSkillEvaluation",
-    "Misconception",
-    "QuestionItem",
-    "QuestionOption",
-    "RemediationUnit",
-    "School",
-    "Skill",
-    "SkillPrerequisite",
-    "SystemMetadata",
     "User",
 ]

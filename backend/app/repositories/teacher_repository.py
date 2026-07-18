@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import uuid
+from datetime import UTC, datetime
 
 from sqlalchemy import and_, case, func, literal, select
 from sqlalchemy.orm import Session
 
 from app.db.models.assignment import Assignment
+from app.db.models.assignment_content_target import AssignmentContentTarget
 from app.db.models.assignment_recipient import AssignmentRecipient
 from app.db.models.classroom import Classroom
 from app.db.models.classroom_membership import ClassroomMembership
@@ -18,6 +20,7 @@ from app.db.models.remediation_attempt import RemediationAttempt
 from app.db.models.remediation_run import RemediationRun
 from app.db.models.school import School
 from app.db.models.skill import Skill
+from app.db.models.student_skill_mastery import StudentSkillMastery
 from app.db.models.transfer_attempt import TransferAttempt
 from app.db.models.transfer_check import TransferCheck
 from app.db.models.user import User
@@ -76,6 +79,49 @@ class TeacherRepository:
             .order_by(Assignment.assigned_at.desc(), Assignment.created_at.desc())
         )
         return self.session.execute(statement).all()
+
+    def create_assignment_for_class(
+        self, *, teacher_user_id: uuid.UUID, class_id: uuid.UUID, title: str,
+        description: str | None, target_skill_code: str, estimated_minutes: int,
+        due_at, publish: bool,
+    ):
+        teacher_membership = self.session.execute(
+            select(ClassroomMembership).where(
+                ClassroomMembership.classroom_id == class_id,
+                ClassroomMembership.user_id == teacher_user_id,
+                ClassroomMembership.membership_role == "teacher",
+            )
+        ).scalar_one_or_none()
+        if teacher_membership is None:
+            return None
+        skill = self.session.execute(
+            select(Skill).where(Skill.code == target_skill_code, Skill.is_active.is_(True))
+        ).scalar_one_or_none()
+        if skill is None:
+            return "skill_not_found"
+        now = datetime.now(UTC)
+        assignment = Assignment(
+            classroom_id=class_id, created_by_user_id=teacher_user_id, title=title,
+            description=description, status="published" if publish else "draft",
+            estimated_minutes=estimated_minutes, assigned_at=now, due_at=due_at,
+        )
+        self.session.add(assignment)
+        self.session.flush()
+        self.session.add(AssignmentContentTarget(
+            assignment_id=assignment.id, content_package_id=skill.content_package_id,
+            target_skill_id=skill.id,
+        ))
+        students = self.session.execute(
+            select(User).join(ClassroomMembership, ClassroomMembership.user_id == User.id)
+            .where(ClassroomMembership.classroom_id == class_id, ClassroomMembership.membership_role == "student", User.is_active.is_(True))
+        ).scalars().all()
+        for student in students:
+            self.session.add(AssignmentRecipient(
+                assignment_id=assignment.id, student_user_id=student.id,
+                status="not_started", progress_completed=0, progress_total=0,
+            ))
+        self.session.flush()
+        return assignment, len(students)
 
     def get_authorized_assignment(
         self,
@@ -460,3 +506,78 @@ class TeacherRepository:
             union_subquery.c.answered_at,
         ).order_by(union_subquery.c.answered_at.asc(), union_subquery.c.phase.asc())
         return self.session.execute(wrapped).all()
+
+    def list_support_groups(self, *, teacher_user_id: uuid.UUID):
+        teacher_membership = ClassroomMembership.__table__.alias("support_teacher_membership")
+        latest_session = _latest_session_subquery()
+        statement = (
+            select(
+                Skill.id.label("skill_id"), Skill.name.label("skill_name"),
+                func.count(func.distinct(latest_session.c.student_user_id)).label("student_count"),
+                func.sum(case((latest_session.c.outcome == "needs_teacher_support", 1), else_=0)).label("needs_support_count"),
+                func.array_agg(func.distinct(Classroom.name)).label("classroom_names"),
+            )
+            .select_from(latest_session)
+            .join(AssignmentRecipient, AssignmentRecipient.id == latest_session.c.assignment_recipient_id)
+            .join(Assignment, Assignment.id == AssignmentRecipient.assignment_id)
+            .join(Classroom, Classroom.id == Assignment.classroom_id)
+            .join(teacher_membership, and_(teacher_membership.c.classroom_id == Classroom.id, teacher_membership.c.user_id == teacher_user_id, teacher_membership.c.membership_role == "teacher"))
+            .join(Skill, Skill.id == latest_session.c.root_cause_skill_id)
+            .where(latest_session.c.row_number == 1)
+            .group_by(Skill.id, Skill.name)
+            .order_by(func.count(func.distinct(latest_session.c.student_user_id)).desc(), Skill.name)
+        )
+        return self.session.execute(statement).all()
+
+    def list_interventions(self, *, teacher_user_id: uuid.UUID):
+        teacher_membership = ClassroomMembership.__table__.alias("intervention_teacher_membership")
+        latest_session = _latest_session_subquery()
+        root_skill = Skill.__table__.alias("intervention_root_skill")
+        statement = (
+            select(
+                User.id.label("student_id"), User.display_name.label("student_name"),
+                Classroom.name.label("classroom_name"), Assignment.id.label("assignment_id"),
+                Assignment.title.label("assignment_title"), latest_session.c.session_id,
+                root_skill.c.name.label("root_cause_skill_name"), latest_session.c.state,
+                latest_session.c.outcome, latest_session.c.updated_at,
+            )
+            .select_from(latest_session)
+            .join(AssignmentRecipient, AssignmentRecipient.id == latest_session.c.assignment_recipient_id)
+            .join(Assignment, Assignment.id == AssignmentRecipient.assignment_id)
+            .join(Classroom, Classroom.id == Assignment.classroom_id)
+            .join(User, User.id == latest_session.c.student_user_id)
+            .join(teacher_membership, and_(teacher_membership.c.classroom_id == Classroom.id, teacher_membership.c.user_id == teacher_user_id, teacher_membership.c.membership_role == "teacher"))
+            .outerjoin(root_skill, root_skill.c.id == latest_session.c.root_cause_skill_id)
+            .where(latest_session.c.row_number == 1, latest_session.c.state.in_(("gap_confirmed", "in_remediation", "transfer_ready", "completed")), (latest_session.c.outcome == "needs_teacher_support") | (latest_session.c.state != "completed"))
+            .order_by(case((latest_session.c.outcome == "needs_teacher_support", 0), else_=1), latest_session.c.updated_at.asc())
+        )
+        return self.session.execute(statement).all()
+
+    def get_student_profile(self, *, teacher_user_id: uuid.UUID, student_user_id: uuid.UUID):
+        teacher_membership = ClassroomMembership.__table__.alias("profile_teacher_membership")
+        student_membership = ClassroomMembership.__table__.alias("profile_student_membership")
+        identity = self.session.execute(
+            select(User, Classroom, School)
+            .join(student_membership, and_(student_membership.c.user_id == User.id, student_membership.c.membership_role == "student"))
+            .join(Classroom, Classroom.id == student_membership.c.classroom_id)
+            .join(School, School.id == Classroom.school_id)
+            .join(teacher_membership, and_(teacher_membership.c.classroom_id == Classroom.id, teacher_membership.c.user_id == teacher_user_id, teacher_membership.c.membership_role == "teacher"))
+            .where(User.id == student_user_id).limit(1)
+        ).first()
+        if identity is None:
+            return None
+        masteries = self.session.execute(
+            select(StudentSkillMastery, Skill).join(Skill, Skill.id == StudentSkillMastery.skill_id)
+            .where(StudentSkillMastery.student_user_id == student_user_id)
+            .order_by(StudentSkillMastery.updated_at.desc())
+        ).all()
+        root_skill = Skill.__table__.alias("profile_root_skill")
+        sessions = self.session.execute(
+            select(DiagnosticSession, Assignment, root_skill.c.name.label("root_cause_skill_name"))
+            .join(AssignmentRecipient, AssignmentRecipient.id == DiagnosticSession.assignment_recipient_id)
+            .join(Assignment, Assignment.id == AssignmentRecipient.assignment_id)
+            .outerjoin(root_skill, root_skill.c.id == DiagnosticSession.root_cause_skill_id)
+            .where(DiagnosticSession.student_user_id == student_user_id)
+            .order_by(DiagnosticSession.updated_at.desc()).limit(20)
+        ).all()
+        return identity, masteries, sessions
