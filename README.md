@@ -4,7 +4,7 @@ Mina AI là **co-teacher thích ứng cho lớp học phổ thông có trình đ
 
 ## Trạng thái
 
-Dự án đang ở giai đoạn **product discovery / pre-code**. Chưa bắt đầu triển khai cho đến khi các quyết định P0 trong [Product Decisions](/docs/product-decisions.md) được xác nhận.
+Dự án đang ở giai đoạn **hackathon prototype**. Task 1 (dataset/knowledge graph) đã được duyệt cho demo; Task 2 (Next.js full-stack, PostgreSQL schema và diagnostic engine) đã được triển khai. Bản này phục vụ demo, chưa được tuyên bố production-ready hoặc sẵn sàng dùng trong lớp thật.
 
 ## Beachhead và phạm vi MVP
 
@@ -59,7 +59,28 @@ Giáo viên tạo lớp và giao diagnostic
 - Học liệu và knowledge graph có provenance, version, trạng thái duyệt và khả năng rollback.
 - Offline dùng event/attempt ID bất biến và thao tác sync idempotent để tránh tạo trùng hoặc ghi đè bài làm.
 
-Các lựa chọn stack trong PRD là **định hướng**, chưa phải quyết định đóng băng nếu chưa có ADR tương ứng.
+Stack prototype đã chốt là **Next.js + TypeScript cho frontend và backend**, PostgreSQL qua `DATABASE_URL`, và diagnostic engine TypeScript chạy phía server. Chi tiết hiện trạng, schema và API nằm trong [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md).
+
+## Chạy prototype local
+
+Yêu cầu Bun 1.3+. Tạo `.env` ở root với `DATABASE_URL` trỏ tới PostgreSQL, sau đó chạy:
+
+```bash
+bun install
+bun run db:setup
+bun run dev
+```
+
+Mở `http://localhost:3000`; student flow ở `/student`, teacher dashboard ở `/teacher`. Không đặt `NEXT_PUBLIC_` trước `DATABASE_URL`: biến này chỉ được đọc trong server code.
+
+Các lệnh kiểm tra:
+
+```bash
+bun run typecheck
+bun run lint
+bun run test
+bun run build
+```
 
 ## Tài liệu nguồn
 
@@ -73,10 +94,11 @@ Bắt đầu tại [docs/INDEX.md](/docs/INDEX.md). Thứ tự đọc trước k
 6. [Product Decisions](/docs/product-decisions.md)
 7. [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md)
 8. [PDF → Knowledge Graph](/docs/pdf-to-knowledge-graph.md)
+9. [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md)
 
-## Definition of Ready trước khi code
+## Definition of Ready trước pilot
 
-Đội phát triển chỉ bắt đầu khi:
+Prototype hackathon có thể tiếp tục với giả định được ghi rõ. Trước pilot/lớp thật cần:
 
 - Các câu hỏi P0 trong Product Decisions đã có owner và quyết định.
 - Phạm vi P0, user stories và acceptance criteria được product/education/engineering cùng duyệt.

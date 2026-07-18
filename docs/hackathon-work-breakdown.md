@@ -56,6 +56,8 @@ Seed data có tối thiểu ba học sinh giả lập:
 
 ### Task 2 — Backend, Database và Diagnostic Engine
 
+**Trạng thái 2026-07-18:** Hoàn tất. Runtime/package manager dùng Bun; migration/seed database, typecheck, lint, 4 test diagnostic, production build và ba kịch bản end-to-end đều PASS.
+
 **Mục tiêu:** Cung cấp lớp nghiệp vụ và API để student app, teacher dashboard và dữ liệu giáo dục hoạt động thống nhất.
 
 **Mô tả:**

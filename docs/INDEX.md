@@ -16,13 +16,14 @@ Tài liệu trong thư mục này là nguồn đặc tả chính thức của Mi
 | [Product Decisions](/docs/product-decisions.md) | Giả định, câu hỏi mở, decision log và điều kiện sẵn sàng | Draft |
 | [Pilot & Measurement](/docs/pilot-and-measurement.md) | Thiết kế pilot, KPI, event tracking và go/no-go | Review |
 | [PDF → Knowledge Graph](/docs/pdf-to-knowledge-graph.md) | Quy trình tạo, duyệt và version hóa knowledge graph từ SGK | Review |
+| [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md) | Stack đã chốt, schema, API, diagnostic engine và cách chạy prototype | Implemented |
 
-## Thứ tự duyệt trước khi code
+## Thứ tự làm việc trước pilot
 
 1. Xác nhận bài toán, beachhead và outcome trong Problem Statement/PRD.
 2. Trả lời toàn bộ quyết định P0 trong Product Decisions.
 3. Duyệt MVP Spec và Non-functional Requirements.
-4. Chia owner và tích hợp theo Hackathon Work Breakdown.
+4. Đối chiếu implementation với Kiến trúc kỹ thuật Task 2 và chia owner tích hợp theo Hackathon Work Breakdown.
 5. Chuẩn bị nội dung mẫu theo PDF → Knowledge Graph.
 6. Chốt Pilot & Measurement.
 

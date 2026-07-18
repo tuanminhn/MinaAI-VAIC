@@ -1,4 +1,4 @@
-# PRD v1.2 — Mina AI
+# PRD v1.3 — Mina AI
 
 > **Trạng thái:** Review — định hướng sản phẩm và kiến trúc, chưa phải đặc tả triển khai hoàn chỉnh.
 >
@@ -9,6 +9,8 @@
 > **Yêu cầu an toàn/kỹ thuật:** [Non-functional Requirements](/docs/non-functional-requirements.md)
 >
 > **Quyết định còn mở:** [Product Decisions](/docs/product-decisions.md)
+>
+> **Quyết định triển khai hackathon:** Các phần bên dưới còn mô tả FastAPI là kiến trúc định hướng cũ. Prototype hiện hành dùng Next.js + TypeScript full-stack và PostgreSQL theo [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md); tài liệu kỹ thuật này được ưu tiên khi có xung đột về stack/API.
 
 ## Cách sử dụng tài liệu
 

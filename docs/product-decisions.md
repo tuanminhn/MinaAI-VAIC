@@ -65,6 +65,7 @@ Khi trả lời câu hỏi, thêm dòng; không xóa lịch sử.
 | 2026-07-18 | INIT | Tạo baseline pre-code; các mục Q-* vẫn mở | Chờ xác nhận | README, PRD, MVP Spec, NFR, Pilot |
 | 2026-07-18 | DEC-001/002 (đã thay thế) | Từng khóa dataset MVP ở Kết nối tri thức, môn Toán lớp 7–8; quyết định này không còn hiệu lực | Chủ sản phẩm | Được thay thế bởi DEC-001/002 v2 |
 | 2026-07-18 | DEC-001/002 v2 | Thay phạm vi lớp 7–8 bằng Toán lớp 6–7; vẫn giữ bộ Kết nối tri thức | Chủ sản phẩm | README, Problem Statement, PRD, MVP Spec, PDF pipeline, backlog hackathon |
+| 2026-07-18 | DEC-008 | Hackathon prototype dùng Next.js + TypeScript full-stack, PostgreSQL qua `DATABASE_URL`; diagnostic engine rule-based chạy server và không phụ thuộc LLM | Chủ sản phẩm | README, PRD, kiến trúc kỹ thuật, Task 2 |
 
 ## 7. Definition of Ready
 
