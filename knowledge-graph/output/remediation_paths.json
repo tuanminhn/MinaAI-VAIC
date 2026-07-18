@@ -18,7 +18,7 @@
       "pass_threshold": 0.5,
       "on_pass": "return_to_target_skill",
       "on_fail": "teacher_review",
-      "review_status": "pending"
+      "review_status": "approved"
     }
   ]
 }

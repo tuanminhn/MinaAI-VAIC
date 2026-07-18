@@ -48,6 +48,28 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
         raise ValidationError("dataset is outside the locked KNTT Math 6-7 scope")
     checks.append("scope")
 
+    allowed_relationships = {"prerequisite", "supporting", "part_of", "equivalent", "related", "next_skill"}
+    allowed_review_statuses = {"pending", "approved", "rejected"}
+    if dataset["dataset"]["review_status"] not in allowed_review_statuses:
+        raise ValidationError("invalid dataset review status")
+    if dataset["dataset"]["review_status"] == "approved":
+        if not dataset["dataset"].get("reviewed_at") or not dataset["dataset"].get("reviewed_by"):
+            raise ValidationError("approved dataset requires review metadata")
+        reviewed_items = (
+            dataset["skills"]
+            + dataset["edges"]
+            + dataset["misconceptions"]
+            + dataset["questions"]
+            + dataset["remediation_paths"]
+        )
+        if any(item.get("review_status") != "approved" for item in reviewed_items):
+            raise ValidationError("approved dataset contains unapproved content")
+        provenance_items = [source for skill in dataset["skills"] for source in skill["provenance"]]
+        provenance_items += [source for question in dataset["questions"] for source in question["provenance"]]
+        if any(source.get("review_status") != "approved" for source in provenance_items):
+            raise ValidationError("approved dataset contains unapproved provenance")
+    checks.append("review_status_consistency")
+
     skill_ids = _unique(dataset["skills"], "skill")
     misconception_ids = _unique(dataset["misconceptions"], "misconception")
     question_ids = _unique(dataset["questions"], "question")
@@ -69,6 +91,8 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
             raise ValidationError(f"broken edge reference: {edge}")
         if not edge["evidence"].strip():
             raise ValidationError(f"edge without evidence: {edge}")
+        if edge["relationship_type"] not in allowed_relationships:
+            raise ValidationError(f"invalid relationship type: {edge}")
     _validate_dag(skill_ids, dataset["edges"])
     checks.append("edge_references_and_dag")
 
@@ -120,7 +144,8 @@ def validate_dataset(dataset: dict[str, Any] | None = None) -> dict[str, Any]:
             "demo_students": len(dataset["demo_students"]),
         },
         "checks": checks,
-        "human_review_required": True,
+        "human_review_required": dataset["dataset"]["review_status"] != "approved",
+        "review_status": dataset["dataset"]["review_status"],
     }
 
 
@@ -130,4 +155,3 @@ def write_validation_report(root: Path, dataset: dict[str, Any] | None = None) -
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return report
-

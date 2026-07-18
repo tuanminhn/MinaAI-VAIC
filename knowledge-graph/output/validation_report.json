@@ -4,13 +4,14 @@
   "counts": {
     "skills": 11,
     "edges": 13,
-    "misconceptions": 4,
+    "misconceptions": 5,
     "questions": 8,
     "remediation_paths": 1,
     "demo_students": 3
   },
   "checks": [
     "scope",
+    "review_status_consistency",
     "unique_ids",
     "skill_scope_and_provenance",
     "edge_references_and_dag",
@@ -19,5 +20,6 @@
     "remediation_path_references",
     "demo_fixture_references"
   ],
-  "human_review_required": true
+  "human_review_required": false,
+  "review_status": "approved"
 }

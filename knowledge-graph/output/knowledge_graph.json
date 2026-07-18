@@ -8,22 +8,31 @@
       6,
       7
     ],
-    "review_status": "pending"
+    "review_status": "approved",
+    "reviewed_at": "2026-07-18",
+    "reviewed_by": "Codex (AI-assisted mathematics review, user-authorized)",
+    "review_scope": [
+      "skills",
+      "prerequisite_edges",
+      "answers",
+      "distractors",
+      "misconceptions"
+    ]
   },
   "skills": [
     {
       "id": "MATH.G6.FRACTION.REPRESENT",
       "code": "MATH.G6.FRACTION.REPRESENT",
-      "canonical_name": "Biểu diễn một số nguyên dưới dạng phân số",
+      "canonical_name": "Nhận biết và biểu diễn phân số",
       "grade": 6,
       "subject": "math",
       "curriculum": "GDPT_2018",
       "publisher_series": "KNTT",
       "domain": "Numbers",
       "subdomain": "Fractions",
-      "description": "Viết số nguyên a dưới dạng a/1 và nhận biết tử số, mẫu số.",
+      "description": "Nhận biết phân số có dạng a/b với a, b là số nguyên, b khác 0; biểu diễn phép chia số nguyên dưới dạng phân số.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -35,7 +44,7 @@
             9
           ],
           "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -51,7 +60,7 @@
       "subdomain": "Fractions",
       "description": "Kiểm tra và tạo các phân số bằng nhau bằng tính chất cơ bản.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -63,7 +72,7 @@
             9
           ],
           "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -79,7 +88,7 @@
       "subdomain": "Fractions",
       "description": "Chia tử và mẫu cho một ước chung để đưa phân số về dạng tối giản.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -91,7 +100,7 @@
             9
           ],
           "lesson": "Bài 23. Mở rộng phân số. Phân số bằng nhau",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -107,7 +116,7 @@
       "subdomain": "Fractions",
       "description": "Đưa phân số về dạng phù hợp và xác định thứ tự của chúng.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -119,7 +128,7 @@
             14
           ],
           "lesson": "Bài 24. So sánh phân số. Hỗn số dương",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -135,7 +144,7 @@
       "subdomain": "Fractions",
       "description": "Tìm mẫu số chung và biến đổi hai phân số thành các phân số bằng chúng có cùng mẫu.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -146,7 +155,7 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -162,7 +171,7 @@
       "subdomain": "Fractions",
       "description": "Cộng hoặc trừ hai phân số cùng mẫu hay khác mẫu và rút gọn kết quả.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -173,7 +182,7 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -189,7 +198,7 @@
       "subdomain": "Fractions",
       "description": "Nhân tử với tử, mẫu với mẫu; chia bằng cách nhân với phân số nghịch đảo.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_6_T2",
@@ -199,7 +208,7 @@
             22
           ],
           "lesson": "Bài 26. Phép nhân và phép chia phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -215,7 +224,7 @@
       "subdomain": "RationalNumbers",
       "description": "Nhận biết số viết được dưới dạng a/b với a, b nguyên và b khác 0.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_7_T1",
@@ -227,23 +236,23 @@
             10
           ],
           "lesson": "Bài 1. Tập hợp các số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
     {
       "id": "MATH.G7.RATIONAL.REPRESENT",
       "code": "MATH.G7.RATIONAL.REPRESENT",
-      "canonical_name": "Biểu diễn và xác định số đối của số hữu tỉ",
+      "canonical_name": "Biểu diễn số hữu tỉ dưới dạng phân số",
       "grade": 7,
       "subject": "math",
       "curriculum": "GDPT_2018",
       "publisher_series": "KNTT",
       "domain": "Numbers",
       "subdomain": "RationalNumbers",
-      "description": "Biểu diễn số hữu tỉ, xác định số đối và vị trí tương ứng.",
+      "description": "Viết số hữu tỉ dưới dạng phân số có mẫu dương để thực hiện phép tính.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_7_T1",
@@ -255,7 +264,7 @@
             10
           ],
           "lesson": "Bài 1. Tập hợp các số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -271,7 +280,7 @@
       "subdomain": "RationalNumbers",
       "description": "Đưa số hữu tỉ về phân số và thực hiện phép cộng hoặc trừ đúng dấu.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_7_T1",
@@ -283,7 +292,7 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     },
@@ -299,7 +308,7 @@
       "subdomain": "RationalNumbers",
       "description": "Thực hiện phép nhân và chia số hữu tỉ, bao gồm quy tắc dấu và nghịch đảo.",
       "mastery_threshold": 0.8,
-      "review_status": "pending",
+      "review_status": "approved",
       "provenance": [
         {
           "book_id": "KNTT_TOAN_7_T1",
@@ -311,7 +320,7 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ]
     }
@@ -324,7 +333,7 @@
       "evidence": "Cần hiểu cấu tạo phân số trước khi kiểm tra hai cách biểu diễn bằng nhau.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.EQUIVALENT",
@@ -333,7 +342,7 @@
       "evidence": "Rút gọn dựa trực tiếp trên tính chất tạo phân số bằng nhau.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.EQUIVALENT",
@@ -342,16 +351,16 @@
       "evidence": "Quy đồng tạo các phân số bằng phân số ban đầu với cùng mẫu.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.COMMON_DENOMINATOR",
       "target_skill_id": "MATH.G6.FRACTION.COMPARE",
-      "relationship_type": "prerequisite",
-      "evidence": "So sánh phân số khác mẫu có thể thực hiện sau khi đưa về cùng mẫu.",
+      "relationship_type": "supporting",
+      "evidence": "Quy đồng là một chiến lược hỗ trợ so sánh phân số khác mẫu, nhưng không phải cách duy nhất.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.COMMON_DENOMINATOR",
@@ -360,25 +369,25 @@
       "evidence": "Cộng hoặc trừ phân số khác mẫu cần đưa chúng về cùng mẫu.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.REDUCE",
       "target_skill_id": "MATH.G6.FRACTION.ADD_SUBTRACT",
-      "relationship_type": "prerequisite",
-      "evidence": "Kết quả phép tính phân số cần được rút gọn.",
+      "relationship_type": "supporting",
+      "evidence": "Rút gọn giúp trình bày kết quả phép cộng hoặc trừ ở dạng tối giản, nhưng không bắt buộc để thực hiện phép tính.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.REDUCE",
       "target_skill_id": "MATH.G6.FRACTION.MULTIPLY_DIVIDE",
-      "relationship_type": "prerequisite",
-      "evidence": "Rút gọn trước hoặc sau phép nhân/chia giúp đưa kết quả về dạng tối giản.",
+      "relationship_type": "supporting",
+      "evidence": "Rút gọn trước hoặc sau phép nhân/chia giúp tính gọn và đưa kết quả về dạng tối giản.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.REPRESENT",
@@ -387,16 +396,16 @@
       "evidence": "Số hữu tỉ được định nghĩa qua biểu diễn a/b với a, b nguyên và b khác 0.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G7.RATIONAL.RECOGNIZE",
       "target_skill_id": "MATH.G7.RATIONAL.REPRESENT",
       "relationship_type": "prerequisite",
-      "evidence": "Cần nhận biết số hữu tỉ trước khi biểu diễn và xác định số đối.",
+      "evidence": "Cần hiểu định nghĩa số hữu tỉ trước khi viết một số dưới dạng phân số có mẫu dương.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.ADD_SUBTRACT",
@@ -405,7 +414,7 @@
       "evidence": "Phép cộng/trừ số hữu tỉ sử dụng trực tiếp quy tắc cộng/trừ phân số.",
       "confidence": 0.98,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G7.RATIONAL.REPRESENT",
@@ -414,7 +423,7 @@
       "evidence": "Cần biểu diễn đúng số hữu tỉ và dấu trước khi thực hiện phép tính.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G6.FRACTION.MULTIPLY_DIVIDE",
@@ -423,7 +432,7 @@
       "evidence": "Phép nhân/chia số hữu tỉ sử dụng trực tiếp quy tắc nhân/chia phân số.",
       "confidence": 0.98,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "source_skill_id": "MATH.G7.RATIONAL.REPRESENT",
@@ -432,7 +441,7 @@
       "evidence": "Cần biểu diễn đúng số hữu tỉ và dấu trước khi nhân hoặc chia.",
       "confidence": 0.9,
       "created_by": "curated_demo_v1",
-      "review_status": "pending"
+      "review_status": "approved"
     }
   ]
 }

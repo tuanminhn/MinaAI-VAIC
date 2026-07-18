@@ -11,10 +11,17 @@ from mina_kg.validation import ValidationError, validate_dataset
 
 class DatasetTests(unittest.TestCase):
     def test_curated_dataset_is_valid(self) -> None:
-        report = validate_dataset(build_dataset())
+        dataset = build_dataset()
+        report = validate_dataset(dataset)
         self.assertTrue(report["valid"])
         self.assertEqual(report["counts"]["skills"], 11)
         self.assertEqual(report["counts"]["demo_students"], 3)
+        self.assertEqual(report["review_status"], "approved")
+        self.assertFalse(report["human_review_required"])
+        self.assertEqual(
+            {edge["relationship_type"] for edge in dataset["edges"]},
+            {"prerequisite", "supporting"},
+        )
 
     def test_writer_creates_backend_ready_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -39,7 +46,7 @@ class DatasetTests(unittest.TestCase):
                 "evidence": "Intentional test cycle",
                 "confidence": 1.0,
                 "created_by": "test",
-                "review_status": "pending",
+                "review_status": "approved",
             }
         )
         with self.assertRaisesRegex(ValidationError, "cycle"):
@@ -57,7 +64,12 @@ class DatasetTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "broken option misconception"):
             validate_dataset(dataset)
 
+    def test_partially_approved_dataset_is_rejected(self) -> None:
+        dataset = deepcopy(build_dataset())
+        dataset["questions"][0]["review_status"] = "pending"
+        with self.assertRaisesRegex(ValidationError, "unapproved content"):
+            validate_dataset(dataset)
+
 
 if __name__ == "__main__":
     unittest.main()
-

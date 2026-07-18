@@ -45,10 +45,10 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.DIAG.G6.COMMON_DENOM.001",
@@ -68,7 +68,7 @@
           "id": "B",
           "content": "10",
           "is_correct": false,
-          "misconception_id": "MIS.FRACTION.WRONG_COMMON_DENOMINATOR"
+          "misconception_id": "MIS.FRACTION.ADD_DENOMINATORS_AS_COMMON"
         },
         {
           "id": "C",
@@ -92,10 +92,10 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.DIAG.G6.ADD.001",
@@ -121,7 +121,7 @@
           "id": "C",
           "content": "2/12",
           "is_correct": false,
-          "misconception_id": "MIS.FRACTION.WRONG_COMMON_DENOMINATOR"
+          "misconception_id": "MIS.FRACTION.CHANGE_DENOMINATOR_ONLY"
         },
         {
           "id": "D",
@@ -140,10 +140,10 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.DIAG.G7.RATIONAL.SIGN.001",
@@ -189,10 +189,10 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.REMED.G6.COMMON_DENOM.001",
@@ -212,7 +212,7 @@
           "id": "B",
           "content": "2/6",
           "is_correct": false,
-          "misconception_id": "MIS.FRACTION.WRONG_COMMON_DENOMINATOR"
+          "misconception_id": "MIS.FRACTION.CHANGE_DENOMINATOR_ONLY"
         },
         {
           "id": "C",
@@ -236,10 +236,10 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.REMED.G6.ADD.001",
@@ -265,7 +265,7 @@
           "id": "C",
           "content": "3/6",
           "is_correct": false,
-          "misconception_id": "MIS.FRACTION.WRONG_COMMON_DENOMINATOR"
+          "misconception_id": "MIS.FRACTION.CHANGE_DENOMINATOR_ONLY"
         },
         {
           "id": "D",
@@ -284,10 +284,10 @@
             19
           ],
           "lesson": "Bài 25. Phép cộng và phép trừ phân số",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.TRANSFER.G7.RATIONAL.ADD.001",
@@ -333,10 +333,10 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "Q.TRANSFER.G7.RATIONAL.SUB.001",
@@ -360,7 +360,7 @@
         },
         {
           "id": "C",
-          "content": "2/3",
+          "content": "4/7",
           "is_correct": false,
           "misconception_id": "MIS.FRACTION.ADD_NUMERATOR_DENOMINATOR"
         },
@@ -382,10 +382,10 @@
             15
           ],
           "lesson": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ",
-          "review_status": "pending"
+          "review_status": "approved"
         }
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     }
   ]
 }

@@ -54,7 +54,7 @@ PYTHONPATH=knowledge-graph/src python3 -m mina_kg.cli validate --root knowledge-
 
 - ID là deterministic, không do LLM tự sinh.
 - Mỗi skill/question có provenance tới `book_id` và trang PDF.
-- Mọi nội dung curated mặc định `review_status: pending` cho đến khi chuyên gia Toán duyệt.
+- Nội dung curated mặc định ở trạng thái `pending`; dataset demo V1 hiện ở trạng thái `approved` sau vòng rà soát Toán học có ghi metadata người/phương thức duyệt trong `dataset`.
 - Chỉ edge `prerequisite` phải tạo DAG.
 - Question loại `transfer` không được trùng stem với question `remediation`.
 - Không ingest dữ liệu ngoài Toán 6-7 Kết nối tri thức.
@@ -64,4 +64,15 @@ PYTHONPATH=knowledge-graph/src python3 -m mina_kg.cli validate --root knowledge-
 1. Đối chiếu skill và edge với các trang nguồn đã render.
 2. Kiểm tra mỗi distractor có thật sự biểu hiện misconception đã gắn.
 3. Kiểm tra đáp án, ký hiệu, độ khó và ngôn ngữ học sinh.
-4. Đổi `review_status` sang `approved` chỉ sau khi reviewer ký duyệt.
+4. Đổi `review_status` sang `approved` chỉ sau khi reviewer ký duyệt; khi sửa nội dung đã duyệt, phải đưa mục bị ảnh hưởng về `pending` để duyệt lại.
+
+## Kết quả duyệt dataset demo V1
+
+Ngày 2026-07-18, dataset được rà soát theo phạm vi skill, prerequisite edge, đáp án, distractor và misconception. Vòng duyệt đã:
+
+- tách các liên kết chỉ mang tính hỗ trợ khỏi quan hệ prerequisite;
+- thu hẹp skill gộp nhiều hành vi về một hành vi có thể đánh giá;
+- tách hai misconception quy đồng khác nhau;
+- sửa distractor transfer để khớp đúng error pattern được gắn.
+
+Metadata `reviewed_at`, `reviewed_by` và `review_scope` được lưu trong `output/knowledge_graph.json`. Đây là vòng duyệt có AI hỗ trợ theo ủy quyền của chủ dự án; trước khi dùng trong lớp học thật vẫn nên có giáo viên Toán chịu trách nhiệm nội dung xác nhận lại.

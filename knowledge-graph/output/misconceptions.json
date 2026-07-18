@@ -7,20 +7,31 @@
       "error_pattern": "a/b + c/d = (a+c)/(b+d)",
       "severity": "fundamental",
       "skill_ids": [
-        "MATH.G6.FRACTION.COMMON_DENOMINATOR",
-        "MATH.G6.FRACTION.ADD_SUBTRACT"
+        "MATH.G6.FRACTION.ADD_SUBTRACT",
+        "MATH.G7.RATIONAL.ADD_SUBTRACT"
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
-      "id": "MIS.FRACTION.WRONG_COMMON_DENOMINATOR",
-      "description": "Chọn mẫu số chung bằng tổng hai mẫu hoặc không biến đổi tử số tương ứng",
-      "error_pattern": "MSC(b,d) = b+d or numerator unchanged",
+      "id": "MIS.FRACTION.ADD_DENOMINATORS_AS_COMMON",
+      "description": "Chọn mẫu số chung bằng tổng hai mẫu số",
+      "error_pattern": "MSC(b,d) = b+d",
       "severity": "fundamental",
       "skill_ids": [
         "MATH.G6.FRACTION.COMMON_DENOMINATOR"
       ],
-      "review_status": "pending"
+      "review_status": "approved"
+    },
+    {
+      "id": "MIS.FRACTION.CHANGE_DENOMINATOR_ONLY",
+      "description": "Đổi mẫu số nhưng không biến đổi tử số tương ứng",
+      "error_pattern": "a/b = a/m when m != b",
+      "severity": "fundamental",
+      "skill_ids": [
+        "MATH.G6.FRACTION.COMMON_DENOMINATOR",
+        "MATH.G6.FRACTION.ADD_SUBTRACT"
+      ],
+      "review_status": "approved"
     },
     {
       "id": "MIS.RATIONAL.IGNORE_NEGATIVE_SIGN",
@@ -31,18 +42,18 @@
         "MATH.G7.RATIONAL.REPRESENT",
         "MATH.G7.RATIONAL.ADD_SUBTRACT"
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     },
     {
       "id": "MIS.FRACTION.DIVIDE_WITHOUT_RECIPROCAL",
-      "description": "Chia tử cho tử và mẫu cho mẫu hoặc không dùng nghịch đảo",
-      "error_pattern": "a/b : c/d != a/b * d/c",
+      "description": "Chia tử cho tử và mẫu cho mẫu hoặc giữ nguyên phân số chia thay vì lấy nghịch đảo",
+      "error_pattern": "a/b : c/d = (a:c)/(b:d) or a/b * c/d",
       "severity": "major",
       "skill_ids": [
         "MATH.G6.FRACTION.MULTIPLY_DIVIDE",
         "MATH.G7.RATIONAL.MULTIPLY_DIVIDE"
       ],
-      "review_status": "pending"
+      "review_status": "approved"
     }
   ]
 }
