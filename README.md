@@ -204,7 +204,7 @@ docker compose exec backend alembic heads
 Kỳ vọng hiện tại:
 
 ```text
-20260718_0006 (head)
+20260718_0007 (head)
 ```
 
 ### Bước 3. Seed dữ liệu development
@@ -230,6 +230,29 @@ npm run dev -- --host localhost
 - Frontend: `http://localhost:5173`
 - Backend health: `http://localhost:8000/api/v1/health`
 - Backend ready: `http://localhost:8000/api/v1/health/ready`
+
+### Chạy toàn bộ production stack tại trường
+
+Frontend production đã được đóng gói cùng Nginx và proxy `/api/` tới backend. Sau khi tạo
+`backend/.env`, có thể khởi động toàn bộ stack bằng:
+
+```powershell
+docker compose up -d --build
+docker compose exec backend alembic upgrade head
+docker compose exec backend python -m app.cli.seed_dev_users --reset-password
+docker compose exec backend python -m app.cli.seed_dev_core
+docker compose exec backend python -m app.cli.seed_dev_content
+```
+
+Ứng dụng mở tại `http://localhost:5173`. Font và asset giao diện không phụ thuộc CDN.
+
+## Teacher workflow Giai đoạn 1
+
+- Giáo viên tạo và giao assignment cho toàn bộ học sinh trong lớp.
+- Hệ thống lưu trạng thái mastery theo từng cặp học sinh–kỹ năng.
+- Trang Nhóm hỗ trợ gom học sinh theo root cause gần nhất.
+- Trang Can thiệp xếp mức ưu tiên và giải thích lý do.
+- Hồ sơ học sinh hiển thị mastery và lịch sử phiên học.
 
 ## Cách 2: Chạy frontend độc lập với MSW
 

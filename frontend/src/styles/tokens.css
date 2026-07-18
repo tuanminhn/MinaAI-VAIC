@@ -1,5 +1,5 @@
 @theme {
-  --font-sans: "Be Vietnam Pro", "Noto Sans", system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @layer base {

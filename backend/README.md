@@ -58,7 +58,7 @@ docker compose exec backend alembic heads
 
 Kỳ vọng:
 
-- `current` = `20260718_0004`
+- `current` = `20260718_0007`
 - chỉ có một `head`
 
 ## Seed development
