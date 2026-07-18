@@ -1,481 +1,89 @@
-# MINA AI
+# Mina AI
 
-# 1. Tóm tắt dự án
+Mina AI là **co-teacher thích ứng cho lớp học phổ thông có trình độ không đồng đều**. Sản phẩm giúp giáo viên phát hiện nguyên nhân gốc của lỗi sai, ưu tiên học sinh cần hỗ trợ, chia nhóm theo nhu cầu và giao lộ trình bù hổng ngắn; học sinh được quay lại đúng kỹ năng nền còn thiếu rồi trở về bài học hiện tại.
 
-Mina AI là gia sư AI có khả năng tư vấn cho người học ở nhiều trình độ khác nhau. Hệ thống phân tích năng lực, tốc độ tiếp thu và kết quả học tập của từng người học để đề xuất bài học, bài tập và lộ trình phù hợp, đồng thời hỗ trợ giáo viên tạo nội dung cá nhân hóa và theo dõi tiến độ của cả lớp.
+## Trạng thái
+
+Dự án đang ở giai đoạn **product discovery / pre-code**. Chưa bắt đầu triển khai cho đến khi các quyết định P0 trong [Product Decisions](/docs/product-decisions.md) được xác nhận.
+
+## Beachhead và phạm vi MVP
+
+- Người dùng chính: giáo viên Toán THCS và học sinh trong lớp của họ.
+- Phạm vi dữ liệu MVP: duy nhất **SGK Kết nối tri thức với cuộc sống, môn Toán lớp 7 và lớp 8**.
+- Knowledge graph, câu hỏi, misconception và nội dung remediation của MVP chỉ được tạo từ phạm vi dữ liệu này.
+- Nền tảng: web app/PWA cho giáo viên và học sinh.
+- Điều kiện vận hành: hỗ trợ mạng yếu và học sinh tiếp tục làm nhiệm vụ đã tải khi offline.
+- Chuẩn nội dung: Chương trình GDPT 2018 theo cấu trúc chương/bài của bộ Kết nối tri thức.
+
+Ngoài MVP: dữ liệu lớp 1–6 hoặc lớp 9–12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
 
 ## Giá trị cốt lõi
 
+1. **Chẩn đoán có bằng chứng:** không chỉ báo đúng/sai mà chỉ ra kỹ năng nền có khả năng gây lỗi, độ tin cậy và dữ liệu hỗ trợ.
+2. **Repair and Return:** bù đúng lỗ hổng trong một phiên ngắn, kiểm tra chuyển giao rồi quay lại bài hiện tại.
+3. **Dashboard để hành động:** trả lời “hôm nay cần giúp ai, vì sao và nên làm gì?”.
+4. **Giáo viên giữ quyền quyết định:** mọi chẩn đoán là khuyến nghị có thể xem, sửa hoặc bác bỏ; nội dung AI không tự phát hành.
+5. **Không gắn nhãn học sinh:** giao diện dùng ngôn ngữ trung tính, tập trung vào kỹ năng cần luyện.
+6. **Offline có giới hạn rõ:** chấm và điều hướng cơ bản chạy cục bộ; phân tích nâng cao đồng bộ khi có mạng.
 
+## Chỉ số thành công chính
 
----
+North Star Metric là **Gap Closure Rate**: tỷ lệ lỗ hổng đã xác nhận được bù, vượt transfer test và không tái xuất hiện ở lần kiểm tra duy trì gần nhất.
 
-# 2. Bài toán
+MVP chỉ được coi là có tín hiệu tốt khi đồng thời chứng minh:
 
-## Bối cảnh
+- Giáo viên dùng dashboard hằng tuần và thực hiện hành động từ đề xuất.
+- Học sinh hoàn thành diagnostic và remediation trong điều kiện lớp thật.
+- Chẩn đoán sai nằm trong ngưỡng pilot đã định và luôn hiển thị bằng chứng/độ tin cậy.
+- Không mất bài làm khi mất mạng hoặc đồng bộ lại.
 
-Trong giáo dục phổ thông Việt Nam, vấn đề lớn không phải là thiếu nội dung học tập mà là sự chênh lệch năng lực giữa học sinh trong cùng một lớp học. Đặc biệt ở các khu vực khó khăn, một giáo viên phải phụ trách lớp khoảng 40 học sinh với trình độ và nền tảng kiến thức khác nhau. Điều này khiến học sinh yếu bị bỏ lại phía sau, trong khi học sinh khá giỏi không được phát huy hết khả năng.
+Chi tiết công thức, ngưỡng và sự kiện đo lường nằm trong [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md).
 
-## Đối tượng người dùng
+## Luồng MVP
 
-- Học sinh phổ thông
-- Giáo viên phổ thông
+```text
+Giáo viên tạo lớp và giao diagnostic
+→ Học sinh làm bài (online hoặc offline sau khi tải nhiệm vụ)
+→ Engine đối chiếu đáp án, misconception và prerequisite graph
+→ Hệ thống đề xuất root-cause gap kèm evidence/confidence
+→ Giáo viên xem nhóm ưu tiên và giao can thiệp
+→ Học sinh hoàn thành remediation + transfer test
+→ Dashboard ghi nhận kết quả và gap closure
+```
 
-## Vấn đề gặp phải
+## Nguyên tắc kỹ thuật đã thống nhất
 
-- Học sinh trong cùng một lớp có nền tảng kiến thức và tốc độ tiếp thu khác nhau.
+- Chẩn đoán thời gian thực dựa trên knowledge graph, rule-based scoring và misconception mapping; **không phụ thuộc LLM**.
+- LLM chỉ hỗ trợ giải thích, tóm tắt và tạo bản nháp có kiểm duyệt.
+- Dữ liệu học sinh tối thiểu hóa theo mục đích, phân quyền theo lớp và không đưa thông tin định danh vào prompt/trace của bên thứ ba.
+- Học liệu và knowledge graph có provenance, version, trạng thái duyệt và khả năng rollback.
+- Offline dùng event/attempt ID bất biến và thao tác sync idempotent để tránh tạo trùng hoặc ghi đè bài làm.
 
-- Các ứng dụng học tập hiện nay chủ yếu cung cấp bài học theo một lộ trình cố định, chưa thực sự thích ứng với từng học sinh.
+Các lựa chọn stack trong PRD là **định hướng**, chưa phải quyết định đóng băng nếu chưa có ADR tương ứng.
 
-- Các giải pháp hiện tại chưa hỗ trợ giáo viên theo dõi, phân nhóm và xác định những nội dung cần được giảng dạy lại cho cả lớp.
+## Tài liệu nguồn
 
+Bắt đầu tại [docs/INDEX.md](/docs/INDEX.md). Thứ tự đọc trước khi code:
 
-## Bằng chứng
+1. [Problem Statement](/docs/problem-statement.md)
+2. [PRD](/docs/prd.md)
+3. [Đặc tả MVP & Acceptance Criteria](/docs/mvp-spec.md)
+4. [Yêu cầu Phi chức năng, An toàn & Dữ liệu](/docs/non-functional-requirements.md)
+5. [Product Decisions](/docs/product-decisions.md)
+6. [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md)
+7. [PDF → Knowledge Graph](/docs/pdf-to-knowledge-graph.md)
 
-### Thống kê
+## Definition of Ready trước khi code
 
--
+Đội phát triển chỉ bắt đầu khi:
 
-### Nghiên cứu
+- Các câu hỏi P0 trong Product Decisions đã có owner và quyết định.
+- Phạm vi P0, user stories và acceptance criteria được product/education/engineering cùng duyệt.
+- Có ít nhất một knowledge graph mẫu đã được chuyên gia duyệt, cùng bộ câu hỏi diagnostic/remediation/transfer test tối thiểu.
+- Luồng dữ liệu, consent, retention và quyền truy cập dữ liệu học sinh được chấp thuận.
+- Có wireflow cho 3 luồng P0: tạo/giao bài, học sinh làm diagnostic, giáo viên xem và hành động.
+- Kế hoạch pilot, baseline, event tracking và tiêu chí go/no-go được chốt.
 
--
+## Quy tắc đồng bộ tài liệu
 
-### Khảo sát / Phỏng vấn
-
--
-
-### Nguồn tham khảo
-
--
-
-## Hạn chế của các giải pháp hiện tại
-
--
-
--
-
--
-
----
-
-# 3. Mục tiêu
-
-## Mục tiêu của dự án
-
-- Chẩn đoán khoảng trống kiến thức gốc của từng học sinh (ví dụ: học sinh làm sai Toán lớp 7 do thiếu kiến thức về phân số từ lớp 5).
-
-- Tạo lộ trình luyện tập cá nhân hóa để bù đúng khoảng trống kiến thức đó.
-
-- Cung cấp bảng điều khiển (dashboard) cho giáo viên nhằm:
-
-    + Tự động phân nhóm học sinh theo nhu cầu hỗ trợ.
-    + Đề xuất học sinh cần được ưu tiên hỗ trợ.
-    + Phát hiện các lỗ hổng kiến thức chung của cả lớp để giáo viên giảng lại.
-
-- Hệ thống phải:
-    + Hoạt động ngoại tuyến (offline) hoặc trên kết nối Internet băng thông thấp.
-    + Nội dung học tập phải phù hợp với Chương trình Giáo dục Phổ thông 2018.
-
-## Chỉ số đánh giá thành công (KPI)
-
--
-
--
-
--
-
----
-
-# 4. Chân dung người dùng (User Persona)
-
-## Persona 1
-
-**Tên:**
-
-**Vai trò:**
-
-### Mục tiêu
-
--
-
-### Khó khăn
-
--
-
-### Quy trình hiện tại
-
--
-
----
-
-## Persona 2
-
-**Tên:**
-
-**Vai trò:**
-
-### Mục tiêu
-
--
-
-### Khó khăn
-
--
-
-### Quy trình hiện tại
-
--
-
----
-
-# 5. Hành trình người dùng (User Journey)
-
-## Quy trình hiện tại
-
-1.
-2.
-3.
-4.
-
-### Những điểm gây khó khăn
-
--
-
--
-
----
-
-## Quy trình sau khi sử dụng sản phẩm
-
-1.
-2.
-3.
-4.
-
-### Lợi ích
-
--
-
--
-
----
-
-# 6. Giải pháp đề xuất
-
-## Tổng quan
-
-(Mô tả giải pháp.)
-
-## Giá trị mang lại
-
--
-
--
-
-## Tại sao giải pháp này hiệu quả?
-
--
-
--
-
----
-
-# 7. Các tính năng chính
-
-| Tính năng | Mô tả | Mức độ ưu tiên |
-|------------|-------|----------------|
-| | | Cao |
-| | | Cao |
-| | | Trung bình |
-| | | Thấp |
-
----
-
-# 8. Thành phần AI
-
-| Chức năng | Công nghệ AI | Mô hình | Mục đích |
-|------------|--------------|----------|----------|
-| | | | |
-| | | | |
-| | | | |
-
----
-
-# 9. Kiến trúc hệ thống
-
-## Sơ đồ kiến trúc
-
-(Chèn sơ đồ)
-
-## Frontend
-
--
-
-## Backend
-
--
-
-## Cơ sở dữ liệu
-
--
-
-## AI
-
--
-
-## API
-
--
-
-## Hạ tầng triển khai
-
--
-
----
-
-# 10. Luồng hoạt động của hệ thống
-
-1.
-2.
-3.
-4.
-5.
-
----
-
-# 11. Nghiên cứu
-
-## Nghiên cứu về ngành
-
--
-
-## Nghiên cứu người dùng
-
--
-
-## Nghiên cứu thị trường
-
--
-
-## Nghiên cứu học thuật
-
--
-
----
-
-# 12. Phân tích đối thủ
-
-| Đối thủ | Điểm mạnh | Điểm yếu | Lợi thế của chúng tôi |
-|----------|-----------|----------|-----------------------|
-| | | | |
-| | | | |
-| | | | |
-
----
-
-# 13. Điểm đổi mới
-
-## Điều gì làm dự án khác biệt?
-
--
-
--
-
-## Vì sao cần AI?
-
--
-
--
-
----
-
-# 14. Phạm vi MVP
-
-## Những gì sẽ hoàn thành
-
--
-
--
-
--
-
-## Những gì chưa làm
-
--
-
--
-
--
-
----
-
-# 15. Công nghệ sử dụng
-
-## Frontend
-
--
-
-## Backend
-
--
-
-## Database
-
--
-
-## AI Models
-
--
-
-## Framework
-
--
-
-## Cloud / Triển khai
-
--
-
----
-
-# 16. Kế hoạch thực hiện
-
-## Giai đoạn nghiên cứu
-
--
-
-## Giai đoạn thiết kế
-
--
-
-## Giai đoạn phát triển
-
--
-
-## Giai đoạn kiểm thử
-
--
-
----
-
-# 17. Kịch bản Demo
-
-## Tình huống
-
--
-
-## Các bước Demo
-
-1.
-2.
-3.
-4.
-5.
-
----
-
-# 18. Thách thức và rủi ro
-
-| Rủi ro | Mức độ ảnh hưởng | Giải pháp |
-|---------|------------------|-----------|
-| | | |
-| | | |
-
----
-
-# 19. Định hướng phát triển
-
-## Sau Hackathon
-
-### 1 tháng
-
--
-
-### 3 tháng
-
--
-
-### 6 tháng
-
--
-
-### 1 năm
-
--
-
----
-
-# 20. Mô hình kinh doanh (Nếu có)
-
-## Khách hàng mục tiêu
-
--
-
-## Mô hình doanh thu
-
--
-
-## Chiến lược tiếp cận
-
--
-
-## Kế hoạch mở rộng
-
--
-
----
-
-# 21. Tác động xã hội
-
-## Giá trị mang lại
-
--
-
--
-
-## Đối tượng hưởng lợi
-
--
-
-## Khả năng mở rộng
-
--
-
----
-
-# 22. Tài liệu tham khảo
-
-## Báo cáo
-
--
-
-## Bài báo khoa học
-
--
-
-## Website
-
--
-
-## API / AI Models
-
--
-
----
-
-# PHỤ LỤC
-
-## Ý tưởng ban đầu
-
--
-
-## Ghi chú cuộc họp
-
--
-
-## Câu hỏi cần nghiên cứu
-
--
-
-## Link tham khảo
-
--
+`README.md` và `docs/` là nguồn đặc tả chính thức. Thay đổi kiến trúc, API, schema, AI output, offline behavior, nội dung học tập hoặc workflow người dùng phải cập nhật tài liệu liên quan trong cùng thay đổi.
