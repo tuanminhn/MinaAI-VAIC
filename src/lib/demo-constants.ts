@@ -1,0 +1,2 @@
+export const DEMO_CLASS_ID = "CLASS_DEMO_7A";
+export const DEMO_ASSIGNMENT_ID = "ASSIGNMENT_DEMO_G9";

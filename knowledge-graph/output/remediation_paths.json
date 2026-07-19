@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "remediation_paths": [
+    {
+      "id": "PATH.G6_TO_G7.COMMON_DENOM.ADD",
+      "target_skill_id": "MATH.G7.RATIONAL.ADD_SUBTRACT",
+      "root_cause_skill_id": "MATH.G6.FRACTION.COMMON_DENOMINATOR",
+      "estimated_minutes": 10,
+      "max_steps": 4,
+      "question_ids": [
+        "Q.REMED.G6.COMMON_DENOM.001",
+        "Q.REMED.G6.ADD.001"
+      ],
+      "transfer_question_ids": [
+        "Q.TRANSFER.G7.RATIONAL.ADD.001",
+        "Q.TRANSFER.G7.RATIONAL.SUB.001"
+      ],
+      "pass_threshold": 0.5,
+      "on_pass": "return_to_target_skill",
+      "on_fail": "teacher_review",
+      "review_status": "approved"
+    },
+    {
+      "id": "PATH.G6_TO_G7.EQUIVALENT.ADD",
+      "target_skill_id": "MATH.G7.RATIONAL.ADD_SUBTRACT",
+      "root_cause_skill_id": "MATH.G6.FRACTION.EQUIVALENT",
+      "estimated_minutes": 8,
+      "max_steps": 3,
+      "question_ids": [
+        "Q.REMED.G6.EQUIVALENT.001",
+        "Q.REMED.G6.COMMON_DENOM.001"
+      ],
+      "transfer_question_ids": [
+        "Q.TRANSFER.G7.RATIONAL.ADD.001"
+      ],
+      "pass_threshold": 0.67,
+      "on_pass": "return_to_target_skill",
+      "on_fail": "teacher_review",
+      "review_status": "approved"
+    },
+    {
+      "id": "PATH.G7.OPPOSITE.ADD_SUBTRACT",
+      "target_skill_id": "MATH.G7.RATIONAL.ADD_SUBTRACT",
+      "root_cause_skill_id": "MATH.G7.RATIONAL.OPPOSITE",
+      "estimated_minutes": 6,
+      "max_steps": 2,
+      "question_ids": [
+        "Q.REMED.G7.OPPOSITE.001"
+      ],
+      "transfer_question_ids": [
+        "Q.TRANSFER.G7.RATIONAL.SUB.001"
+      ],
+      "pass_threshold": 1.0,
+      "on_pass": "return_to_target_skill",
+      "on_fail": "teacher_review",
+      "review_status": "approved"
+    }
+  ]
+}

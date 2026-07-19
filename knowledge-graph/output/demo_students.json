@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "students": [
+    {
+      "id": "STUDENT_DEMO_MINH",
+      "display_name": "Minh",
+      "scenario": "root_cause_gap",
+      "answers": {
+        "Q.DIAG.G9.IDENTITY.001": "B",
+        "Q.DIAG.G9.QUADRATIC.001": "B",
+        "Q.DIAG.G9.SYSTEM.001": "A"
+      },
+      "expected": {
+        "status": "diagnosed",
+        "root_cause_skill_id": "MATH.G8.ALGEBRA.IDENTITIES",
+        "confidence_min": 0.75
+      }
+    },
+    {
+      "id": "STUDENT_DEMO_AN",
+      "display_name": "An",
+      "scenario": "mastered",
+      "answers": {
+        "Q.DIAG.G9.IDENTITY.001": "A",
+        "Q.DIAG.G9.RADICAL.001": "A",
+        "Q.DIAG.G9.SYSTEM.001": "A",
+        "Q.DIAG.G9.INEQUALITY.001": "A",
+        "Q.DIAG.G9.QUADRATIC.001": "A",
+        "Q.DIAG.G9.FUNCTION.001": "A",
+        "Q.DIAG.G9.TRIG.001": "A",
+        "Q.DIAG.G9.CIRCLE.001": "A",
+        "Q.DIAG.G9.SOLID.001": "A",
+        "Q.DIAG.G9.DATA.001": "A",
+        "Q.DIAG.G9.PROBABILITY.001": "A",
+        "Q.DIAG.G9.MODELING.001": "A"
+      },
+      "expected": {
+        "status": "mastered",
+        "target_skill_id": "MATH.G9.READINESS"
+      }
+    },
+    {
+      "id": "STUDENT_DEMO_LAN",
+      "display_name": "Lan",
+      "scenario": "insufficient_evidence",
+      "answers": {
+        "Q.DIAG.G9.RADICAL.001": "D"
+      },
+      "expected": {
+        "status": "insufficient_evidence",
+        "next_question_id": "Q.DIAG.G9.IDENTITY.001"
+      }
+    }
+  ]
+}

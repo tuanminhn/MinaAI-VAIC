@@ -1,3 +1,16 @@
+.DS_Store
+knowledge-graph/raw/
+__pycache__/
+.env
+.venv
+venv/
+node_modules/
+.pnpm-store/
+.next/
+out/
+*.tsbuildinfo
+.env.local
+.env.*.local
 backend/.venv/
 backend/.pytest_cache/
 backend/.ruff_cache/

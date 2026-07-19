@@ -1,378 +1,115 @@
 # Mina AI
 
-Mina AI là nền tảng web học thích ứng dành cho học sinh THCS và giáo viên Toán trong môi trường trường học Việt Nam. Dự án được thiết kế ưu tiên chạy ổn định trong mạng LAN nội bộ, phần cứng phổ thông, dễ cài đặt bằng Docker Compose, và đủ rõ ràng để nhà trường có thể vận hành thử nghiệm mà không phụ thuộc dịch vụ cloud.
+Mina AI là **co-teacher thích ứng cho lớp học phổ thông có trình độ không đồng đều**. Sản phẩm giúp giáo viên phát hiện nguyên nhân gốc của lỗi sai, ưu tiên học sinh cần hỗ trợ, chia nhóm theo nhu cầu và giao lộ trình bù hổng ngắn; học sinh được quay lại đúng kỹ năng nền còn thiếu rồi trở về bài học hiện tại.
 
-## Mục tiêu giải quyết
+## Trạng thái
 
-Mina AI tập trung vào một bài toán rất cụ thể:
+Dự án đang ở giai đoạn **hackathon prototype**. Task 1 (dataset/knowledge graph) đã được duyệt cho demo; Task 2 (Next.js full-stack, PostgreSQL schema và diagnostic engine) đã được triển khai. Bản này phục vụ demo, chưa được tuyên bố production-ready hoặc sẵn sàng dùng trong lớp thật.
 
-- Giúp học sinh biết mình cần làm gì tiếp theo trong bài học.
-- Xác định lỗ hổng kiến thức nền theo cách deterministic, không dùng AI để chấm hay suy luận runtime.
-- Điều hướng học sinh qua chu trình:
-  `được giao bài -> diagnostic -> remediation -> transfer -> result`
-- Giúp giáo viên xem bằng chứng học tập thật:
-  trạng thái phiên học, root cause chính, timeline chuyển trạng thái, và attempt evidence theo từng phase.
+## Beachhead và phạm vi MVP
 
-Phiên bản hiện tại mới triển khai một vertical slice MVP cho Toán phân số lớp 6.
+- Người dùng chính: giáo viên Toán THCS và học sinh trong lớp của họ.
+- Phạm vi dữ liệu MVP: **Toán lớp 6-9 theo Chương trình GDPT 2018**; bài diagnostic dành cho học sinh lớp 9 và truy ngược prerequisite về lớp 6-8.
+- Knowledge graph dùng ontology chương trình độc lập bộ sách. Provenance SGK Kết nối tri thức hiện có cho lát cắt lớp 6-7; node lớp 8-9 dùng văn bản chương trình chính thức và cần bổ sung mapping trang SGK trước pilot.
+- Nền tảng: web app/PWA cho giáo viên và học sinh.
+- Điều kiện vận hành: hỗ trợ mạng yếu và học sinh tiếp tục làm nhiệm vụ đã tải khi offline.
+- Chuẩn nội dung: Chương trình GDPT 2018; mapping bộ sách được lưu riêng khi có nguồn trang đã kiểm duyệt.
 
-## Tính năng chính hiện có
+Ngoài MVP: dữ liệu lớp 1-5 hoặc lớp 10-12, bộ Cánh diều/Chân trời sáng tạo, chatbot tự do, chấm bài viết tay, ứng dụng phụ huynh đầy đủ, gamification phức tạp và dashboard cấp Sở/Phòng.
 
-### 1. Xác thực thật bằng backend
+## Giá trị cốt lõi
 
-- Đăng nhập bằng `username + password`
-- Password hash bằng Argon2
-- Session dùng cookie `HttpOnly`
-- PostgreSQL chỉ lưu `token_hash`, không lưu raw token
-- Frontend dùng `credentials: "include"` và khôi phục phiên bằng `GET /api/v1/auth/me`
+1. **Chẩn đoán có bằng chứng:** không chỉ báo đúng/sai mà chỉ ra kỹ năng nền có khả năng gây lỗi, độ tin cậy và dữ liệu hỗ trợ.
+2. **Repair and Return:** bù đúng lỗ hổng trong một phiên ngắn, kiểm tra chuyển giao rồi quay lại bài hiện tại.
+3. **Dashboard để hành động:** trả lời "hôm nay cần giúp ai, vì sao và nên làm gì?".
+4. **Giáo viên giữ quyền quyết định:** mọi chẩn đoán là khuyến nghị có thể xem, sửa hoặc bác bỏ; nội dung AI không tự phát hành.
+5. **Không gắn nhãn học sinh:** giao diện dùng ngôn ngữ trung tính, tập trung vào kỹ năng cần luyện.
+6. **Offline có giới hạn rõ:** chấm và điều hướng cơ bản chạy cục bộ; phân tích nâng cao đồng bộ khi có mạng.
 
-### 2. Student learning loop hoàn chỉnh cho MVP
+## Chỉ số thành công chính
 
-- Student home và assignments dùng backend thật
-- Bắt đầu hoặc tiếp tục diagnostic session thật
-- Diagnostic engine deterministic, không dùng AI
-- Xác định `root cause` chính theo skill graph và luật explicit
-- Remediation flow thật
-- Transfer check thật
-- Result page thật với 3 outcome:
-  - `mastered_without_remediation`
-  - `mastered_after_remediation`
-  - `needs_teacher_support`
+North Star Metric là **Gap Closure Rate**: tỷ lệ lỗ hổng đã xác nhận được bù, vượt transfer test và không tái xuất hiện ở lần kiểm tra duy trì gần nhất.
 
-### 3. Teacher evidence và analytics tối thiểu
+MVP chỉ được coi là có tín hiệu tốt khi đồng thời chứng minh:
 
-- Xem danh sách lớp giáo viên phụ trách
-- Xem assignment theo lớp
-- Xem overview theo assignment:
-  - chưa bắt đầu
-  - đang diagnostic
-  - đang remediation
-  - hoàn thành
-  - cần hỗ trợ thêm
-- Xem root-cause groups
-- Xem danh sách học sinh theo assignment
-- Xem learning evidence của từng session:
-  timeline, attempts theo phase, outcome, root cause
+- Giáo viên dùng dashboard hằng tuần và thực hiện hành động từ đề xuất.
+- Học sinh hoàn thành diagnostic và remediation trong điều kiện lớp thật.
+- Chẩn đoán sai nằm trong ngưỡng pilot đã định và luôn hiển thị bằng chứng/độ tin cậy.
+- Không mất bài làm khi mất mạng hoặc đồng bộ lại.
 
-### 4. Content package MVP
+Chi tiết công thức, ngưỡng và sự kiện đo lường nằm trong [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md).
 
-Hiện hệ thống mới seed một gói nội dung development:
-
-- Package: `MATH6_FRACTIONS_FOUNDATION_V1`
-- Môn: `math`
-- Khối: `6`
-- Cụm kiến thức:
-  - bội chung
-  - BCNN
-  - phân số bằng nhau
-  - quy đồng mẫu số
-  - trừ hai phân số
-  - phương trình phân số đơn giản
-
-### 5. Nền tảng kỹ thuật ổn định cho phát triển tiếp
-
-- FastAPI + PostgreSQL + Alembic
-- React + Vite + TypeScript strict
-- MSW cho isolated frontend tests
-- Dev DB và test DB tách biệt:
-  - `mina_dev`
-  - `mina_test`
-
-## Công nghệ sử dụng
-
-### Frontend
-
-- React
-- Vite
-- TypeScript
-- React Router
-- Tailwind CSS
-- shadcn-style UI primitives
-- TanStack Query
-- React Hook Form
-- Zod
-- Lucide React
-- MSW
-- Vitest
-- React Testing Library
-
-### Backend
-
-- Python 3.11
-- FastAPI
-- Uvicorn
-- SQLAlchemy 2
-- Alembic
-- PostgreSQL
-- Psycopg 3
-- Pydantic Settings
-- Ruff
-- Pytest
-
-### Hạ tầng local/development
-
-- Docker Compose
-- PostgreSQL volume cho dữ liệu local
-
-## Cấu trúc dự án
+## Luồng MVP
 
 ```text
-MinaAI-VAIC/
-  backend/
-  frontend/
-  docker-compose.yml
-  README.md
+Giáo viên tạo lớp và giao diagnostic
+-> Học sinh làm bài (online hoặc offline sau khi tải nhiệm vụ)
+-> Engine đối chiếu đáp án, misconception và prerequisite graph
+-> Hệ thống đề xuất root-cause gap kèm evidence/confidence
+-> Giáo viên xem nhóm ưu tiên và giao can thiệp
+-> Học sinh hoàn thành remediation + transfer test
+-> Dashboard ghi nhận kết quả và gap closure
 ```
 
-## Yêu cầu môi trường
+## Nguyên tắc kỹ thuật đã thống nhất
 
-### Bắt buộc
+- Chẩn đoán thời gian thực dựa trên knowledge graph, rule-based scoring và misconception mapping; **không phụ thuộc LLM**.
+- LLM chỉ hỗ trợ giải thích, tóm tắt và tạo bản nháp có kiểm duyệt.
+- Prototype có ba luồng AI hỗ trợ: giải thích câu sai sau khi học sinh đã nộp và khóa bài, tóm tắt lớp đã khử định danh và bản nháp kế hoạch dạy lại cho nhóm. Không có gợi ý trong lúc làm diagnostic; ba luồng không thay đổi đáp án, diagnosis, điểm hoặc trạng thái kỹ năng.
+- Dữ liệu học sinh tối thiểu hóa theo mục đích, phân quyền theo lớp và không đưa thông tin định danh vào prompt/trace của bên thứ ba.
+- Học liệu và knowledge graph có provenance, version, trạng thái duyệt và khả năng rollback.
+- Offline dùng event/attempt ID bất biến và thao tác sync idempotent để tránh tạo trùng hoặc ghi đè bài làm.
 
-- Docker Desktop hoặc Docker Engine + Docker Compose
-- Node.js `>= 20`
-- npm `>= 10`
-- Python `3.11`
+Stack prototype đã chốt là **Next.js + TypeScript cho frontend và backend**, PostgreSQL qua `DATABASE_URL`, và diagnostic engine TypeScript chạy phía server. Chi tiết hiện trạng, schema và API nằm trong [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md).
 
-### Lưu ý
+## Chạy prototype local
 
-- Dùng nhất quán `localhost`
-- Không trộn `localhost` và `127.0.0.1` khi test cookie/CORS
-- Không commit `backend/.env`
+Yêu cầu Bun 1.3+. Tạo `.env` ở root với `DATABASE_URL` trỏ tới PostgreSQL, sau đó chạy:
 
-## Hướng dẫn cài đặt
-
-### 1. Tạo file môi trường backend
-
-Từ thư mục `backend/`:
-
-```powershell
-cd backend
-Copy-Item .env.example .env
+```bash
+bun install
+bun run db:setup
+bun run dev
 ```
 
-Sau đó kiểm tra các biến chính trong `backend/.env`:
+Mở `http://localhost:3000`; student flow ở `/student`, teacher dashboard ở `/teacher`. Không đặt `NEXT_PUBLIC_` trước `DATABASE_URL`: biến này chỉ được đọc trong server code.
 
-```env
-APP_ENV=development
-DATABASE_URL=postgresql+psycopg://mina_app:mina_dev_password@postgres:5432/mina_dev
-TEST_DATABASE_URL=postgresql+psycopg://mina_app:mina_dev_password@postgres:5432/mina_test
-API_V1_PREFIX=/api/v1
-CORS_ORIGINS=http://localhost:5173
-AUTH_COOKIE_SECURE=false
-AUTH_COOKIE_SAMESITE=lax
+Ba tính năng AI mặc định gọi FPT AI Inference tại `https://mkp-api.fptcloud.com/chat/completions` với model `DeepSeek-V4-Flash`. Chỉ cần đặt API key server-only trong `LLM_API_KEY`; `LLM_BASE_URL` và `LLM_MODEL` vẫn có thể đổi để dùng endpoint tương thích OpenAI khác. Có thể chỉnh `LLM_TIMEOUT_MS` (mặc định 30000 ms), `LLM_MAX_TOKENS` (1600), `LLM_MAX_RETRIES` (1) hoặc đặt `LLM_ENABLED=false`. Khi chưa có key, bị tắt, timeout, provider lỗi hoặc output sai schema, giao diện vẫn hoạt động bằng bản dự phòng deterministic và hiển thị rõ chế độ này. Không đặt `NEXT_PUBLIC_` trước bất kỳ API key nào.
+
+Các lệnh kiểm tra:
+
+```bash
+bun run typecheck
+bun run lint
+bun run test
+bun run build
 ```
 
-### 2. Cài dependency frontend
+## Tài liệu nguồn
 
-```powershell
-cd ..\frontend
-npm install
-```
+Bắt đầu tại [docs/INDEX.md](/docs/INDEX.md). Thứ tự đọc trước khi code:
 
-### 3. Cài dependency backend local
+1. [Problem Statement](/docs/problem-statement.md)
+2. [PRD](/docs/prd.md)
+3. [Đặc tả MVP & Acceptance Criteria](/docs/mvp-spec.md)
+4. [Hackathon Work Breakdown](/docs/hackathon-work-breakdown.md)
+5. [Yêu cầu Phi chức năng, An toàn & Dữ liệu](/docs/non-functional-requirements.md)
+6. [Product Decisions](/docs/product-decisions.md)
+7. [Kế hoạch Pilot & Đo lường](/docs/pilot-and-measurement.md)
+8. [PDF -> Knowledge Graph](/docs/pdf-to-knowledge-graph.md)
+9. [Kiến trúc kỹ thuật Task 2](/docs/technical-architecture.md)
 
-```powershell
-cd ..\backend
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -e .[dev]
-```
+## Definition of Ready trước pilot
 
-## Hướng dẫn chạy dự án
+Prototype hackathon có thể tiếp tục với giả định được ghi rõ. Trước pilot/lớp thật cần:
 
-## Cách 1: Chạy đầy đủ với Docker backend + frontend local
+- Các câu hỏi P0 trong Product Decisions đã có owner và quyết định.
+- Phạm vi P0, user stories và acceptance criteria được product/education/engineering cùng duyệt.
+- Có ít nhất một knowledge graph mẫu đã được chuyên gia duyệt, cùng bộ câu hỏi diagnostic/remediation/transfer test tối thiểu.
+- Luồng dữ liệu, consent, retention và quyền truy cập dữ liệu học sinh được chấp thuận.
+- Có wireflow cho 3 luồng P0: tạo/giao bài, học sinh làm diagnostic, giáo viên xem và hành động.
+- Kế hoạch pilot, baseline, event tracking và tiêu chí go/no-go được chốt.
 
-Đây là cách phù hợp nhất cho development hiện tại.
+## Quy tắc đồng bộ tài liệu
 
-### Bước 1. Build và khởi động PostgreSQL + backend
-
-Từ thư mục gốc dự án:
-
-```powershell
-docker compose build --no-cache backend
-docker compose up -d --force-recreate postgres backend
-docker compose ps
-```
-
-### Bước 2. Chạy migration
-
-```powershell
-docker compose exec backend alembic upgrade head
-docker compose exec backend alembic current
-docker compose exec backend alembic heads
-```
-
-Kỳ vọng hiện tại:
-
-```text
-20260718_0006 (head)
-```
-
-### Bước 3. Seed dữ liệu development
-
-```powershell
-docker compose exec backend python -m app.cli.seed_dev_users --reset-password
-docker compose exec backend python -m app.cli.seed_dev_core
-docker compose exec backend python -m app.cli.seed_dev_content
-docker compose exec backend python -m app.cli.validate_content --package-code MATH6_FRACTIONS_FOUNDATION_V1
-```
-
-### Bước 4. Chạy frontend với backend thật
-
-```powershell
-cd frontend
-$env:VITE_API_BASE_URL="http://localhost:8000/api/v1"
-$env:VITE_ENABLE_MSW="false"
-npm run dev -- --host localhost
-```
-
-### Bước 5. Mở ứng dụng
-
-- Frontend: `http://localhost:5173`
-- Backend health: `http://localhost:8000/api/v1/health`
-- Backend ready: `http://localhost:8000/api/v1/health/ready`
-
-## Cách 2: Chạy frontend độc lập với MSW
-
-Phù hợp khi chỉ muốn làm UI hoặc test frontend isolated.
-
-```powershell
-cd frontend
-$env:VITE_ENABLE_MSW="true"
-npm run dev -- --host localhost
-```
-
-Lưu ý:
-
-- MSW chỉ dùng cho development/test
-- production build không giữ `mockServiceWorker.js`
-
-## Hướng dẫn sử dụng sản phẩm
-
-## Tài khoản development
-
-Tài khoản được tạo bởi lệnh seed từ `backend/.env`.
-
-Mặc định trong luồng development hiện tại:
-
-- Học sinh: `hs1`
-- Giáo viên: `gv1`
-
-Mật khẩu lấy theo giá trị cấu hình trong `backend/.env`.
-
-## Luồng học sinh
-
-1. Truy cập `http://localhost:5173/login`
-2. Đăng nhập bằng tài khoản học sinh
-3. Vào `/student`
-4. Xem bài đang được giao
-5. Bấm `Bắt đầu làm bài` hoặc `Tiếp tục`
-6. Thực hiện diagnostic
-7. Nếu hệ thống phát hiện lỗ hổng kiến thức:
-   học sinh được chuyển sang remediation
-8. Làm transfer check
-9. Xem result ở cuối phiên học
-
-Các trạng thái outcome hiện có:
-
-- Hoàn thành ngay sau diagnostic
-- Hoàn thành sau remediation
-- Cần giáo viên hỗ trợ thêm
-
-## Luồng giáo viên
-
-1. Đăng nhập bằng tài khoản giáo viên
-2. Vào `/teacher`
-3. Chọn lớp phụ trách
-4. Xem assignment của lớp
-5. Mở overview của assignment
-6. Xem:
-   - số lượng học sinh theo trạng thái
-   - root-cause groups
-   - danh sách học sinh
-7. Mở learning session evidence để xem timeline và attempts
-
-## Lệnh hữu ích
-
-### Backend
-
-```powershell
-cd backend
-.\.venv\Scripts\ruff check .
-.\.venv\Scripts\ruff format --check .
-.\.venv\Scripts\pytest
-```
-
-### Frontend
-
-```powershell
-cd frontend
-npm run typecheck
-npm run lint
-npm run test:run
-npm run build
-```
-
-### Health check
-
-```powershell
-curl http://localhost:8000/api/v1/health
-curl http://localhost:8000/api/v1/health/ready
-```
-
-## Reset dữ liệu development
-
-Khi cần làm sạch môi trường demo:
-
-```powershell
-docker compose exec backend python -m app.cli.reset_dev_database
-docker compose exec backend alembic upgrade head
-docker compose exec backend python -m app.cli.seed_dev_users --reset-password
-docker compose exec backend python -m app.cli.seed_dev_core
-docker compose exec backend python -m app.cli.seed_dev_content
-docker compose exec backend python -m app.cli.validate_content --package-code MATH6_FRACTIONS_FOUNDATION_V1
-```
-
-Guard an toàn hiện có:
-
-- chỉ cho phép reset khi `APP_ENV=development`
-- chỉ cho phép reset `mina_dev`
-- pytest PostgreSQL chỉ dùng `mina_test`
-
-## Trạng thái hiện tại của sản phẩm
-
-Tính đến ngày `18/07/2026`, Mina AI đã có:
-
-- auth thật bằng cookie HttpOnly
-- student home và assignments dùng backend thật
-- deterministic diagnostic engine
-- remediation flow thật
-- transfer flow thật
-- result page thật
-- teacher overview, student list và evidence thật
-- content package MVP cho Toán phân số lớp 6
-- Docker backend chạy được với migration `0006`
-- test DB tách biệt với dev DB
-
-## Những gì chưa có
-
-- Remediation UI nâng cao với rich math rendering
-- Transfer analytics nâng cao
-- Teacher dashboard charts
-- Assignment authoring UI
-- Admin panel
-- Full curriculum ngoài vertical slice hiện tại
-- AI, LLM, RAG, pgvector
-- HTTPS termination/Nginx production deployment
-- Rate limiting và hardening security đầy đủ cho rollout diện rộng
-
-## Ghi chú quan trọng
-
-- Diagnostic engine hiện tại là deterministic, không dùng AI runtime
-- Student APIs không lộ answer key
-- Teacher evidence API có thể trả `isCorrect` sau khi đã qua role authorization
-- Content development hiện tại là nội dung MVP để thử nghiệm nội bộ, chưa phải bản phê duyệt chính thức để rollout đại trà
-
-## Tài liệu chi tiết hơn
-
-- Backend: [backend/README.md](/abs/path/D:/Downloads/hackathon2/MinaAI-VAIC/backend/README.md)
-- Frontend: [frontend/README.md](/abs/path/D:/Downloads/hackathon2/MinaAI-VAIC/frontend/README.md)
+`README.md` và `docs/` là nguồn đặc tả chính thức. Thay đổi kiến trúc, API, schema, AI output, offline behavior, nội dung học tập hoặc workflow người dùng phải cập nhật tài liệu liên quan trong cùng thay đổi.
