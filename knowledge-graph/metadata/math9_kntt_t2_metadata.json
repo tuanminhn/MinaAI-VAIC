@@ -1,0 +1,407 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_9_T2",
+    "book_name": "Toán 9 - Tập Hai",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 9,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_06",
+      "chapter_code": "MATH.G9.CH6",
+      "chapter_name": "Hàm số y = ax^2 (a ≠ 0). Phương trình bậc hai một ẩn",
+      "lessons": [
+        {
+          "lesson_id": "L_18",
+          "lesson_code": "MATH.G9.CH6.L18",
+          "lesson_name": "Hàm số y = ax^2 (a ≠ 0)",
+          "page_start": 5,
+          "page_end": 11,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.FUN.QUAD_CONCEPT",
+              "canonical_name": "Nhận biết hàm số y = ax^2 (a ≠ 0)",
+              "description": "Nhận biết hàm số dạng bậc hai một biến; thiết lập bảng giá trị tương ứng của hàm số.",
+              "domain": "Functions and Graphs",
+              "subdomain": "Quadratic Functions"
+            },
+            {
+              "code": "MATH.G9.FUN.PARABOLA_DRAW",
+              "canonical_name": "Vẽ đồ thị của hàm số y = ax^2 (a ≠ 0)",
+              "description": "Biểu diễn các điểm trên mặt phẳng tọa độ Oxy và nối lại thành đường Parabol; nhận biết tính đối xứng trục qua trục tung Oy.",
+              "domain": "Functions and Graphs",
+              "subdomain": "Quadratic Functions"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.FUN.PARABOLA_VERTEX",
+              "description": "Học sinh vẽ phần đáy đồ thị Parabol dạng nhọn chữ V thay vì đường cong mềm",
+              "error_pattern": "Vẽ đồ thị gãy khúc tại gốc tọa độ O(0;0) hoặc xác định sai hướng bề lõm khi hệ số a âm/dương.",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_19",
+          "lesson_code": "MATH.G9.CH6.L19",
+          "lesson_name": "Phương trình bậc hai một ẩn",
+          "page_start": 12,
+          "page_end": 19,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.EQ.QUAD_CONCEPT",
+              "canonical_name": "Nhận biết phương trình bậc hai một ẩn",
+              "description": "Xác định các hệ số a, b, c của phương trình bậc hai một ẩn; giải phương trình bậc hai dạng khuyết hệ số.",
+              "domain": "Algebra",
+              "subdomain": "Quadratic Equations"
+            },
+            {
+              "code": "MATH.G9.EQ.QUAD_FORMULA",
+              "canonical_name": "Giải phương trình bậc hai bằng công thức nghiệm",
+              "description": "Tính biệt thức Delta (hoặc Delta phẩy) để biện luận số nghiệm và tính chính xác nghiệm của phương trình bậc hai.",
+              "domain": "Algebra",
+              "subdomain": "Quadratic Equations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.EQ.QUAD_SIGN_ERROR",
+              "description": "Sai dấu khi thực hiện tính biệt thức Delta = b^2 - 4ac",
+              "error_pattern": "Khi hệ số c < 0, học sinh tính nhầm tích -4ac thành dấu trừ thay vì cộng.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_20",
+          "lesson_code": "MATH.G9.CH6.L20",
+          "lesson_name": "Định lí Viète và ứng dụng",
+          "page_start": 21,
+          "page_end": 24,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.EQ.VIETE_PROPERTIES",
+              "canonical_name": "Vận dụng định lí Viète tính tổng và tích các nghiệm",
+              "description": "Tính nhanh tổng x1 + x2 = -b/a và tích x1 * x2 = c/a mà không cần giải phương trình.",
+              "domain": "Algebra",
+              "subdomain": "Quadratic Equations"
+            },
+            {
+              "code": "MATH.G9.EQ.VIETE_MENTAL_SOLVE",
+              "canonical_name": "Tính nhẩm nghiệm của phương trình bậc hai",
+              "description": "Áp dụng trường hợp đặc biệt a + b + c = 0 hoặc a - b + c = 0 để tìm ngay nghiệm của phương trình.",
+              "domain": "Algebra",
+              "subdomain": "Quadratic Equations"
+            },
+            {
+              "code": "MATH.G9.EQ.VIETE_FIND_NUMBERS",
+              "canonical_name": "Tìm hai số khi biết tổng và tích của chúng",
+              "description": "Thiết lập phương trình bậc hai x^2 - Sx + P = 0 để tìm hai số khi biết tổng S và tích P thỏa mãn S^2 - 4P >= 0.",
+              "domain": "Algebra",
+              "subdomain": "Quadratic Equations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.EQ.VIETE_SIGN_FLIP",
+              "description": "Nhầm lẫn dấu trong hệ thức tổng nghiệm",
+              "error_pattern": "Viết x1 + x2 = b/a thay vì -b/a.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_21",
+          "lesson_code": "MATH.G9.CH6.L21",
+          "lesson_name": "Giải bài toán bằng cách lập phương trình",
+          "page_start": 25,
+          "page_end": 31,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.EQ.QUAD_WORD_PROBLEMS",
+              "canonical_name": "Giải bài toán thực tế bằng cách lập phương trình bậc hai",
+              "description": "Chọn ẩn, biểu diễn các đại lượng lời văn theo ẩn để lập phương trình bậc hai một ẩn và giải đối chiếu điều kiện thực tế.",
+              "domain": "Algebra",
+              "subdomain": "Equations Word Problems"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_07",
+      "chapter_code": "MATH.G9.CH7",
+      "chapter_name": "Tần số và tần số tương đối",
+      "lessons": [
+        {
+          "lesson_id": "L_22",
+          "lesson_code": "MATH.G9.CH7.L22",
+          "lesson_name": "Bảng tần số và biểu đồ tần số",
+          "page_start": 32,
+          "page_end": 37,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.STAT.FREQ_TABLE",
+              "canonical_name": "Thiết lập bảng tần số từ mẫu số liệu",
+              "description": "Đếm số lần xuất hiện của các giá trị trong mẫu dữ liệu để xây dựng bảng tần số rời rạc.",
+              "domain": "Data and Statistics",
+              "subdomain": "Frequency Displays"
+            },
+            {
+              "code": "MATH.G9.STAT.FREQ_CHART",
+              "canonical_name": "Vẽ biểu đồ tần số dạng cột và đoạn thẳng",
+              "description": "Tạo lập trục tọa độ hiển thị giá trị và tần số; vẽ cột hình chữ nhật hoặc nối các điểm liên tiếp biểu diễn tần số.",
+              "domain": "Data and Statistics",
+              "subdomain": "Frequency Displays"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_23",
+          "lesson_code": "MATH.G9.CH7.L23",
+          "lesson_name": "Bảng tần số tương đối và biểu đồ tần số tương đối",
+          "page_start": 38,
+          "page_end": 42,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.STAT.REL_FREQ_TABLE",
+              "canonical_name": "Thiết lập bảng tần số tương đối",
+              "description": "Tính tỉ số phần trăm f = (m/n)*100% của từng giá trị so với tổng thể cỡ mẫu.",
+              "domain": "Data and Statistics",
+              "subdomain": "Frequency Displays"
+            },
+            {
+              "code": "MATH.G9.STAT.REL_FREQ_CHART",
+              "canonical_name": "Vẽ biểu đồ tần số tương đối dạng hình quạt tròn",
+              "description": "Xác định số đo cung tương ứng (360 độ * f%) để vẽ biểu đồ hình quạt tròn thể hiện tỉ lệ phần trăm.",
+              "domain": "Data and Statistics",
+              "subdomain": "Frequency Displays"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_24",
+          "lesson_code": "MATH.G9.CH7.L24",
+          "lesson_name": "Bảng tần số, tần số tương đối ghép nhóm và biểu đồ",
+          "page_start": 46,
+          "page_end": 55,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.STAT.GROUPED_TABLE",
+              "canonical_name": "Thiết lập bảng tần số, tần số tương đối ghép nhóm",
+              "description": "Tổ chức mẫu số liệu rời rạc hoặc liên tục thành các nhóm khoảng nửa khoảng [a; b); xác định tần số từng nhóm.",
+              "domain": "Data and Statistics",
+              "subdomain": "Grouped Data"
+            },
+            {
+              "code": "MATH.G9.STAT.HISTOGRAM_DRAW",
+              "canonical_name": "Vẽ biểu đồ tần số tương đối ghép nhóm dạng cột và đoạn thẳng",
+              "description": "Vẽ các cột kề nhau thể hiện phân phối nhóm (Histogram) hoặc xác định giá trị đại diện nhóm để vẽ đường gấp khúc.",
+              "domain": "Data and Statistics",
+              "subdomain": "Grouped Data"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.STAT.HISTOGRAM_EDGE",
+              "description": "Học sinh đếm nhầm hoặc bỏ sót giá trị biên của nửa khoảng",
+              "error_pattern": "Xếp giá trị x = b vào nhóm [a; b) thay vì nhóm tiếp theo [b; c).",
+              "severity": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_08",
+      "chapter_code": "MATH.G9.CH8",
+      "chapter_name": "Xác suất của biến cố trong một số mô hình xác suất đơn giản",
+      "lessons": [
+        {
+          "lesson_id": "L_25",
+          "lesson_code": "MATH.G9.CH8.L25",
+          "lesson_name": "Phép thử ngẫu nhiên và không gian mẫu",
+          "page_start": 57,
+          "page_end": 61,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.PROB.SAMPLE_SPACE",
+              "canonical_name": "Nhận biết phép thử ngẫu nhiên và mô tả không gian mẫu",
+              "description": "Liệt kê đầy đủ tất cả các phần tử, kết quả có thể xảy ra của một phép thử ngẫu nhiên liên tiếp hoặc đồng thời (ký hiệu Omega).",
+              "domain": "Probability",
+              "subdomain": "Probability Events"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_26",
+          "lesson_code": "MATH.G9.CH8.L26",
+          "lesson_name": "Xác suất của biến cố liên quan tới phép thử",
+          "page_start": 62,
+          "page_end": 66,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.PROB.CLASSIC_CALCULATE",
+              "canonical_name": "Tính xác suất của biến cố theo mô hình cổ điển",
+              "description": "Xác định tập hợp kết quả thuận lợi n(E); lập tỉ số P(E) = n(E)/n(Omega) khi các kết quả có thể là đồng khả năng.",
+              "domain": "Probability",
+              "subdomain": "Probability Calculation"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.PROB.NON_EQUALLY",
+              "description": "Mặc định coi các kết quả phân loại thô là đồng khả năng khi tính xác suất",
+              "error_pattern": "Lấy một viên bi từ túi có 5 bi đỏ, 4 bi xanh và kết luận xác suất lấy bi đỏ là 1/3 vì chỉ có 3 màu bi.",
+              "severity": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_09",
+      "chapter_code": "MATH.G9.CH9",
+      "chapter_name": "Đường tròn ngoại tiếp và đường tròn nội tiếp",
+      "lessons": [
+        {
+          "lesson_id": "L_27",
+          "lesson_code": "MATH.G9.CH5.L27",
+          "lesson_name": "Góc nội tiếp",
+          "page_start": 67,
+          "page_end": 71,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.CIRC.INSCRIBED_ANGLE",
+              "canonical_name": "Nhận biết góc nội tiếp và cung bị chắn",
+              "description": "Nhận dạng góc có đỉnh nằm trên đường tròn, hai cạnh chứa dây cung; áp dụng định lí số đo góc nội tiếp bằng nửa số đo cung bị chắn.",
+              "domain": "Geometry",
+              "subdomain": "Circles"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.CIRC.INSCRIBED_CONFUSION",
+              "description": "Nhầm lẫn tính chất số đo của góc nội tiếp với góc ở tâm",
+              "error_pattern": "Tính số đo góc nội tiếp bằng đúng số đo của cung bị chắn.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_28",
+          "lesson_code": "MATH.G9.CH5.L28",
+          "lesson_name": "Đường tròn ngoại tiếp và đường tròn nội tiếp của một tam giác",
+          "page_start": 72,
+          "page_end": 79,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.CIRC.OUT_IN_TRIANGLE",
+              "canonical_name": "Xác định tâm và bán kính đường tròn ngoại tiếp, nội tiếp tam giác",
+              "description": "Xác định tâm đường tròn ngoại tiếp (giao ba đường trung trực) và nội tiếp (giao ba đường phân giác) của tam giác vuông, tam giác đều.",
+              "domain": "Geometry",
+              "subdomain": "Circles"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_29",
+          "lesson_code": "MATH.G9.CH5.L29",
+          "lesson_name": "Tứ giác nội tiếp",
+          "page_start": 80,
+          "page_end": 83,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.CIRC.INSCRIBED_QUAD",
+              "canonical_name": "Nhận biết tứ giác nội tiếp đường tròn",
+              "description": "Hiểu định nghĩa tứ giác nội tiếp; giải thích và áp dụng định lí tổng hai góc đối diện của tứ giác nội tiếp bằng 180 độ.",
+              "domain": "Geometry",
+              "subdomain": "Circles"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.CIRC.QUAD_ADJACENT_SUM",
+              "description": "Học sinh áp dụng nhầm tính chất tổng hai góc kề bằng 180 độ cho tứ giác nội tiếp",
+              "error_pattern": "Khẳng định hai góc kề một cạnh của tứ giác nội tiếp có tổng bằng 180 độ.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_30",
+          "lesson_code": "MATH.G9.CH5.L30",
+          "lesson_name": "Đa giác đều",
+          "page_start": 84,
+          "page_end": 90,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.CIRC.REGULAR_POLYGON",
+              "canonical_name": "Nhận biết đa giác đều và phép quay giữ nguyên đa giác",
+              "description": "Nhận dạng ngũ giác, lục giác, bát giác đều; mô tả các phép quay thuận/ngược chiều giữ nguyên đa giác đều.",
+              "domain": "Geometry",
+              "subdomain": "Circles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_10",
+      "chapter_code": "MATH.G9.CH10",
+      "chapter_name": "Một số hình khối trong thực tiễn",
+      "lessons": [
+        {
+          "lesson_id": "L_31",
+          "lesson_code": "MATH.G9.CH10.L31",
+          "lesson_name": "Hình trụ và hình nón",
+          "page_start": 95,
+          "page_end": 102,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.SOLID.CYLINDER_CONE_PROP",
+              "canonical_name": "Mô tả cấu trúc cơ bản của hình trụ và hình nón",
+              "description": "Xác định rõ chiều cao, bán kính đáy, đường sinh của khối trụ và khối nón trên mô hình thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            },
+            {
+              "code": "MATH.G9.SOLID.CYLINDER_CONE_MEASURE",
+              "canonical_name": "Tính diện tích xung quanh và thể tích hình trụ, hình nón",
+              "description": "Áp dụng thành thạo các công thức S_xq khối trụ, khối nón; tính dung tích, thể tích khối chóp nón tròn.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.SOLID.CONE_HEIGHT_CONFUSION",
+              "description": "Nhầm lẫn giữa chiều cao h của khối nón với độ dài đường sinh l khi tính toán thể tích",
+              "error_pattern": "Thay giá trị đường sinh l vào công thức V = (1/3)*pi*r^2*h thay vì phải tính chiều cao h qua định lý Pythagore.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_32",
+          "lesson_code": "MATH.G9.CH10.L32",
+          "lesson_name": "Hình cầu",
+          "page_start": 103,
+          "page_end": 108,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.SOLID.SPHERE_MEASURE",
+              "canonical_name": "Tính diện tích mặt cầu và thể tích hình cầu",
+              "description": "Mô tả tâm, bán kính hình cầu; áp dụng chính xác công thức S = 4*pi*R^2 và V = (4/3)*pi*R^3 vào bài toán thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

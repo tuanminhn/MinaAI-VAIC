@@ -1,0 +1,513 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_8_T1",
+    "book_name": "Toán 8 - Tập Một",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 8,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_01",
+      "chapter_code": "MATH.G8.CH1",
+      "chapter_name": "Đa thức",
+      "lessons": [
+        {
+          "lesson_id": "L_01",
+          "lesson_code": "MATH.G8.CH1.L01",
+          "lesson_name": "Đơn thức",
+          "page_start": 5,
+          "page_end": 11,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.POLY.MONOMIAL_CONCEPT",
+              "canonical_name": "Nhận biết đơn thức và đơn thức thu gọn",
+              "description": "Nhận biết biểu thức đại số là đơn thức; xác định hệ số, phần biến và bậc của đơn thức nhiều biến sau khi thu gọn.",
+              "domain": "Algebra",
+              "subdomain": "Polynomials"
+            },
+            {
+              "code": "MATH.G8.POLY.MONOMIAL_REDUCE",
+              "canonical_name": "Thực hiện thu gọn đơn thức",
+              "description": "Vận dụng các tính chất giao hoán, kết hợp của phép nhân và quy tắc lũy thừa để đưa đơn thức chưa thu gọn về dạng thu gọn.",
+              "domain": "Algebra",
+              "subdomain": "Polynomials"
+            },
+            {
+              "code": "MATH.G8.POLY.SIMILAR_MONOMIALS",
+              "canonical_name": "Nhận biết đơn thức đồng dạng và thực hiện phép tính",
+              "description": "Nhận biết các đơn thức đồng dạng; thực hiện thành thạo phép tính cộng và trừ các đơn thức đồng dạng.",
+              "domain": "Algebra",
+              "subdomain": "Polynomials"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.POLY.POW_MULT",
+              "description": "Học sinh nhầm lẫn giữa nhân hai lũy thừa cùng cơ số và lũy thừa của lũy thừa khi nhân phần biến",
+              "error_pattern": "x^2 * x^3 = x^6 thay vì x^5",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_02",
+          "lesson_code": "MATH.G8.CH1.L02",
+          "lesson_name": "Đa thức",
+          "page_start": 12,
+          "page_end": 15,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.POLY.POLY_CONCEPT",
+              "canonical_name": "Nhận biết đa thức và hạng tử",
+              "description": "Nhận biết đa thức là một tổng của những đơn thức; xác định chính xác các hạng tử và bậc của đa thức.",
+              "domain": "Algebra",
+              "subdomain": "Polynomials"
+            },
+            {
+              "code": "MATH.G8.POLY.POLY_REDUCE",
+              "canonical_name": "Thực hiện thu gọn đa thức nhiều biến",
+              "description": "Nhóm các hạng tử đồng dạng để biến đổi một đa thức thành đa thức thu gọn.",
+              "domain": "Algebra",
+              "subdomain": "Polynomials"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_03",
+          "lesson_code": "MATH.G8.CH1.L03",
+          "lesson_name": "Phép cộng và phép trừ đa thức",
+          "page_start": 16,
+          "page_end": 19,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.POLY.ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và phép trừ đa thức nhiều biến",
+              "description": "Vận dụng quy tắc phá ngoặc và thu gọn hạng tử đồng dạng để thực hiện phép toán cộng, trừ đa thức.",
+              "domain": "Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.POLY.BRACKET_SUB",
+              "description": "Học sinh quên đổi dấu các hạng tử khi phá ngoặc trước có dấu trừ",
+              "error_pattern": "A - (B - C) = A - B - C",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_04",
+          "lesson_code": "MATH.G8.CH1.L04",
+          "lesson_name": "Phép nhân đa thức",
+          "page_start": 20,
+          "page_end": 21,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.POLY.MULTIPLY_MONO_POLY",
+              "canonical_name": "Thực hiện phép nhân đơn thức với đa thức",
+              "description": "Nhân đơn thức với từng hạng tử của đa thức rồi cộng các tích lại với nhau.",
+              "domain": "Algebra",
+              "subdomain": "Polynomial Operations"
+            },
+            {
+              "code": "MATH.G8.POLY.MULTIPLY_POLY_POLY",
+              "canonical_name": "Thực hiện phép nhân đa thức với đa thức",
+              "description": "Nhân mỗi hạng tử của đa thức này với từng hạng tử của đa thức kia rồi thu gọn các hạng tử đồng dạng.",
+              "domain": "Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_05",
+          "lesson_code": "MATH.G8.CH1.L05",
+          "lesson_name": "Phép chia đa thức cho đơn thức",
+          "page_start": 22,
+          "page_end": 27,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.POLY.DIVIDE_MONO_MONO",
+              "canonical_name": "Thực hiện phép chia đơn thức cho đơn thức",
+              "description": "Chia hệ số của đơn thức bị chia cho hệ số của đơn thức chia và chia từng lũy thừa của biến để tìm thương.",
+              "domain": "Algebra",
+              "subdomain": "Polynomial Operations"
+            },
+            {
+              "code": "MATH.G8.POLY.DIVIDE_POLY_MONO",
+              "canonical_name": "Thực hiện phép chia đa thức cho đơn thức",
+              "description": "Chia từng hạng tử của đa thức cho đơn thức chia (trường hợp chia hết) rồi cộng các kết quả lại.",
+              "domain": "Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_02",
+      "chapter_code": "MATH.G8.CH2",
+      "chapter_name": "Hằng đẳng thức đáng nhớ và ứng dụng",
+      "lessons": [
+        {
+          "lesson_id": "L_06",
+          "lesson_code": "MATH.G8.CH2.L06",
+          "lesson_name": "Hiệu hai bình phương. Bình phương của một tổng hay một hiệu",
+          "page_start": 29,
+          "page_end": 33,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.ID.DIFFIC_OF_SQUARES",
+              "canonical_name": "Khai triển và vận dụng hằng đẳng thức hiệu hai bình phương",
+              "description": "Mô tả và áp dụng công thức A^2 - B^2 = (A - B)(A + B) vào tính nhanh và rút gọn biểu thức.",
+              "domain": "Algebra",
+              "subdomain": "Notable Identities"
+            },
+            {
+              "code": "MATH.G8.ID.SQUARE_SUM_DIFF",
+              "canonical_name": "Khai triển hằng đẳng thức bình phương của tổng hoặc hiệu",
+              "description": "Mô tả và áp dụng công thức (A + B)^2 = A^2 + 2AB + B^2 và (A - B)^2 = A^2 - 2AB + B^2.",
+              "domain": "Algebra",
+              "subdomain": "Notable Identities"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.ID.SQUARE_CONFUSION",
+              "description": "Học sinh nhầm lẫn giữa hiệu hai bình phương và bình phương của hiệu",
+              "error_pattern": "(A - B)^2 = A^2 - B^2",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_07",
+          "lesson_code": "MATH.G8.CH2.L07",
+          "lesson_name": "Lập phương của một tổng hay một hiệu",
+          "page_start": 34,
+          "page_end": 37,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.ID.CUBE_SUM_DIFF",
+              "canonical_name": "Khai triển hằng đẳng thức lập phương của một tổng hoặc hiệu",
+              "description": "Mô tả và vận dụng hằng đẳng thức (A + B)^3 = A^3 + 3A^2B + 3AB^2 + B^3 và (A - B)^3 = A^3 - 3A^2B + 3AB^2 - B^3.",
+              "domain": "Algebra",
+              "subdomain": "Notable Identities"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_08",
+          "lesson_code": "MATH.G8.CH2.L08",
+          "lesson_name": "Tổng và hiệu hai lập phương",
+          "page_start": 38,
+          "page_end": 41,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.ID.SUM_DIFF_CUBES",
+              "canonical_name": "Khai triển hằng đẳng thức tổng hoặc hiệu hai lập phương",
+              "description": "Mô tả và vận dụng công thức A^3 + B^3 = (A + B)(A^2 - AB + B^2) và A^3 - B^3 = (A - B)(A^2 + AB + B^2).",
+              "domain": "Algebra",
+              "subdomain": "Notable Identities"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_09",
+          "lesson_code": "MATH.G8.CH2.L09",
+          "lesson_name": "Phân tích đa thức thành nhân tử",
+          "page_start": 42,
+          "page_end": 47,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.FACTOR.COMMON_FACTOR",
+              "canonical_name": "Phân tích đa thức thành nhân tử bằng cách đặt nhân tử chung",
+              "description": "Tìm nhân tử chung của các hạng tử và đặt ra ngoài dấu ngoặc để biến đổi đa thức thành dạng tích.",
+              "domain": "Algebra",
+              "subdomain": "Factorization"
+            },
+            {
+              "code": "MATH.G8.FACTOR.GROUPING",
+              "canonical_name": "Phân tích đa thức thành nhân tử bằng cách nhóm hạng tử",
+              "description": "Nhóm các hạng tử một cách thích hợp để xuất hiện nhân tử chung hoặc hằng đẳng thức.",
+              "domain": "Algebra",
+              "subdomain": "Factorization"
+            },
+            {
+              "code": "MATH.G8.FACTOR.IDENTITIES",
+              "canonical_name": "Phân tích đa thức thành nhân tử bằng cách dùng hằng đẳng thức",
+              "description": "Nhận diện cấu trúc của các hằng đẳng thức đáng nhớ để đưa đa thức về dạng bình phương hoặc lập phương.",
+              "domain": "Algebra",
+              "subdomain": "Factorization"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_03",
+      "chapter_code": "MATH.G8.CH3",
+      "chapter_name": "Tứ giác",
+      "lessons": [
+        {
+          "lesson_id": "L_10",
+          "lesson_code": "MATH.G8.CH3.L10",
+          "lesson_name": "Tứ giác",
+          "page_start": 49,
+          "page_end": 51,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.QUAD_CONCEPT",
+              "canonical_name": "Mô tả khái niệm tứ giác và tứ giác lồi",
+              "description": "Nhận biết đỉnh, cạnh, góc, đường chéo của tứ giác lồi; phân biệt tứ giác lồi với các hình tứ giác lõm.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            },
+            {
+              "code": "MATH.G8.GEO.QUAD_ANGLE_SUM",
+              "canonical_name": "Giải thích định lí về tổng các góc của một tứ giác",
+              "description": "Vận dụng tính chất tổng các góc trong một tứ giác lồi bằng 360 độ để tính số đo góc chưa biết.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_11",
+          "lesson_code": "MATH.G8.CH3.L11",
+          "lesson_name": "Hình thang cân",
+          "page_start": 52,
+          "page_end": 56,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.TRAPEZOID_ISOSCELES",
+              "canonical_name": "Mô tả cấu trúc hình thang và hình thang cân",
+              "description": "Nhận biết hình thang có hai cạnh đối song song; mô tả các tính chất về cạnh bên, góc kề một đáy và hai đường chéo của hình thang cân.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.GEO.SIDE_PROP_ERROR",
+              "description": "Học sinh lầm tưởng một hình thang hễ cứ có hai cạnh bên bằng nhau thì là hình thang cân",
+              "error_pattern": "Nhầm lẫn hình bình hành (có hai cạnh bên bằng nhau nhưng không song song ngược hướng) thành hình thang cân.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_12",
+          "lesson_code": "MATH.G8.CH3.L12",
+          "lesson_name": "Hình bình hành",
+          "page_start": 57,
+          "page_end": 63,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.PARALLELOGRAM_PROP",
+              "canonical_name": "Mô tả định nghĩa và tính chất của hình bình hành",
+              "description": "Giải thích các tính chất về cạnh đối bằng nhau, góc đối bằng nhau và hai đường chéo cắt nhau tại trung điểm mỗi đường.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            },
+            {
+              "code": "MATH.G8.GEO.PARALLELOGRAM_IDENTIFY",
+              "canonical_name": "Nhận biết dấu hiệu để một tứ giác là hình bình hành",
+              "description": "Vận dụng năm dấu hiệu nhận biết (về cạnh, về góc, về đường chéo) để chứng minh một tứ giác là hình bình hành.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_13",
+          "lesson_code": "MATH.G8.CH3.L13",
+          "lesson_name": "Hình chữ nhật",
+          "page_start": 64,
+          "page_end": 66,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.RECTANGLE_PROP",
+              "canonical_name": "Mô tả khái niệm và tính chất của hình chữ nhật",
+              "description": "Nhận biết tứ giác có bốn góc vuông là hình chữ nhật; giải thích tính chất hai đường chéo bằng nhau và cắt nhau tại trung điểm mỗi đường.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_14",
+          "lesson_code": "MATH.G8.CH3.L14",
+          "lesson_name": "Hình thoi và hình vuông",
+          "page_start": 67,
+          "page_end": 74,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.RHOMBUS_PROP",
+              "canonical_name": "Mô tả khái niệm và tính chất của hình thoi",
+              "description": "Nhận biết tứ giác có bốn cạnh bằng nhau; giải thích tính chất hai đường chéo vuông góc và là đường phân giác của các góc.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            },
+            {
+              "code": "MATH.G8.GEO.SQUARE_PROP",
+              "canonical_name": "Mô tả khái niệm và tính chất của hình vuông",
+              "description": "Nhận biết tứ giác có bốn góc vuông và bốn cạnh bằng nhau; tích hợp đầy đủ tính chất của hình chữ nhật và hình thoi.",
+              "domain": "Geometry",
+              "subdomain": "Quadrilaterals"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_04",
+      "chapter_code": "MATH.G8.CH4",
+      "chapter_name": "Định lí Thalès",
+      "lessons": [
+        {
+          "lesson_id": "L_15",
+          "lesson_code": "MATH.G8.CH4.L15",
+          "lesson_name": "Định lí Thalès trong tam giác",
+          "page_start": 77,
+          "page_end": 80,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.THALES.CONCEPT_RATIO",
+              "canonical_name": "Xác định tỉ số hai đoạn thẳng và đoạn thẳng tỉ lệ",
+              "description": "Tính tỉ số độ dài hai đoạn thẳng theo cùng đơn vị đo; nhận biết định nghĩa các đoạn thẳng tỉ lệ.",
+              "domain": "Geometry",
+              "subdomain": "Thales Theorem"
+            },
+            {
+              "code": "MATH.G8.THALES.THEOREM",
+              "canonical_name": "Vận dụng định lí Thalès thuận và đảo trong tam giác",
+              "description": "Sử dụng định lí Thalès thuận để tính độ dài đoạn thẳng chưa biết; sử dụng định lí Thalès đảo để chứng minh hai đường thẳng song song.",
+              "domain": "Geometry",
+              "subdomain": "Thales Theorem"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MATH.G8.THALES.RATIO_ERROR",
+              "description": "Học sinh lập sai hệ thức tỉ lệ giữa các đoạn thẳng tương ứng",
+              "error_pattern": "Lập hệ thức AB'/AB = CC'/AC thay vì AB'/AB = AC'/AC",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_16",
+          "lesson_code": "MATH.G8.CH4.L16",
+          "lesson_name": "Đường trung bình của tam giác",
+          "page_start": 81,
+          "page_end": 83,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.THALES.MID_LINE_CONCEPT",
+              "canonical_name": "Mô tả định nghĩa đường trung bình của tam giác",
+              "description": "Nhận biết đoạn thẳng nối trung điểm hai cạnh của tam giác là đường trung bình.",
+              "domain": "Geometry",
+              "subdomain": "Thales Theorem"
+            },
+            {
+              "code": "MATH.G8.THALES.MID_LINE_PROP",
+              "canonical_name": "Giải thích tính chất đường trung bình của tam giác",
+              "description": "Vận dụng tính chất: đường trung bình song song với cạnh thứ ba và bằng một nửa cạnh ấy để chứng minh hoặc tính độ dài.",
+              "domain": "Geometry",
+              "subdomain": "Thales Theorem"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_17",
+          "lesson_code": "MATH.G8.CH4.L17",
+          "lesson_name": "Tính chất đường phân giác của tam giác",
+          "page_start": 84,
+          "page_end": 87,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.THALES.BISECTOR_PROP",
+              "canonical_name": "Vận dụng tính chất đường phân giác của tam giác",
+              "description": "Áp dụng định lí đường phân giác của một góc trong tam giác chia cạnh đối diện thành hai đoạn thẳng tỉ lệ với hai cạnh kề hai đoạn ấy (DB/DC = AB/AC).",
+              "domain": "Geometry",
+              "subdomain": "Thales Theorem"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_05",
+      "chapter_code": "MATH.G8.CH5",
+      "chapter_name": "Dữ liệu và biểu đồ",
+      "lessons": [
+        {
+          "lesson_id": "L_18",
+          "lesson_code": "MATH.G8.CH5.L18",
+          "lesson_name": "Thu thu thập và phân loại dữ liệu",
+          "page_start": 91,
+          "page_end": 93,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.DATA.COLLECT_METHOD",
+              "canonical_name": "Thực hiện và lí giải việc thu thập dữ liệu",
+              "description": "Ứng dụng các phương pháp thu thập dữ liệu trực tiếp (quan sát, thực nghiệm) và gián tiếp (nguồn có sẵn).",
+              "domain": "Statistics",
+              "subdomain": "Data Processing"
+            },
+            {
+              "code": "MATH.G8.DATA.CLASSIFY",
+              "canonical_name": "Phân loại số liệu rời rạc và số liệu liên tục",
+              "description": "Phân biệt chính xác giữa số liệu rời rạc (đếm phần tử) và số liệu liên tục (thu được từ phép đo).",
+              "domain": "Statistics",
+              "subdomain": "Data Processing"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_19",
+          "lesson_code": "MATH.G8.CH5.L19",
+          "lesson_name": "Biểu diễn dữ liệu bằng bảng, biểu đồ",
+          "page_start": 93,
+          "page_end": 98,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.DATA.CHOOSE_GRAPH",
+              "canonical_name": "Lựa chọn biểu đồ phù hợp với dữ liệu cho trước",
+              "description": "Biết cách chuyển đổi dữ liệu và chọn biểu đồ phù hợp nhất (tranh, cột, cột kép, đoạn thẳng, quạt tròn) theo mục đích so sánh hoặc biểu diễn tỉ lệ.",
+              "domain": "Statistics",
+              "subdomain": "Data Presentation"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_20",
+          "lesson_code": "MATH.G8.CH5.L20",
+          "lesson_name": "Phân tích số liệu thống kê dựa vào biểu đồ",
+          "page_start": 99,
+          "page_end": 106,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.DATA.ANALYSIS_RULES",
+              "canonical_name": "Phát hiện vấn đề và tính hợp lí của dữ liệu trên biểu đồ",
+              "description": "Phát hiện lỗi sai trực quan hoặc sai lệch xu thế khi trục đứng không bắt đầu từ 0 hoặc khoảng cách trục ngang không đều nhau.",
+              "domain": "Statistics",
+              "subdomain": "Data Analysis"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.DATA.MISLEADING_GRAPH",
+              "description": "Học sinh lầm tưởng về tốc độ tăng trưởng do bỏ qua gốc trục tọa độ khác 0",
+              "error_pattern": "Dựa hoàn toàn vào tỉ lệ chiều cao của cột để kết luận số liệu này gấp đôi số liệu kia mà không đọc chỉ số.",
+              "severity": "medium"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

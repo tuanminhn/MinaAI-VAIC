@@ -1,0 +1,603 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_6_T1",
+    "book_name": "Toán 6 - Tập Một",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 6,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_01",
+      "chapter_code": "MATH.G6.CH1",
+      "chapter_name": "Tập hợp các số tự nhiên",
+      "lessons": [
+        {
+          "lesson_id": "L_01",
+          "lesson_code": "MATH.G6.CH1.L01",
+          "lesson_name": "Tập hợp",
+          "page_start": 5,
+          "page_end": 9,
+          "sections": [
+            {
+              "name": "Tập hợp và phần tử của tập hợp",
+              "page": 7,
+              "content_type": "theory"
+            },
+            {
+              "name": "Mô tả một tập hợp",
+              "page": 7,
+              "content_type": "theory"
+            },
+            {
+              "name": "Bài tập",
+              "page": 8,
+              "content_type": "exercise"
+            }
+          ],
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.SET.IDENTIFY",
+              "canonical_name": "Nhận biết tập hợp và phần tử của nó",
+              "description": "Nhận biết một đối tượng có thuộc hay không thuộc một tập hợp cho trước sử dụng kí hiệu thuộc hoặc không thuộc.",
+              "domain": "Numbers",
+              "subdomain": "Sets"
+            },
+            {
+              "code": "MATH.G6.SET.DESCRIBE_LIST",
+              "canonical_name": "Mô tả tập hợp bằng cách liệt kê phần tử",
+              "description": "Viết một tập hợp dưới dạng liệt kê các phần tử trong dấu ngoặc nhọn, đúng thứ tự và không lặp lại.",
+              "domain": "Numbers",
+              "subdomain": "Sets"
+            },
+            {
+              "code": "MATH.G6.SET.DESCRIBE_CHARACTERISTIC",
+              "canonical_name": "Mô tả tập hợp bằng cách nêu dấu hiệu đặc trưng",
+              "description": "Xác định và viết thuộc tính đặc trưng cho các phần tử của một tập hợp.",
+              "domain": "Numbers",
+              "subdomain": "Sets"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G6.SET.DUPLICATE",
+              "description": "Học sinh liệt kê một phần tử nhiều lần trong tập hợp",
+              "error_pattern": "L = {N; H; A; T; R; A; N; G} thay vì {N; H; A; T; R; G}",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_02",
+          "lesson_code": "MATH.G6.CH1.L02",
+          "lesson_name": "Cách ghi số tự nhiên",
+          "page_start": 10,
+          "page_end": 13,
+          "sections": [
+            {
+              "name": "Hệ thập phân",
+              "page": 10,
+              "content_type": "theory"
+            },
+            {
+              "name": "Giá trị các chữ số của một số tự nhiên",
+              "page": 11,
+              "content_type": "theory"
+            },
+            {
+              "name": "Số La Mã",
+              "page": 11,
+              "content_type": "theory"
+            },
+            {
+              "name": "Bài tập",
+              "page": 13,
+              "content_type": "exercise"
+            }
+          ],
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.NUM.READ_WRITE_DECIMAL",
+              "canonical_name": "Đọc và viết số tự nhiên trong hệ thập phân",
+              "description": "Xác định cấu trúc các lớp, hàng và đọc/viết chính xác các số tự nhiên có nhiều chữ số.",
+              "domain": "Numbers",
+              "subdomain": "Decimal System"
+            },
+            {
+              "code": "MATH.G6.NUM.VALUE_EXPANSION",
+              "canonical_name": "Biểu diễn số tự nhiên thành tổng giá trị các chữ số",
+              "description": "Phân tích một số tự nhiên thành tổng các cấu phần giá trị dựa trên vị trí hàng của các chữ số.",
+              "domain": "Numbers",
+              "subdomain": "Decimal System"
+            },
+            {
+              "code": "MATH.G6.NUM.ROMAN_CONVERSION",
+              "canonical_name": "Đọc và viết số La Mã từ 1 đến 30",
+              "description": "Chuyển đổi qua lại giữa số trong hệ thập phân và số La Mã trong phạm vi 30.",
+              "domain": "Numbers",
+              "subdomain": "Roman Numerals"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G6.NUM.ROMAN_POSITION",
+              "description": "Nhầm lẫn quy tắc cộng trừ vị trí của chữ số La Mã",
+              "error_pattern": "Viết số 4 là IIII thay vì IV, hoặc nhầm lẫn IV (4) với VI (6)",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_03",
+          "lesson_code": "MATH.G6.CH1.L03",
+          "lesson_name": "Thứ tự trong tập hợp các số tự nhiên",
+          "page_start": 14,
+          "page_end": 15,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.NUM.COMPARE",
+              "canonical_name": "So sánh hai số tự nhiên",
+              "description": "Sử dụng các kí hiệu <, >, ≤, ≥ để so sánh và sắp xếp thứ tự các số tự nhiên.",
+              "domain": "Numbers",
+              "subdomain": "Order"
+            },
+            {
+              "code": "MATH.G6.NUM.NUMBER_LINE",
+              "canonical_name": "Biểu diễn số tự nhiên trên tia số",
+              "description": "Xác định vị trí tương đối của các số tự nhiên trên tia số nằm ngang.",
+              "domain": "Numbers",
+              "subdomain": "Order"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_04",
+          "lesson_code": "MATH.G6.CH1.L04",
+          "lesson_name": "Phép cộng và phép trừ số tự nhiên",
+          "page_start": 15,
+          "page_end": 17,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.OPS.ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và phép trừ số tự nhiên",
+              "description": "Đặt tính và tính toán chính xác phép cộng, phép trừ các số tự nhiên lớn.",
+              "domain": "Numbers",
+              "subdomain": "Operations"
+            },
+            {
+              "code": "MATH.G6.OPS.ADD_PROPERTIES",
+              "canonical_name": "Áp dụng tính chất phép cộng để tính hợp lý",
+              "description": "Vận dụng tính chất giao hoán và kết hợp của phép cộng để tính nhanh, tính nhẩm.",
+              "domain": "Numbers",
+              "subdomain": "Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_05",
+          "lesson_code": "MATH.G6.CH1.L05",
+          "lesson_name": "Phép nhân và phép chia số tự nhiên",
+          "page_start": 17,
+          "page_end": 20,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.OPS.MUL_DIV",
+              "canonical_name": "Thực hiện phép nhân và phép chia số tự nhiên",
+              "description": "Thực hiện thành thạo phép nhân và phép chia (chia hết và chia có dư) số tự nhiên.",
+              "domain": "Numbers",
+              "subdomain": "Operations"
+            },
+            {
+              "code": "MATH.G6.OPS.MUL_DISTRIBUTIVE",
+              "canonical_name": "Áp dụng tính chất phân phối để tính nhẩm",
+              "description": "Sử dụng tính chất phân phối của phép nhân đối với phép cộng/trừ để tối ưu biểu thức tính toán.",
+              "domain": "Numbers",
+              "subdomain": "Operations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G6.OPS.REMAINDER_SIZE",
+              "description": "Học sinh viết số dư lớn hơn hoặc bằng số chia",
+              "error_pattern": "a = bq + r với r >= b",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_06",
+          "lesson_code": "MATH.G6.CH1.L06",
+          "lesson_name": "Luỹ thừa với số mũ tự nhiên",
+          "page_start": 22,
+          "page_end": 25,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.POW.CALCULATE",
+              "canonical_name": "Thực hiện phép tính nâng lên luỹ thừa",
+              "description": "Xác định cơ số, số mũ và tính giá trị của một luỹ thừa với số mũ tự nhiên.",
+              "domain": "Numbers",
+              "subdomain": "Powers"
+            },
+            {
+              "code": "MATH.G6.POW.MULTIPLY_SAME_BASE",
+              "canonical_name": "Nhân hai luỹ thừa cùng cơ số",
+              "description": "Giữ nguyên cơ số và cộng các số mũ khi nhân hai luỹ thừa cùng cơ số.",
+              "domain": "Numbers",
+              "subdomain": "Powers"
+            },
+            {
+              "code": "MATH.G6.POW.DIVIDE_SAME_BASE",
+              "canonical_name": "Chia hai luỹ thừa cùng cơ số",
+              "description": "Giữ nguyên cơ số và trừ các số mũ khi chia hai luỹ thừa cùng cơ số khác 0.",
+              "domain": "Numbers",
+              "subdomain": "Powers"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G6.POW.BASE_MULT",
+              "description": "Học sinh lấy cơ số nhân với số mũ",
+              "error_pattern": "a^n = a * n (ví dụ: 2^3 = 6 thay vì 8)",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_07",
+          "lesson_code": "MATH.G6.CH1.L07",
+          "lesson_name": "Thứ tự thực hiện các phép tính",
+          "page_start": 25,
+          "page_end": 28,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.ORDER.NO_BRACKETS",
+              "canonical_name": "Tính giá trị biểu thức không có dấu ngoặc",
+              "description": "Thực hiện phép tính theo thứ tự: Luỹ thừa -> Nhân và chia -> Cộng và trừ.",
+              "domain": "Numbers",
+              "subdomain": "Order of Operations"
+            },
+            {
+              "code": "MATH.G6.ORDER.WITH_BRACKETS",
+              "canonical_name": "Tính giá trị biểu thức có dấu ngoặc",
+              "description": "Thực hiện phép tính theo thứ tự ưu tiên các loại ngoặc: () -> [] -> {}.",
+              "domain": "Numbers",
+              "subdomain": "Order of Operations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_02",
+      "chapter_code": "MATH.G6.CH2",
+      "chapter_name": "Tính chia hết trong tập hợp các số tự nhiên",
+      "lessons": [
+        {
+          "lesson_id": "L_08",
+          "lesson_code": "MATH.G6.CH2.L08",
+          "lesson_name": "Quan hệ chia hết và tính chất",
+          "page_start": 29,
+          "page_end": 34,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DIV.CONCEPT",
+              "canonical_name": "Nhận biết quan hệ chia hết, ước và bội",
+              "description": "Xác định một số có chia hết cho số khác hay không; tìm tập hợp các ước và bội của một số.",
+              "domain": "Numbers",
+              "subdomain": "Divisibility"
+            },
+            {
+              "code": "MATH.G6.DIV.SUM_PROPERTY",
+              "canonical_name": "Vận dụng tính chất chia hết của một tổng/hiệu",
+              "description": "Xét tính chia hết của một tổng hoặc một hiệu mà không cần tính giá trị trực tiếp của tổng/hiệu đó.",
+              "domain": "Numbers",
+              "subdomain": "Divisibility"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_09",
+          "lesson_code": "MATH.G6.CH2.L09",
+          "lesson_name": "Dấu hiệu chia hết",
+          "page_start": 34,
+          "page_end": 38,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DIV.RULES_2_5",
+              "canonical_name": "Vận dụng dấu hiệu chia hết cho 2 và cho 5",
+              "description": "Sử dụng chữ số tận cùng để xác định tính chia hết cho 2, cho 5 của một số hoặc biểu thức.",
+              "domain": "Numbers",
+              "subdomain": "Divisibility Rules"
+            },
+            {
+              "code": "MATH.G6.DIV.RULES_3_9",
+              "canonical_name": "Vận dụng dấu hiệu chia hết cho 3 và cho 9",
+              "description": "Sử dụng tổng các chữ số để xác định một số có chia hết cho 3, cho 9 hay không.",
+              "domain": "Numbers",
+              "subdomain": "Divisibility Rules"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_10",
+          "lesson_code": "MATH.G6.CH2.L10",
+          "lesson_name": "Số nguyên tố",
+          "page_start": 38,
+          "page_end": 43,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.PRIME.IDENTIFY",
+              "canonical_name": "Nhận biết số nguyên tố và hợp số",
+              "description": "Phân biệt số nguyên tố và hợp số dựa trên định nghĩa số lượng ước.",
+              "domain": "Numbers",
+              "subdomain": "Primes"
+            },
+            {
+              "code": "MATH.G6.PRIME.FACTORIZATION",
+              "canonical_name": "Phân tích một số ra thừa số nguyên tố",
+              "description": "Sử dụng phương pháp sơ đồ cây hoặc sơ đồ cột để phân tích một hợp số ra tích các thừa số nguyên tố.",
+              "domain": "Numbers",
+              "subdomain": "Primes"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_11",
+          "lesson_code": "MATH.G6.CH2.L11",
+          "lesson_name": "Ước chung. Ước chung lớn nhất",
+          "page_start": 44,
+          "page_end": 49,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FACTOR.GCF_FIND",
+              "canonical_name": "Xác định ước chung lớn nhất (ƯCLN)",
+              "description": "Tìm ƯCLN của hai hoặc ba số bằng cách phân tích ra thừa số nguyên tố hoặc dùng thuật toán Euclid.",
+              "domain": "Numbers",
+              "subdomain": "Factors and Multiples"
+            },
+            {
+              "code": "MATH.G6.FACTOR.FRACTION_SIMPLIFY",
+              "canonical_name": "Rút gọn phân số về dạng tối giản",
+              "description": "Ứng dụng ƯCLN của tử và mẫu để biến đổi một phân số thành phân số tối giản.",
+              "domain": "Numbers",
+              "subdomain": "Factors and Multiples"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_12",
+          "lesson_code": "MATH.G6.CH2.L12",
+          "lesson_name": "Bội chung. Bội chung nhỏ nhất",
+          "page_start": 49,
+          "page_end": 54,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.MULTIPLE.LCM_FIND",
+              "canonical_name": "Xác định bội chung nhỏ nhất (BCNN)",
+              "description": "Tìm BCNN của hai hoặc ba số bằng phương pháp phân tích ra thừa số nguyên tố.",
+              "domain": "Numbers",
+              "subdomain": "Factors and Multiples"
+            },
+            {
+              "code": "MATH.G6.MULTIPLE.FRACTION_COMMON_DENOM",
+              "canonical_name": "Quy đồng mẫu số các phân số",
+              "description": "Sử dụng BCNN của các mẫu số để tìm mẫu số chung và quy đồng các phân số.",
+              "domain": "Numbers",
+              "subdomain": "Factors and Multiples"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_03",
+      "chapter_code": "MATH.G6.CH3",
+      "chapter_name": "Số nguyên",
+      "lessons": [
+        {
+          "lesson_id": "L_13",
+          "lesson_code": "MATH.G6.CH3.L13",
+          "lesson_name": "Tập hợp các số nguyên",
+          "page_start": 57,
+          "page_end": 62,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.INT.CONCEPT",
+              "canonical_name": "Nhận biết và đọc viết số nguyên",
+              "description": "Hiểu ý nghĩa thực tế của số nguyên âm và số nguyên dương; sử dụng chính xác tập hợp Z.",
+              "domain": "Numbers",
+              "subdomain": "Integers"
+            },
+            {
+              "code": "MATH.G6.INT.NUMBER_LINE",
+              "canonical_name": "Biểu diễn và so sánh số nguyên trên trục số",
+              "description": "Xác định vị trí số nguyên trên trục số; so sánh giá trị hai số nguyên bất kỳ.",
+              "domain": "Numbers",
+              "subdomain": "Integers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_14",
+          "lesson_code": "MATH.G6.CH3.L14",
+          "lesson_name": "Phép cộng và phép trừ số nguyên",
+          "page_start": 62,
+          "page_end": 67,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.INT.ADD_SAME_SIGN",
+              "canonical_name": "Cộng hai số nguyên cùng dấu",
+              "description": "Áp dụng quy tắc cộng hai số nguyên cùng dương hoặc cùng âm.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            },
+            {
+              "code": "MATH.G6.INT.ADD_DIFF_SIGN",
+              "canonical_name": "Cộng hai số nguyên khác dấu",
+              "description": "Áp dụng quy tắc tìm hiệu hai phần số tự nhiên và lấy dấu của số có phần số tự nhiên lớn hơn.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            },
+            {
+              "code": "MATH.G6.INT.SUBTRACT",
+              "canonical_name": "Thực hiện phép trừ hai số nguyên",
+              "description": "Chuyển đổi phép trừ thành phép cộng với số đối: a - b = a + (-b).",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_15",
+          "lesson_code": "MATH.G6.CH3.L15",
+          "lesson_name": "Quy tắc dấu ngoặc",
+          "page_start": 67,
+          "page_end": 69,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.INT.BRACKETS_RULE",
+              "canonical_name": "Bỏ dấu ngoặc trong tính toán số nguyên",
+              "description": "Áp dụng quy tắc giữ nguyên dấu khi trước ngoặc là '+' và đổi dấu khi trước ngoặc là '-'.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_16",
+          "lesson_code": "MATH.G6.CH3.L16",
+          "lesson_name": "Phép nhân số nguyên",
+          "page_start": 70,
+          "page_end": 73,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.INT.MULTIPLY_DIFF",
+              "canonical_name": "Nhân hai số nguyên khác dấu",
+              "description": "Nhân hai phần số tự nhiên và đặt dấu '-' trước kết quả.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            },
+            {
+              "code": "MATH.G6.INT.MULTIPLY_SAME",
+              "canonical_name": "Nhân hai số nguyên cùng dấu",
+              "description": "Nhân hai phần số tự nhiên để thu được kết quả mang dấu dương.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_17",
+          "lesson_code": "MATH.G6.CH3.L17",
+          "lesson_name": "Phép chia hết. Ước và bội của một số nguyên",
+          "page_start": 73,
+          "page_end": 75,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.INT.DIVISIBILITY",
+              "canonical_name": "Thực hiện phép chia hết và tìm ước, bội số nguyên",
+              "description": "Tính thương của phép chia hết hai số nguyên và liệt kê đầy đủ các ước/bội trong tập Z.",
+              "domain": "Numbers",
+              "subdomain": "Integer Operations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_04",
+      "chapter_code": "MATH.G6.CH4",
+      "chapter_name": "Một số hình phẳng trong thực tiễn",
+      "lessons": [
+        {
+          "lesson_id": "L_18",
+          "lesson_code": "MATH.G6.CH4.L18",
+          "lesson_name": "Hình tam giác đều. Hình vuông. Hình lục giác đều",
+          "page_start": 77,
+          "page_end": 83,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.REGULAR_SHAPES",
+              "canonical_name": "Mô tả đặc điểm tam giác đều, hình vuông, lục giác đều",
+              "description": "Nhận dạng và chỉ ra các yếu tố cơ bản như cạnh, đỉnh, góc, đường chéo chính của các hình đều.",
+              "domain": "Geometry",
+              "subdomain": "Planar Figures"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_19",
+          "lesson_code": "MATH.G6.CH4.L19",
+          "lesson_name": "Hình chữ nhật. Hình thoi. Hình bình hành. Hình thang cân",
+          "page_start": 83,
+          "page_end": 90,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.QUADRILATERALS",
+              "canonical_name": "Mô tả đặc điểm các hình tứ giác thường gặp",
+              "description": "Xác định các tính chất về cạnh đối, góc đối, tính song song và đường chéo của hình chữ nhật, thoi, bình hành, thang cân.",
+              "domain": "Geometry",
+              "subdomain": "Planar Figures"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_20",
+          "lesson_code": "MATH.G6.CH4.L20",
+          "lesson_name": "Chu vi và diện tích của một số tứ giác đã học",
+          "page_start": 90,
+          "page_end": 97,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.PERIMETER_AREA_FORMULAS",
+              "canonical_name": "Tính chu vi và diện tích các hình phẳng",
+              "description": "Áp dụng thành thạo công thức tính chu vi, diện tích hình vuông, chữ nhật, tam giác, thoi, bình hành, thang vào bài toán thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Measurement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_05",
+      "chapter_code": "MATH.G6.CH5",
+      "chapter_name": "Tính đối xứng của hình phẳng trong tự nhiên",
+      "lessons": [
+        {
+          "lesson_id": "L_21",
+          "lesson_code": "MATH.G6.CH5.L21",
+          "lesson_name": "Hình có trục đối xứng",
+          "page_start": 98,
+          "page_end": 103,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.SYM.AXIAL",
+              "canonical_name": "Nhận biết hình có trục đối xứng",
+              "description": "Xác định trục đối xứng của một hình phẳng thông qua thực hành gấp giấy hoặc quan sát trực quan.",
+              "domain": "Geometry",
+              "subdomain": "Symmetry"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_22",
+          "lesson_code": "MATH.G6.CH5.L22",
+          "lesson_name": "Hình có tâm đối xứng",
+          "page_start": 103,
+          "page_end": 111,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.SYM.CENTRAL",
+              "canonical_name": "Nhận biết hình có tâm đối xứng",
+              "description": "Xác định tâm đối xứng của các hình phẳng quen thuộc (hình bình hành, thoi, lục giác đều) qua phép quay nửa vòng.",
+              "domain": "Geometry",
+              "subdomain": "Symmetry"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

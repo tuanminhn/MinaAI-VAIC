@@ -1,0 +1,48 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_9_T1",
+    "book_name": "Toán 9 - Tập Một",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 9,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_03",
+      "chapter_name": "Căn bậc hai và căn bậc ba",
+      "lessons": [
+        {
+          "lesson_id": "L_07",
+          "lesson_code": "MATH.G9.CH3.L07",
+          "lesson_name": "Căn bậc hai và căn thức bậc hai",
+          "page_start": 44,
+          "page_end": 50,
+          "canonical_skills": [
+            {
+              "code": "MATH.G9.RAD.SQRT_CONCEPT",
+              "canonical_name": "Nhận biết căn bậc hai và điều kiện xác định căn thức",
+              "description": "Hiểu định nghĩa căn bậc hai của một số không âm; tìm điều kiện xác định của căn thức bậc hai √A (A >= 0).",
+              "domain": "Numbers",
+              "subdomain": "Radicals"
+            },
+            {
+              "code": "MATH.G9.RAD.IDENTITY_ABS",
+              "canonical_name": "Áp dụng hằng đẳng thức √A^2 = |A| để rút gọn",
+              "description": "Sử dụng giá trị tuyệt đối để khai căn và rút gọn các căn thức chứa biến hoặc chứa số thực.",
+              "domain": "Numbers",
+              "subdomain": "Radicals"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G9.RAD.FORGET_ABS",
+              "description": "Học sinh quên đặt dấu giá trị tuyệt đối khi khai căn bậc hai của một bình phương",
+              "error_pattern": "√A^2 = A thay vì |A|, dẫn đến kết quả sai khi A âm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
