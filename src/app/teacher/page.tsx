@@ -122,10 +122,10 @@ export default function TeacherPage() {
       <section className="teacher-header">
         <div className="shell teacher-header-inner">
           <div>
-            <div className="teacher-breadcrumb">Lớp học <span>/</span> Toán 7 <span>/</span> Diagnostic</div>
+            <div className="teacher-breadcrumb">Lớp học <span>/</span> Toán 9 <span>/</span> Diagnostic</div>
             <div className="teacher-title-row">
               <div>
-                <h1>{data?.classroom.name ?? "Lớp 7A demo"}</h1>
+                <h1>{data?.classroom.name ?? "Lớp 9A demo"}</h1>
                 <p>Diagnostic tổng hợp Toán lớp 9 · Đang diễn ra</p>
               </div>
               <span className="live-badge"><i /> Đang nhận bài</span>
