@@ -1,0 +1,566 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_7_T1",
+    "book_name": "Toán 7 - Tập Một",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 7,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_01",
+      "chapter_code": "MATH.G7.CH1",
+      "chapter_name": "Số hữu tỉ",
+      "lessons": [
+        {
+          "lesson_id": "L_01",
+          "lesson_code": "MATH.G7.CH1.L01",
+          "lesson_name": "Tập hợp các số số hữu tỉ",
+          "page_start": 6,
+          "page_end": 10,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.RAT.IDENTIFY",
+              "canonical_name": "Nhận biết số hữu tỉ và tập hợp Q",
+              "description": "Nhận biết một số là số hữu tỉ bằng cách viết nó dưới dạng phân số a/b với a, b thuộc Z, b > 0; sử dụng thành thạo kí hiệu thuộc và không thuộc tập Q.",
+              "domain": "Numbers",
+              "subdomain": "Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.RAT.OPPOSITE",
+              "canonical_name": "Xác định số đối của một số hữu tỉ",
+              "description": "Tìm và biểu diễn số đối của một số hữu tỉ m cho trước dưới dạng -m.",
+              "domain": "Numbers",
+              "subdomain": "Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.RAT.NUMBER_LINE",
+              "canonical_name": "Biểu diễn số hữu tỉ trên trục số",
+              "description": "Xác định đơn vị mới và biểu diễn điểm số hữu tỉ trên trục số nằm ngang.",
+              "domain": "Numbers",
+              "subdomain": "Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.RAT.COMPARE",
+              "canonical_name": "So sánh hai số hữu tỉ",
+              "description": "So sánh hai số hữu tỉ bất kì bằng cách đưa về cùng mẫu số dương, so sánh dạng số thập phân hoặc dùng tính chất bắc cầu.",
+              "domain": "Numbers",
+              "subdomain": "Rational Numbers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_02",
+          "lesson_code": "MATH.G7.CH1.L02",
+          "lesson_name": "Cộng, trừ, nhân, chia số hữu tỉ",
+          "page_start": 11,
+          "page_end": 14,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.RAT.ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và trừ số hữu tỉ",
+              "description": "Áp dụng quy tắc quy đồng mẫu số để cộng và trừ các số hữu tỉ dưới dạng phân số hoặc số thập phân.",
+              "domain": "Numbers",
+              "subdomain": "Operations on Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.RAT.ADD_PROPERTIES",
+              "canonical_name": "Áp dụng tính chất phép cộng để tính toán hợp lý",
+              "description": "Sử dụng tính chất giao hoán, kết hợp và quy tắc dấu ngoặc để tối ưu hóa biểu thức tính tổng số hữu tỉ.",
+              "domain": "Numbers",
+              "subdomain": "Operations on Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.RAT.MUL_DIV",
+              "canonical_name": "Thực hiện phép nhân và chia số hữu tỉ",
+              "description": "Áp dụng quy tắc tử nhân tử, mẫu nhân mẫu đối với phép nhân và nhân đảo ngược đối với phép chia số hữu tỉ.",
+              "domain": "Numbers",
+              "subdomain": "Operations on Rational Numbers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_03",
+          "lesson_code": "MATH.G7.CH1.L03",
+          "lesson_name": "Luỹ thừa với số mũ tự nhiên của một số hữu tỉ",
+          "page_start": 17,
+          "page_end": 20,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.POW.RAT_CALCULATE",
+              "canonical_name": "Thực hiện phép tính luỹ thừa của số hữu tỉ",
+              "description": "Tính giá trị luỹ thừa của số hữu tỉ với số mũ tự nhiên; áp dụng cho cả phân số và số thập phân.",
+              "domain": "Numbers",
+              "subdomain": "Powers of Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.POW.RAT_PROPERTIES",
+              "canonical_name": "Thực hiện phép nhân và chia hai luỹ thừa cùng cơ số",
+              "description": "Vận dụng công thức x^m * x^n = x^(m+n) và x^m / x^n = x^(m-n) trên tập hợp số hữu tỉ.",
+              "domain": "Numbers",
+              "subdomain": "Powers of Rational Numbers"
+            },
+            {
+              "code": "MATH.G7.POW.RAT_POWER_OF_POWER",
+              "canonical_name": "Thực hiện phép tính luỹ thừa của luỹ thừa",
+              "description": "Áp dụng công thức (x^m)^n = x^(m*n) để biến đổi các biểu thức luỹ thừa phức tạp.",
+              "domain": "Numbers",
+              "subdomain": "Powers of Rational Numbers"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.POW.SIGN_INVERSION",
+              "description": "Nhầm lẫn dấu khi nâng số hữu tỉ âm lên luỹ thừa bậc chẵn/lẻ",
+              "error_pattern": "(-1/2)^2 = -1/4 thay vì 1/4",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_04",
+          "lesson_code": "MATH.G7.CH1.L04",
+          "lesson_name": "Quy tắc chuyển vế",
+          "page_start": 21,
+          "page_end": 23,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.EQ.ORDER_OF_OPS",
+              "canonical_name": "Mô tả thứ tự thực hiện các phép tính số hữu tỉ",
+              "description": "Thực hiện chính xác các biểu thức toán học phức tạp chứa số hữu tỉ theo thứ tự ưu tiên các phép tính và các loại dấu ngoặc.",
+              "domain": "Numbers",
+              "subdomain": "Equations"
+            },
+            {
+              "code": "MATH.G7.EQ.TRANSPOSE_RULE",
+              "canonical_name": "Vận dụng quy tắc chuyển vế để tìm x",
+              "description": "Khi chuyển một số hạng từ vế này sang vế kia của một đẳng thức, ta phải đổi dấu số hạng đó: a + b = c -> a = c - b.",
+              "domain": "Numbers",
+              "subdomain": "Equations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.EQ.FORGET_SIGN_CHANGE",
+              "description": "Học sinh quên đổi dấu khi chuyển vế số hạng",
+              "error_pattern": "x + 5.1 = 7 -> x = 7 + 5.1 thay vì 7 - 5.1",
+              "severity": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_02",
+      "chapter_code": "MATH.G7.CH2",
+      "chapter_name": "Số thực",
+      "lessons": [
+        {
+          "lesson_id": "L_05",
+          "lesson_code": "MATH.G7.CH2.L05",
+          "lesson_name": "Làm quen với số thập phân vô hạn tuần hoàn",
+          "page_start": 27,
+          "page_end": 29,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.DEC.IDENTIFY_TYPES",
+              "canonical_name": "Nhận biết số thập phân hữu hạn và vô hạn tuần hoàn",
+              "description": "Phân biệt cấu trúc số thập phân hữu hạn và vô hạn tuần hoàn; xác định chu kì của số thập phân tuần hoàn.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            },
+            {
+              "code": "MATH.G7.DEC.ROUNDING_ACCURACY",
+              "canonical_name": "Làm tròn số thập phân căn cứ vào độ chính xác",
+              "description": "Xác định hàng làm tròn thích hợp dựa vào độ chính xác cho trước (ví dụ độ chính xác 0,005 thì làm tròn đến hàng phần trăm).",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_06",
+          "lesson_code": "MATH.G7.CH2.L06",
+          "lesson_name": "Số vô tỉ. Căn bậc hai số học",
+          "page_start": 30,
+          "page_end": 33,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.REAL.IRRATIONAL_CONCEPT",
+              "canonical_name": "Nhận biết số vô tỉ",
+              "description": "Hiểu số vô tỉ là số viết được dưới dạng số thập phân vô hạn không tuần hoàn, kí hiệu tập hợp là I.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            },
+            {
+              "code": "MATH.G7.REAL.SQRT_CALCULATE",
+              "canonical_name": "Nhận biết căn bậc hai số học",
+              "description": "Hiểu và tìm số x không âm sao cho x^2 = a (với a >= 0); viết kí hiệu căn bậc hai số học.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            },
+            {
+              "code": "MATH.G7.REAL.SQRT_CALCULATOR_USE",
+              "canonical_name": "Tính giá trị căn bậc hai số học bằng máy tính cầm tay",
+              "description": "Sử dụng đúng các phím chức năng trên máy tính để tìm căn bậc hai và làm tròn kết quả với độ chính xác yêu cầu.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_07",
+          "lesson_code": "MATH.G7.CH2.L07",
+          "lesson_name": "Tập hợp các số thực",
+          "page_start": 34,
+          "page_end": 40,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.REAL.CONCEPT_R",
+              "canonical_name": "Nhận biết số thực và tập hợp R",
+              "description": "Hiểu số thực bao gồm cả số hữu tỉ và số vô tỉ; nhận biết trục số thực lấp đầy bởi các điểm biểu diễn số thực.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            },
+            {
+              "code": "MATH.G7.REAL.ORDER_COMPARE",
+              "canonical_name": "Nhận biết thứ tự trong tập hợp số thực",
+              "description": "So sánh hai số thực bất kỳ bằng cách so sánh dạng thập phân hoặc dùng tính chất bắc cầu, hoặc so sánh căn bậc hai số học.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            },
+            {
+              "code": "MATH.G7.REAL.ABSOLUTE_VALUE",
+              "canonical_name": "Xác định giá trị tuyệt đối của một số thực",
+              "description": "Tính khoảng cách từ điểm a trên trục số đến gốc O để tìm giá trị tuyệt đối |a|.",
+              "domain": "Numbers",
+              "subdomain": "Real Numbers"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.REAL.ABS_NEGATIVE",
+              "description": "Học sinh cho rằng giá trị tuyệt đối có thể là số âm",
+              "error_pattern": "|-2.5| = -2.5 thay vì 2.5",
+              "severity": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_03",
+      "chapter_code": "MATH.G7.CH3",
+      "chapter_name": "Góc và đường thẳng song song",
+      "lessons": [
+        {
+          "lesson_id": "L_08",
+          "lesson_code": "MATH.G7.CH3.L08",
+          "lesson_name": "Góc ở vị trí đặc biệt. Tia phân giác của một góc",
+          "page_start": 41,
+          "page_end": 45,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ANG.SPECIAL_POSITIONS",
+              "canonical_name": "Nhận biết hai góc kề bù và hai góc đối đỉnh",
+              "description": "Chỉ ra các cặp góc kề bù (tổng bằng 180 độ) và cặp góc đối đỉnh (bằng nhau) trên hình vẽ thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            },
+            {
+              "code": "MATH.G7.ANG.BISECTOR_CONCEPT",
+              "canonical_name": "Nhận biết tia phân giác của một góc",
+              "description": "Mô tả tia nằm giữa hai cạnh của góc và tạo với hai cạnh ấy hai góc bằng nhau.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            },
+            {
+              "code": "MATH.G7.ANG.BISECTOR_DRAW",
+              "canonical_name": "Vẽ tia phân giác của một góc",
+              "description": "Sử dụng thước đo góc hoặc compa kết hợp thước thẳng để vẽ chính xác tia phân giác.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_09",
+          "lesson_code": "MATH.G7.CH3.L09",
+          "lesson_name": "Hai đường thẳng song song và dấu hiệu nhận biết",
+          "page_start": 46,
+          "page_end": 51,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.LINES.INTERSECT_ANGLES",
+              "canonical_name": "Nhận biết góc so le trong và góc đồng vị",
+              "description": "Xác định các cặp góc tạo bởi một đường thẳng cắt hai đường thẳng dọc theo các vị trí so le trong và đồng vị.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            },
+            {
+              "code": "MATH.G7.LINES.PARALLEL_IDENTIFY",
+              "canonical_name": "Mô tả dấu hiệu nhận biết hai đường thẳng song song",
+              "description": "Nhận biết hai đường thẳng song song khi đường thẳng thứ ba cắt chúng tạo ra một cặp góc so le trong bằng nhau hoặc cặp góc đồng vị bằng nhau.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            },
+            {
+              "code": "MATH.G7.LINES.PARALLEL_DRAW",
+              "canonical_name": "Nhận biết cách vẽ hai đường thẳng song song",
+              "description": "Sử dụng góc nhọn của êke để vẽ đường thẳng đi qua một điểm và song song với một đường thẳng cho trước.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_10",
+          "lesson_code": "MATH.G7.CH3.L10",
+          "lesson_name": "Tiên đề Eudlid. Tính chất của hai đường thẳng song song",
+          "page_start": 52,
+          "page_end": 55,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.LINES.EUCLID_AXIOM",
+              "canonical_name": "Nhận biết tiên đề Euclid về đường thẳng song song",
+              "description": "Hiểu rằng qua một điểm ở ngoài một đường thẳng chỉ có một đường thẳng song song với đường thẳng đó.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            },
+            {
+              "code": "MATH.G7.LINES.PARALLEL_PROPERTIES",
+              "canonical_name": "Mô tả một số tính chất của hai đường thẳng song song",
+              "description": "Vận dụng tính chất: nếu một đường thẳng cắt hai đường thẳng song song thì hai góc so le trong bằng nhau, hai góc đồng vị bằng nhau.",
+              "domain": "Geometry",
+              "subdomain": "Angles and Lines"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_11",
+          "lesson_code": "MATH.G7.CH3.L11",
+          "lesson_name": "Định lí và chứng minh định lí",
+          "page_start": 56,
+          "page_end": 59,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.LOGIC.THEOREM_STRUCTURE",
+              "canonical_name": "Nhận biết một định lí, giả thiết và kết luận",
+              "description": "Xác định cấu trúc Giả thiết (GT) và Kết luận (KL) của một định lí toán học có dạng 'Nếu... thì...'.",
+              "domain": "Geometry",
+              "subdomain": "Logical Reasoning"
+            },
+            {
+              "code": "MATH.G7.LOGIC.PROOF_CONCEPT",
+              "canonical_name": "Làm quen với chứng minh định lí",
+              "description": "Sử dụng các lập luận hình học có suy luận logic từ giả thiết và các tính chất đã biết để khẳng định kết luận đúng.",
+              "domain": "Geometry",
+              "subdomain": "Logical Reasoning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_04",
+      "chapter_code": "MATH.G7.CH4",
+      "chapter_name": "Tam giác bằng nhau",
+      "lessons": [
+        {
+          "lesson_id": "L_12",
+          "lesson_code": "MATH.G7.CH4.L12",
+          "lesson_name": "Tổng các góc trong một tam giác",
+          "page_start": 60,
+          "page_end": 62,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.TRI.ANGLE_SUM",
+              "canonical_name": "Giải thích định lí về tổng các góc trong một tam giác",
+              "description": "Vận dụng định lí tổng ba góc trong một tam giác bằng 180 độ để tính số đo góc chưa biết; nhận biết góc ngoài tam giác.",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_13",
+          "lesson_code": "MATH.G7.CH4.L13",
+          "lesson_name": "Hai tam giác bằng nhau. Trường hợp bằng nhau thứ nhất của tam giác",
+          "page_start": 63,
+          "page_end": 69,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.TRI.EQUALITY_CONCEPT",
+              "canonical_name": "Nhận biết hai tam giác bằng nhau",
+              "description": "Xác định các đỉnh tương ứng, cạnh tương ứng, góc tương ứng và viết đúng kí hiệu bằng nhau của hai tam giác.",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            },
+            {
+              "code": "MATH.G7.TRI.CASE_CCC",
+              "canonical_name": "Giải thích hai tam giác bằng nhau theo trường hợp cạnh-cạnh-cạnh",
+              "description": "Chứng minh và giải thích hai tam giác bằng nhau khi có ba cạnh tương ứng bằng nhau (c.c.c).",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_14",
+          "lesson_code": "MATH.G7.CH4.L14",
+          "lesson_name": "Trường hợp bằng nhau thứ hai và thứ ba của tam giác",
+          "page_start": 70,
+          "page_end": 75,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.TRI.CASE_CGC",
+              "canonical_name": "Giải thích hai tam giác bằng nhau theo trường hợp cạnh-góc-cạnh",
+              "description": "Vận dụng góc xen giữa hai cạnh để chứng minh hai tam giác bằng nhau theo trường hợp (c.g.c).",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            },
+            {
+              "code": "MATH.G7.TRI.CASE_GCG",
+              "canonical_name": "Giải thích hai tam giác bằng nhau theo trường hợp góc-cạnh-góc",
+              "description": "Vận dụng cạnh và hai góc kề để chứng minh hai tam giác bằng nhau theo trường hợp (g.c.g).",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.TRI.NOT_INTERMEDIATE_ANGLE",
+              "description": "Học sinh dùng một góc không phải góc xen giữa cho trường hợp c.g.c",
+              "error_pattern": "Khẳng định hai tam giác bằng nhau khi chỉ có 2 cạnh và 1 góc bất kỳ bằng nhau.",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_15",
+          "lesson_code": "MATH.G7.CH4.L15",
+          "lesson_name": "Các trường hợp bằng nhau của tam giác vuông",
+          "page_start": 76,
+          "page_end": 80,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.TRI.RIGHT_CASES",
+              "canonical_name": "Tìm hiểu các trường hợp bằng nhau của tam giác vuông",
+              "description": "Nhận biết và vận dụng các trường hợp bằng nhau đặc biệt: hai cạnh góc vuông, cạnh góc vuông - góc nhọn kề, cạnh huyền - góc nhọn, và cạnh huyền - cạnh góc vuông.",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_16",
+          "lesson_code": "MATH.G7.CH4.L16",
+          "lesson_name": "Tam giác cân. Đường trung trực của đoạn thẳng",
+          "page_start": 81,
+          "page_end": 87,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.TRI.ISOSCELES_PROPERTIES",
+              "canonical_name": "Nhận biết tam giác cân và tính chất",
+              "description": "Định nghĩa tam giác cân có hai cạnh bên bằng nhau; giải thích tính chất hai góc ở đáy bằng nhau.",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            },
+            {
+              "code": "MATH.G7.TRI.PERPENDICULAR_BISECTOR",
+              "canonical_name": "Nhận biết khái niệm đường trung trực của một đoạn thẳng",
+              "description": "Mô tả đường thẳng vuông góc với một đoạn thẳng tại trung điểm của nó; vận dụng tính chất điểm nằm trên trung trực thì cách đều hai mút.",
+              "domain": "Geometry",
+              "subdomain": "Triangles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_05",
+      "chapter_code": "MATH.G7.CH5",
+      "chapter_name": "Thu thập và biểu diễn dữ liệu",
+      "lessons": [
+        {
+          "lesson_id": "L_17",
+          "lesson_code": "MATH.G7.CH5.L17",
+          "lesson_name": "Thu thập và phân loại dữ liệu",
+          "page_start": 88,
+          "page_end": 93,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.DATA.COLLECT_CLASSIFY",
+              "canonical_name": "Thu thập dữ liệu và phân loại dữ liệu",
+              "description": "Thực hiện thu thập thông tin bằng phỏng vấn hoặc bảng hỏi; phân loại dữ liệu thành dữ liệu định lượng (số liệu) và dữ liệu định tính (không là số).",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Collection"
+            },
+            {
+              "code": "MATH.G7.DATA.REPRESENTATIVENESS",
+              "canonical_name": "Nhận biết tính đại diện của dữ liệu",
+              "description": "Đánh giá tính hợp lý và tính đại diện của mẫu khảo sát nhằm đảm bảo đưa ra các kết luận thống kê chính xác.",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Collection"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.DATA.BIASED_SAMPLE",
+              "description": "Học sinh chọn mẫu khảo sát bị lệch, không ngẫu nhiên",
+              "error_pattern": "Chỉ phỏng vấn các bạn nam trường mình để kết luận sở thích bóng đá của toàn bộ học sinh trường.",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_18",
+          "lesson_code": "MATH.G7.CH5.L18",
+          "lesson_name": "Biểu đồ hình quạt tròn",
+          "page_start": 94,
+          "page_end": 100,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.DATA.PIE_READ",
+              "canonical_name": "Đọc và mô tả dữ liệu từ biểu đồ hình quạt tròn",
+              "description": "Phân tích tiêu đề, chú giải và đọc chính xác ti lệ phần trăm của từng thành phần dữ liệu thể hiện trên biểu đồ hình quạt tròn.",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Display"
+            },
+            {
+              "code": "MATH.G7.DATA.PIE_WRITE",
+              "canonical_name": "Biểu diễn dữ liệu vào biểu đồ hình quạt tròn",
+              "description": "Tính toán tỉ lệ phần trăm từ bảng số liệu thô và điền thông tin/tô màu hoàn thiện vào mẫu biểu đồ hình quạt tròn cho trước.",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Display"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_19",
+          "lesson_code": "MATH.G7.CH5.L19",
+          "lesson_name": "Biểu đồ đoạn thẳng",
+          "page_start": 101,
+          "page_end": 111,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.DATA.LINE_READ",
+              "canonical_name": "Đọc và mô tả dữ liệu từ biểu đồ đoạn thẳng",
+              "description": "Đọc và nhận biết xu thế thay đổi tăng hoặc giảm của một đại lượng theo tiến trình thời gian được mô tả trên biểu đồ đoạn thẳng.",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Display"
+            },
+            {
+              "code": "MATH.G7.DATA.LINE_WRITE",
+              "canonical_name": "Vẽ biểu đồ đoạn thẳng",
+              "description": "Thiết lập hệ trục tọa độ (trục ngang thời gian, trục đứng đại lượng) và nối các điểm giá trị liên tiếp bằng các đoạn thẳng để tạo lập biểu đồ hoàn chỉnh.",
+              "domain": "Data and Statistics",
+              "subdomain": "Data Display"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

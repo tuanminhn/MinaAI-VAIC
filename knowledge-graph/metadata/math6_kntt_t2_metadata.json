@@ -1,0 +1,594 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_6_T2",
+    "book_name": "Toán 6 - Tập Hai",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 6,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_06",
+      "chapter_code": "MATH.G6.CH6",
+      "chapter_name": "Phân số",
+      "lessons": [
+        {
+          "lesson_id": "L_23",
+          "lesson_code": "MATH.G6.CH6.L23",
+          "lesson_name": "Mở rộng phân số. Phân số bằng nhau",
+          "page_start": 5,
+          "page_end": 9,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FRAC.CONCEPT_EXT",
+              "canonical_name": "Nhận biết khái niệm phân số với tử và mẫu nguyên",
+              "description": "Nhận biết một biểu thức dạng a/b với a, b thuộc Z, b khác 0 là một phân số; xác định rõ tử số và mẫu số.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Concepts"
+            },
+            {
+              "code": "MATH.G6.FRAC.EQUALITY",
+              "canonical_name": "Nhận biết hai phân số bằng nhau",
+              "description": "Áp dụng quy tắc tích chéo a * d = b * c để kiểm tra và khẳng định hai phân số bằng nhau.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Concepts"
+            },
+            {
+              "code": "MATH.G6.FRAC.PROPERTIES",
+              "canonical_name": "Áp dụng tính chất cơ bản của phân số",
+              "description": "Nhân hoặc chia cả tử và mẫu của phân số với cùng một số nguyên khác 0 để tạo phân số bằng nó; biến đổi mẫu âm thành mẫu dương.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Concepts"
+            },
+            {
+              "code": "MATH.G6.FRAC.SIMPLIFY",
+              "canonical_name": "Rút gọn phân số về dạng tối giản",
+              "description": "Chia cả tử và mẫu của phân số cho ước chung lớn nhất của chúng để thu được phân số tối giản.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Concepts"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G6.FRAC.NON_INT",
+              "description": "Học sinh lầm tưởng tử số và mẫu số chỉ có thể là số tự nhiên",
+              "error_pattern": "Không chấp nhận phân số có tử số hoặc mẫu số âm như -2/5 hoặc 5/-8",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_24",
+          "lesson_code": "MATH.G6.CH6.L24",
+          "lesson_name": "So sánh phân số. Hỗn số dương",
+          "page_start": 10,
+          "page_end": 14,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FRAC.COMMON_DENOM",
+              "canonical_name": "Quy đồng mẫu số nhiều phân số",
+              "description": "Tìm BCNN của các mẫu số để xác định mẫu chung và nhân tử/mẫu với thừa số phụ tương ứng.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Comparison"
+            },
+            {
+              "code": "MATH.G6.FRAC.COMPARE_SAME",
+              "canonical_name": "So sánh hai phân số cùng mẫu dương",
+              "description": "So sánh hai phân số có cùng một mẫu số dương bằng cách đối chiếu trực tiếp giá trị của hai tử số.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Comparison"
+            },
+            {
+              "code": "MATH.G6.FRAC.COMPARE_DIFF",
+              "canonical_name": "So sánh hai phân số không cùng mẫu",
+              "description": "Quy đồng mẫu số hai phân số về cùng một mẫu số dương rồi tiến hành so sánh tử số của chúng.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Comparison"
+            },
+            {
+              "code": "MATH.G6.FRAC.MIXED_NUMBER",
+              "canonical_name": "Biến đổi qua lại giữa phân số và hỗn số dương",
+              "description": "Thực hiện phép chia có dư để viết một phân số lớn hơn 1 dưới dạng hỗn số dương và ngược lại.",
+              "domain": "Numbers",
+              "subdomain": "Mixed Numbers"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_25",
+          "lesson_code": "MATH.G6.CH6.L25",
+          "lesson_name": "Phép cộng và phép trừ phân số",
+          "page_start": 15,
+          "page_end": 19,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FRAC.ADD_SAME",
+              "canonical_name": "Thực hiện phép cộng hai phân số cùng mẫu",
+              "description": "Cộng các tử số và giữ nguyên mẫu số nguyên.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.ADD_DIFF",
+              "canonical_name": "Thực hiện phép cộng hai phân số không cùng mẫu",
+              "description": "Quy đồng mẫu số các phân số rồi cộng các tử và giữ nguyên mẫu số chung.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.OPPOSITE",
+              "canonical_name": "Xác định số đối của một phân số",
+              "description": "Tìm phân số đối của một phân số cho trước sao cho tổng của chúng bằng 0.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.SUBTRACT",
+              "canonical_name": "Thực hiện phép trừ phân số",
+              "description": "Trực tiếp trừ hai phân số hoặc cộng số bị trừ với số đối của số trừ.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_26",
+          "lesson_code": "MATH.G6.CH6.L26",
+          "lesson_name": "Phép nhân và phép chia phân số",
+          "page_start": 19,
+          "page_end": 22,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FRAC.MULTIPLY",
+              "canonical_name": "Thực hiện phép nhân hai phân số",
+              "description": "Nhân các tử số với nhau và nhân các mẫu số với nhau; nhân một số nguyên với một phân số.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.MUL_PROPERTIES",
+              "canonical_name": "Áp dụng tính chất phép nhân phân số để tính hợp lý",
+              "description": "Vận dụng tính chất giao hoán, kết hợp và phân phối của phép nhân đối với phép cộng/trừ để tính nhanh.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.INVERSE",
+              "canonical_name": "Xác định phân số nghịch đảo",
+              "description": "Tìm phân số nghịch đảo của một phân số khác 0 sao cho tích của chúng bằng 1.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            },
+            {
+              "code": "MATH.G6.FRAC.DIVIDE",
+              "canonical_name": "Thực hiện phép chia phân số",
+              "description": "Nhân số bị chia với phân số nghịch đảo của số chia.",
+              "domain": "Numbers",
+              "subdomain": "Fraction Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_27",
+          "lesson_code": "MATH.G6.CH6.L27",
+          "lesson_name": "Hai bài toán về phân số",
+          "page_start": 23,
+          "page_end": 27,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.FRAC.FIND_VALUE",
+              "canonical_name": "Tìm giá trị phân số của một số cho trước",
+              "description": "Muốn tìm m/n của số a cho trước, ta tính tích a * (m/n).",
+              "domain": "Numbers",
+              "subdomain": "Fraction Word Problems"
+            },
+            {
+              "code": "MATH.G6.FRAC.FIND_ORIGINAL",
+              "canonical_name": "Tìm một số khi biết giá trị phân số của nó",
+              "description": "Muốn tìm một số khi biết m/n của số đó bằng b, ta tính thương b : (m/n).",
+              "domain": "Numbers",
+              "subdomain": "Fraction Word Problems"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_07",
+      "chapter_code": "MATH.G6.CH7",
+      "chapter_name": "Số thập phân",
+      "lessons": [
+        {
+          "lesson_id": "L_28",
+          "lesson_code": "MATH.G6.CH7.L28",
+          "lesson_name": "Số thập phân",
+          "page_start": 28,
+          "page_end": 31,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DEC.CONCEPT_NEG",
+              "canonical_name": "Nhận biết số thập phân âm và số đối",
+              "description": "Hiểu cấu trúc số thập phân âm viết với dấu '-' ở trước; xác định số đối của số thập phân và viết dưới dạng phân số thập phân.",
+              "domain": "Numbers",
+              "subdomain": "Decimal Concepts"
+            },
+            {
+              "code": "MATH.G6.DEC.COMPARE",
+              "canonical_name": "So sánh hai số thập phân",
+              "description": "So sánh phần số nguyên và phần thập phân của hai số thập phân bất kì; vận dụng quy tắc số âm nhỏ hơn số dương.",
+              "domain": "Numbers",
+              "subdomain": "Decimal Concepts"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_29",
+          "lesson_code": "MATH.G6.CH7.L29",
+          "lesson_name": "Tính toán với số thập phân",
+          "page_start": 32,
+          "page_end": 35,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DEC.ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và trừ số thập phân",
+              "description": "Cộng trừ thành thạo các số thập phân dương và âm bằng cách áp dụng quy tắc tương tự số nguyên.",
+              "domain": "Numbers",
+              "subdomain": "Decimal Operations"
+            },
+            {
+              "code": "MATH.G6.DEC.MUL_DIV",
+              "canonical_name": "Thực hiện phép nhân và chia số thập phân",
+              "description": "Nhân chia thành thạo các số thập phân bất kì; vận dụng quy tắc dịch dấu phẩy khi nhân/chia với 0.1, 0.01,...",
+              "domain": "Numbers",
+              "subdomain": "Decimal Operations"
+            },
+            {
+              "code": "MATH.G6.DEC.EXP_EVAL",
+              "canonical_name": "Tính giá trị biểu thức số thập phân hợp lý",
+              "description": "Áp dụng tính chất giao hoán, kết hợp, phân phối và quy tắc dấu ngoặc để tính nhanh giá trị biểu thức.",
+              "domain": "Numbers",
+              "subdomain": "Decimal Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_30",
+          "lesson_code": "MATH.G6.CH7.L30",
+          "lesson_name": "Làm tròn và ước lượng",
+          "page_start": 36,
+          "page_end": 38,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DEC.ROUND",
+              "canonical_name": "Thực hiện làm tròn số thập phân",
+              "description": "Áp dụng quy tắc tăng 1 đơn vị hoặc giữ nguyên chữ số hàng làm tròn dựa trên chữ số liền phải.",
+              "domain": "Numbers",
+              "subdomain": "Rounding and Estimation"
+            },
+            {
+              "code": "MATH.G6.DEC.ESTIMATE",
+              "canonical_name": "Ước lượng kết quả phép tính",
+              "description": "Sử dụng kết quả làm tròn đến hàng đơn vị thích hợp để ước lượng nhanh kết quả của các phép tính phức tạp.",
+              "domain": "Numbers",
+              "subdomain": "Rounding and Estimation"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_31",
+          "lesson_code": "MATH.G6.CH7.L31",
+          "lesson_name": "Một số bài toán về tỉ số và tỉ số phần trăm",
+          "page_start": 39,
+          "page_end": 42,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.RATIO.CALCULATE",
+              "canonical_name": "Tính tỉ số và tỉ số phần trăm của hai số",
+              "description": "Tìm thương của phép chia số a cho số b (b khác 0); tính tỉ số phần trăm bằng cách đưa về cùng đơn vị đo và nhân với 100%.",
+              "domain": "Numbers",
+              "subdomain": "Ratios and Percentages"
+            },
+            {
+              "code": "MATH.G6.RATIO.FIND_PERCENT_VALUE",
+              "canonical_name": "Tìm giá trị phần trăm của một số cho trước",
+              "description": "Muốn tìm m% của số a, ta tính biểu thức a * (m/100).",
+              "domain": "Numbers",
+              "subdomain": "Ratios and Percentages"
+            },
+            {
+              "code": "MATH.G6.RATIO.FIND_NUM_BY_PERCENT",
+              "canonical_name": "Tìm một số khi biết giá trị phần trăm của nó",
+              "description": "Muốn tìm một số khi biết m% của số đó là b, ta tính thương b : (m/100).",
+              "domain": "Numbers",
+              "subdomain": "Ratios and Percentages"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_08",
+      "chapter_code": "MATH.G6.CH8",
+      "chapter_name": "Những hình hình học cơ bản",
+      "lessons": [
+        {
+          "lesson_id": "L_32",
+          "lesson_code": "MATH.G6.CH8.L32",
+          "lesson_name": "Điểm và đường thẳng",
+          "page_start": 44,
+          "page_end": 48,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.POINT_LINE_REL",
+              "canonical_name": "Nhận biết điểm thuộc hoặc không thuộc đường thẳng",
+              "description": "Nhận biết và sử dụng kí hiệu thuộc hoặc không thuộc để diễn đạt vị trí của một điểm đối với đường thẳng d.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            },
+            {
+              "code": "MATH.G6.GEO.LINE_THROUGH_POINTS",
+              "canonical_name": "Vẽ đường thẳng đi qua hai điểm phân biệt",
+              "description": "Hiểu và ứng dụng tính chất: có một và chỉ một đường thẳng đi qua hai điểm phân biệt.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_33",
+          "lesson_code": "MATH.G6.CH8.L33",
+          "lesson_name": "Điểm nằm giữa hai điểm. Tia",
+          "page_start": 49,
+          "page_end": 51,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.BETWEEN_POINTS",
+              "canonical_name": "Nhận biết điểm nằm giữa hai điểm",
+              "description": "Xác định thứ tự thẳng hàng và chỉ ra điểm nằm giữa hai điểm, các điểm nằm cùng phía, khác phía.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            },
+            {
+              "code": "MATH.G6.GEO.RAY_CONCEPT",
+              "canonical_name": "Nhận biết khái niệm tia và hai tia đối nhau",
+              "description": "Hiểu cấu trúc hình gồm gốc O và một phần đường thẳng bị chia ra; nhận biết hai tia chung gốc tạo thành một đường thẳng là hai tia đối nhau.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_34",
+          "lesson_code": "MATH.G6.CH8.L34",
+          "lesson_name": "Đoạn thẳng. Độ dài đoạn thẳng",
+          "page_start": 52,
+          "page_end": 55,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.SEGMENT_CONCEPT",
+              "canonical_name": "Nhận biết đoạn thẳng và đầu mút",
+              "description": "Hiểu đoạn thẳng AB là hình gồm hai điểm A, B và tất cả các điểm nằm giữa A và B.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            },
+            {
+              "code": "MATH.G6.GEO.SEGMENT_MEASURE",
+              "canonical_name": "Thực hiện đo độ dài đoạn thẳng và so sánh",
+              "description": "Sử dụng thước có vạch chia để xác định độ dài đoạn thẳng và so sánh độ dài giữa các đoạn thẳng.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_35",
+          "lesson_code": "MATH.G6.CH8.L35",
+          "lesson_name": "Trung điểm của đoạn thẳng",
+          "page_start": 56,
+          "page_end": 58,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.MIDPOINT_CONCEPT",
+              "canonical_name": "Nhận biết trung điểm của đoạn thẳng",
+              "description": "Xác định điểm I nằm giữa hai điểm A, B sao cho IA = IB là trung điểm của đoạn thẳng AB.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            },
+            {
+              "code": "MATH.G6.GEO.MIDPOINT_CALCULATE",
+              "canonical_name": "Tính độ dài đoạn thẳng dựa trên trung điểm",
+              "description": "Áp dụng hệ thức IA = IB = AB / 2 để tính toán độ dài các phân đoạn.",
+              "domain": "Geometry",
+              "subdomain": "Basic Geometry Elements"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_36",
+          "lesson_code": "MATH.G6.CH8.L36",
+          "lesson_name": "Góc",
+          "page_start": 59,
+          "page_end": 61,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.ANGLE_CONCEPT",
+              "canonical_name": "Nhận biết góc, đỉnh, cạnh và góc bẹt",
+              "description": "Hiểu góc là hình gồm hai tia chung gốc; nhận biết góc bẹt khi hai cạnh là hai tia đối nhau.",
+              "domain": "Geometry",
+              "subdomain": "Angles"
+            },
+            {
+              "code": "MATH.G6.GEO.ANGLE_INTERIOR",
+              "canonical_name": "Xác định điểm trong của một góc",
+              "description": "Nhận biết vị trí một điểm nằm bên trong phần không gian giới hạn bởi hai cạnh của góc (góc không bẹt).",
+              "domain": "Geometry",
+              "subdomain": "Angles"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_37",
+          "lesson_code": "MATH.G6.CH8.L37",
+          "lesson_name": "Số đo góc",
+          "page_start": 62,
+          "page_end": 68,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.GEO.ANGLE_MEASURE",
+              "canonical_name": "Thực hiện đo số đo góc bằng thước đo góc",
+              "description": "Đặt thước trùng tâm góc, căn vạch 0 và đọc chính xác số đo góc (đơn vị độ).",
+              "domain": "Geometry",
+              "subdomain": "Angles"
+            },
+            {
+              "code": "MATH.G6.GEO.ANGLE_CLASSIFY",
+              "canonical_name": "Phân loại các góc đặc biệt",
+              "description": "Dựa vào số đo để phân biệt góc nhọn (< 90 độ), góc vuông (= 90 độ), góc tù (90 đến 180 độ) và góc bẹt (= 180 độ).",
+              "domain": "Geometry",
+              "subdomain": "Angles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_04",
+      "chapter_code": "MATH.G6.CH9",
+      "chapter_name": "Dữ liệu và xác suất thực nghiệm",
+      "lessons": [
+        {
+          "lesson_id": "L_38",
+          "lesson_code": "MATH.G6.CH9.L38",
+          "lesson_name": "Dữ liệu và thu thập dữ liệu",
+          "page_start": 69,
+          "page_end": 73,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DATA.CONCEPT_TYPES",
+              "canonical_name": "Nhận biết các loại dữ liệu thống kê",
+              "description": "Phân biệt dữ liệu là số (số liệu) và dữ liệu không phải là số; chỉ ra dữ liệu không hợp lý trong dãy cho trước.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Collection"
+            },
+            {
+              "code": "MATH.G6.DATA.COLLECT_METHODS",
+              "canonical_name": "Thực hiện thu thập dữ liệu thống kê",
+              "description": "Ứng dụng các phương pháp thu thập dữ liệu cơ bản như quan sát, làm thí nghiệm, lập phiếu hỏi hoặc lấy từ nguồn có sẵn.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Collection"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_39",
+          "lesson_code": "MATH.G6.CH9.L39",
+          "lesson_name": "Bảng thống kê và biểu đồ tranh",
+          "page_start": 74,
+          "page_end": 77,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DATA.STAT_TABLE",
+              "canonical_name": "Đọc và lập bảng thống kê dữ liệu",
+              "description": "Tổng hợp dãy dữ liệu thô để lập bảng thống kê phân loại và đọc hiểu các thông tin hàng/cột.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            },
+            {
+              "code": "MATH.G6.DATA.PICTURE_GRAPH",
+              "canonical_name": "Đọc và vẽ biểu đồ tranh",
+              "description": "Hiểu ý nghĩa biểu tượng trong biểu đồ tranh để tính số lượng thực tế; tự vẽ biểu đồ tranh từ bảng số liệu.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_40",
+          "lesson_code": "MATH.G6.CH9.L40",
+          "lesson_name": "Biểu đồ cột",
+          "page_start": 78,
+          "page_end": 82,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DATA.BAR_DRAW",
+              "canonical_name": "Vẽ biểu đồ cột từ bảng thống kê",
+              "description": "Thiết lập trục ngang (đối tượng), trục đứng (số lượng) và vẽ các cột hình chữ nhật có chiều cao tương ứng số liệu.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            },
+            {
+              "code": "MATH.G6.DATA.BAR_READ_ANALYSIS",
+              "canonical_name": "Đọc và phân tích dữ liệu từ biểu đồ cột",
+              "description": "Đọc chính xác giá trị đỉnh cột, so sánh độ cao các cột để rút ra xu thế hoặc lập lại bảng thống kê.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_41",
+          "lesson_code": "MATH.G6.CH9.L41",
+          "lesson_name": "Biểu đồ cột kép",
+          "page_start": 83,
+          "page_end": 88,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.DATA.DOUBLE_BAR_DRAW",
+              "canonical_name": "Vẽ biểu đồ cột kép",
+              "description": "Vẽ hai hình chữ nhật cạnh nhau tại mỗi đối tượng để thể hiện hai bộ số liệu song song; hoàn thiện chú thích màu sắc.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            },
+            {
+              "code": "MATH.G6.DATA.DOUBLE_BAR_READ",
+              "canonical_name": "Đọc và phân tích dữ liệu từ biểu đồ cột kép",
+              "description": "So sánh trực quan hai cột cạnh nhau tại cùng đối tượng để đánh giá sự chênh lệch và xu hướng biến động.",
+              "domain": "Data and Probability",
+              "subdomain": "Data Representation"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_42",
+          "lesson_code": "MATH.G6.CH9.L42",
+          "lesson_name": "Kết quả có thể và sự kiện trong trò chơi, thí nghiệm",
+          "page_start": 90,
+          "page_end": 94,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.PROB.POSSIBLE_OUTCOMES",
+              "canonical_name": "Liệt kê các kết quả có thể xảy ra",
+              "description": "Liệt kê đầy đủ các kết quả có thể xảy ra của các thí nghiệm ngẫu nhiên đơn giản (gieo xúc xắc, tung đồng xu, rút thẻ).",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            },
+            {
+              "code": "MATH.G6.PROB.EVENT_OCCURRENCE",
+              "canonical_name": "Nhận biết sự kiện xảy ra hay không xảy ra",
+              "description": "Đối chiếu kết quả thực tế của thí nghiệm để kết luận một sự kiện cho trước có xảy ra hay không.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_43",
+          "lesson_code": "MATH.G6.CH9.L43",
+          "lesson_name": "Xác suất thực nghiệm",
+          "page_start": 94,
+          "page_end": 98,
+          "canonical_skills": [
+            {
+              "code": "MATH.G6.PROB.EMPIRICAL_CALC",
+              "canonical_name": "Tính xác suất thực nghiệm của một sự kiện",
+              "description": "Lập tỉ số giữa số lần xuất hiện sự kiện (k) và tổng số lần thực hiện thí nghiệm (n): k / n.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
