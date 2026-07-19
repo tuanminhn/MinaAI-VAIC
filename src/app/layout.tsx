@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image"
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <header className="topbar">
           <Link className="brand" href="/">
-            <span className="brand-mark">M</span>
+            <Image
+              src="/logo.png"
+              alt="Mina AI Logo"
+              width={40}
+              height={40}
+            />
             <span>Mina AI</span>
           </Link>
           <nav aria-label="Điều hướng chính">

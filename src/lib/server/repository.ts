@@ -233,7 +233,7 @@ export async function getTeacherDashboard() {
   const mastered = summaries.filter((item) => item.diagnosis?.status === "mastered").length;
   const insufficient = summaries.filter((item) => item.diagnosis?.status === "insufficient_evidence").length;
   return {
-    classroom: { id: DEMO_CLASS_ID, name: "Lớp 7A demo", studentCount: summaries.length },
+    classroom: { id: DEMO_CLASS_ID, name: "Lớp 9A demo", studentCount: summaries.length },
     assignmentId: DEMO_ASSIGNMENT_ID,
     freshness: new Date().toISOString(),
     metrics: { diagnosed, mastered, insufficient, completed: diagnosed + mastered + insufficient },
