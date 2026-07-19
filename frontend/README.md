@@ -1,110 +1,55 @@
 # Mina AI Frontend
 
-Frontend cho Mina AI dùng React, Vite, TypeScript, React Router, Tailwind CSS, shadcn-style primitives, TanStack Query và Vitest.
+Tài liệu tổng quan cho runtime chính nằm ở [README gốc](../README.md), [docs/source-code.md](../docs/source-code.md) và [docs/architecture.md](../docs/architecture.md).
 
-## Yêu cầu
+## Mục đích
 
-- Node.js `>=20.12.0`
-- npm `>=10`
+`frontend/` là ứng dụng React + Vite của Mina AI. Frontend chịu trách nhiệm:
 
-## Cài dependency
+- Đăng nhập và khôi phục phiên bằng cookie `HttpOnly`.
+- Hiển thị luồng học sinh: assignments, diagnostic, remediation, transfer, result.
+- Hiển thị luồng giáo viên: classes, assignments, learning session evidence.
+- Gọi FastAPI backend qua repository layer và validate response bằng Zod.
 
-```bash
-npm install
-```
+Frontend không tự chấm câu trả lời và không tự xác định root cause. Quyết định điều hướng pha học tiếp theo đến từ backend.
 
-## Chạy development
-
-Dùng MSW:
-
-```bash
-VITE_ENABLE_MSW=true
-npm run dev
-```
-
-Dùng backend thật:
-
-```bash
-VITE_API_BASE_URL=http://localhost:8000/api/v1
-VITE_ENABLE_MSW=false
-npm run dev
-```
-
-PowerShell:
+## Chạy nhanh
 
 ```powershell
+cd frontend
+npm install
 $env:VITE_API_BASE_URL="http://localhost:8000/api/v1"
 $env:VITE_ENABLE_MSW="false"
 npm run dev
 ```
 
-## Build
+URL mặc định:
 
-```bash
-npm run build
+```text
+http://localhost:5173
 ```
 
-Production build sẽ xóa `mockServiceWorker.js` khỏi `dist`.
+Nếu muốn dùng mock trong development:
 
-## Test
+```powershell
+cd frontend
+$env:VITE_ENABLE_MSW="true"
+npm run dev
+```
 
-```bash
+## Test và build
+
+```powershell
+cd frontend
 npm run typecheck
 npm run lint
 npm run test:run
+npm run build
 ```
 
-## Environment variables
+## Lưu ý
 
-- `VITE_API_BASE_URL`: base URL của FastAPI backend
-- `VITE_ENABLE_MSW`: chỉ bật browser MSW trong development khi giá trị là `true`
-
-## MSW boundary
-
-- Browser MSW chỉ chạy trong development
-- Test MSW nằm ở `src/test/setup.ts`
-- Mock handlers nằm trong `src/mocks/handlers`
-- Khi backend lỗi, frontend không fallback sang business fixture
-
-## Auth boundary
-
-- Frontend không lưu access token trong `localStorage` hoặc `sessionStorage`
-- Auth thật dùng cookie `HttpOnly` do backend set
-- Frontend luôn gọi request với `credentials: "include"`
-- Frontend route guards chỉ phục vụ UX
-- Backend vẫn phải enforce authentication và role
-
-## Cấu trúc chính
-
-```text
-frontend/
-  public/
-  src/
-    app/
-    components/
-    contracts/
-    features/
-    hooks/
-    lib/
-    mocks/
-    repositories/
-    routes/
-    styles/
-    test/
-```
-
-## Boundary kiến trúc
-
-```text
-Page -> Hook/Query -> Repository -> HTTP hoặc Mock adapter
-```
-
-Page không được import fixture trực tiếp.
-
-## Chưa triển khai
-
-- Backend business APIs cho assignments/diagnostic
-- Teacher dashboard thật
-- Charts
-- Dark mode
-- PWA
+- Browser MSW chỉ bật trong development khi `VITE_ENABLE_MSW=true`.
+- Request thật dùng `credentials: "include"`.
+- Route guards ở frontend chỉ phục vụ UX; backend vẫn là nơi enforce authentication và role.
+- `teacher/groups` và `teacher/interventions` hiện là placeholder route.
