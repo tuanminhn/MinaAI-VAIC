@@ -1,0 +1,502 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_7_T2",
+    "book_name": "Toán 7 - Tập Hai",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà xuất bản Giáo dục Việt Nam",
+    "grade": 7,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_06",
+      "chapter_code": "MATH.G7.CH6",
+      "chapter_name": "Tỉ lệ thức và đại lượng tỉ lệ",
+      "lessons": [
+        {
+          "lesson_id": "L_20",
+          "lesson_code": "MATH.G7.CH6.L20",
+          "lesson_name": "Tỉ lệ thức",
+          "page_start": 5,
+          "page_end": 8,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROP.IDENTIFY",
+              "canonical_name": "Nhận biết tỉ lệ thức",
+              "description": "Nhận biết đẳng thức của hai tỉ số là một tỉ lệ thức; kiểm tra hai tỉ số có lập thành tỉ lệ thức hay không.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportions"
+            },
+            {
+              "code": "MATH.G7.PROP.CROSS_MULTIPLY",
+              "canonical_name": "Vận dụng tính chất tích chéo của tỉ lệ thức",
+              "description": "Áp dụng tính chất nếu a/b = c/d thì a*d = b*c để biến đổi đẳng thức hoặc tìm thành phần chưa biết x.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportions"
+            },
+            {
+              "code": "MATH.G7.PROP.DERIVE_PROPORTIONS",
+              "canonical_name": "Lập các tỉ lệ thức từ một đẳng thức tích",
+              "description": "Từ đẳng thức tích a*d = b*c lập đầy đủ bốn tỉ lệ thức tương ứng bằng cách đổi chỗ các ngoại tỷ và trung tỷ.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportions"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.PROP.CROSS_INVERSION",
+              "description": "Học sinh lập sai tỉ lệ thức từ đẳng thức tích chéo do nhầm vị trí tử mẫu",
+              "error_pattern": "Từ a*d = b*c suy ra a/c = d/b thay vì a/c = b/d",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_21",
+          "lesson_code": "MATH.G7.CH6.L21",
+          "lesson_name": "Tính chất của dãy tỉ số bằng nhau",
+          "page_start": 9,
+          "page_end": 11,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROP.SEQ_PROPERTIES",
+              "canonical_name": "Vận dụng tính chất dãy tỉ số bằng nhau",
+              "description": "Áp dụng công thức cộng/trừ các tử số và mẫu số tương ứng để biến đổi dãy tỉ số bằng nhau phục vụ giải toán tìm x, y, z.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportions"
+            },
+            {
+              "code": "MATH.G7.PROP.WORD_PROBLEMS",
+              "canonical_name": "Giải bài toán thực tế về dãy tỉ số bằng nhau",
+              "description": "Chuyển đổi dữ kiện lời văn thực tế (chia tiền từ thiện, phân chia số cây) thành dạng dãy tỉ số bằng nhau và giải.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportions"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.PROP.SEQ_MISMATCH",
+              "description": "Cộng tử số nhưng lại trừ mẫu số hoặc không tương ứng vị trí trong dãy tỉ số",
+              "error_pattern": "x/3 = y/5 = (x+y)/(3-5)",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_22",
+          "lesson_code": "MATH.G7.CH6.L22",
+          "lesson_name": "Đại lượng tỉ lệ thuận",
+          "page_start": 12,
+          "page_end": 15,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROP.DIRECT_CONCEPT",
+              "canonical_name": "Nhận biết hai đại lượng tỉ lệ thuận",
+              "description": "Xác định công thức y = ax (a khác 0); tính hệ số tỉ lệ thuận và lập bảng giá trị tương ứng.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportional Quantities"
+            },
+            {
+              "code": "MATH.G7.PROP.DIRECT_PROBLEMS",
+              "canonical_name": "Giải bài toán về đại lượng tỉ lệ thuận",
+              "description": "Giải quyết bài toán chia một số thành các phần tỉ lệ thuận với các số cho trước.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportional Quantities"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_23",
+          "lesson_code": "MATH.G7.CH6.L23",
+          "lesson_name": "Đại lượng tỉ lệ nghịch",
+          "page_start": 16,
+          "page_end": 22,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROP.INVERSE_CONCEPT",
+              "canonical_name": "Nhận biết hai đại lượng tỉ lệ nghịch",
+              "description": "Xác định công thức y = a/s (hoặc x*y = a); lập hệ số tỉ lệ nghịch và tính các giá trị tương ứng.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportional Quantities"
+            },
+            {
+              "code": "MATH.G7.PROP.INVERSE_PROBLEMS",
+              "canonical_name": "Giải bài toán về đại lượng tỉ lệ nghịch",
+              "description": "Vận dụng tính chất tích x1*y1 = x2*y2 để tìm số lượng công nhân, số máy cày trong bài toán thực tế.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Proportional Quantities"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.PROP.CONFUSE_DIRECT_INVERSE",
+              "description": "Học sinh áp dụng nhầm quy tắc tỉ lệ thuận cho bài toán tỉ lệ nghịch",
+              "error_pattern": "Tăng số người làm nhưng lại tính ra thời gian tăng lên",
+              "severity": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_07",
+      "chapter_code": "MATH.G7.CH7",
+      "chapter_name": "Biểu thức đại số và đa thức một biến",
+      "lessons": [
+        {
+          "lesson_id": "L_24",
+          "lesson_code": "MATH.G7.CH7.L24",
+          "lesson_name": "Biểu thức đại số",
+          "page_start": 23,
+          "page_end": 25,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ALG.EXPRESSION_CONCEPT",
+              "canonical_name": "Nhận biết biểu thức số và biểu thức đại số",
+              "description": "Phân biệt biểu thức chỉ chứa số và biểu thức đại số chứa cả chữ (biến số); viết biểu thức đại số theo lời văn.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Algebraic Expressions"
+            },
+            {
+              "code": "MATH.G7.ALG.EVALUATE",
+              "canonical_name": "Tính giá trị của biểu thức đại số",
+              "description": "Thay giá trị số cụ thể của biến vào biểu thức để thực hiện các phép tính ra kết quả cuối cùng.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Algebraic Expressions"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_25",
+          "lesson_code": "MATH.G7.CH7.L25",
+          "lesson_name": "Đa thức một biến",
+          "page_start": 25,
+          "page_end": 31,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ALG.POLY_CONCEPT",
+              "canonical_name": "Nhận biết đơn thức và đa thức một biến",
+              "description": "Xác định các hạng tử, bậc, hệ số cao nhất, hệ số tự do của một đa thức một biến sau khi thu gọn.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomials"
+            },
+            {
+              "code": "MATH.G7.ALG.POLY_REDUCE_ORDER",
+              "canonical_name": "Thu gọn và sắp xếp đa thức một biến",
+              "description": "Nhóm các hạng tử cùng bậc để thu gọn và sắp xếp đa thức theo lũy thừa giảm hoặc tăng của biến.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomials"
+            },
+            {
+              "code": "MATH.G7.ALG.POLY_ROOT",
+              "canonical_name": "Nhận biết nghiệm của đa thức một biến",
+              "description": "Kiểm tra một giá trị x = a có phải là nghiệm của đa thức F(x) hay không thông qua điều kiện F(a) = 0.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomials"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.POLY.MONOMIAL_DEGREE",
+              "description": "Học sinh tính sai bậc của đa thức chưa thu gọn hoặc nhầm hệ số tự do là bậc 1",
+              "error_pattern": "Đa thức P(x) = -x^3 + x^3 + 2x^2 có bậc là 3 thay vì bậc 2",
+              "severity": "medium"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_26",
+          "lesson_code": "MATH.G7.CH7.L26",
+          "lesson_name": "Phép cộng và phép trừ đa thức một biến",
+          "page_start": 31,
+          "page_end": 36,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ALG.POLY_ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và trừ đa thức một biến",
+              "description": "Thực hiện phép tính cộng, trừ hai đa thức theo cách nhóm hạng tử hoặc đặt tính hàng dọc thẳng cột theo bậc.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.POLY.SUB_SIGN_ERROR",
+              "description": "Quên đổi dấu các hạng tử phía sau dấu trừ khi phá ngoặc đa thức",
+              "error_pattern": "A(x) - (x^2 - 3x + 1) = A(x) - x^2 - 3x + 1",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_27",
+          "lesson_code": "MATH.G7.CH7.L27",
+          "lesson_name": "Phép nhân đa thức một biến",
+          "page_start": 37,
+          "page_end": 39,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ALG.POLY_MUL_MONOMIAL",
+              "canonical_name": "Thực hiện phép nhân đơn thức với đa thức",
+              "description": "Nhân đơn thức với từng hạng tử của đa thức rồi cộng các tích lại với nhau.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomial Operations"
+            },
+            {
+              "code": "MATH.G7.ALG.POLY_MUL_POLY",
+              "canonical_name": "Thực hiện phép nhân đa thức với đa thức",
+              "description": "Nhân mỗi hạng tử của đa thức này với từng hạng tử của đa thức kia; thực hiện bằng cách nhân ngang hoặc đặt tính dọc.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_28",
+          "lesson_code": "MATH.G7.CH7.L28",
+          "lesson_name": "Phép chia đa thức một biến",
+          "page_start": 40,
+          "page_end": 46,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.ALG.POLY_DIV_MONOMIAL",
+              "canonical_name": "Thực hiện phép chia đơn thức cho đơn thức",
+              "description": "Chia hệ số cho hệ số và chia lũy thừa của biến cho lũy thừa của biến để tìm thương.",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomial Operations"
+            },
+            {
+              "code": "MATH.G7.ALG.POLY_DIV_POLY",
+              "canonical_name": "Thực hiện phép chia đa thức cho đa thức",
+              "description": "Đặt tính chia đa thức một biến đã sắp xếp; nhận biết phép chia hết (số dư bằng 0) và phép chia có dư (bậc của đa thức dư nhỏ hơn bậc đa thức chia).",
+              "domain": "Numbers and Algebra",
+              "subdomain": "Polynomial Operations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_08",
+      "chapter_code": "MATH.G7.CH8",
+      "chapter_name": "Làm quen với biến cố và xác suất của biến cố",
+      "lessons": [
+        {
+          "lesson_id": "L_29",
+          "lesson_code": "MATH.G7.CH8.L29",
+          "lesson_name": "Làm quen với biến cố",
+          "page_start": 47,
+          "page_end": 51,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROB.EVENT_TYPES",
+              "canonical_name": "Nhận biết các loại biến cố",
+              "description": "Phân biệt biến cố ngẫu nhiên, biến cố chắc chắn (luôn xảy ra) và biến cố không thể (không bao giờ xảy ra) trong thực tế.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_30",
+          "lesson_code": "MATH.G7.CH8.L30",
+          "lesson_name": "Làm quen với xác suất của biến cố",
+          "page_start": 52,
+          "page_end": 59,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.PROB.CONCEPT_PROB",
+              "canonical_name": "Mô tả xác suất của biến cố ngẫu nhiên",
+              "description": "Hiểu định nghĩa xác suất biểu thị khả năng xảy ra của biến cố bằng một con số từ 0 đến 1 (hoặc phần trăm).",
+              "domain": "Data and Probability",
+              "subdomain": "Probability"
+            },
+            {
+              "code": "MATH.G7.PROB.EQUALLY_LIKELY",
+              "canonical_name": "Tính xác suất của các biến cố đồng khả năng",
+              "description": "Tính xác suất của biến cố trong các trò chơi cân đối (đồng xu, xúc xắc) theo công thức P = 1/k khi có k kết quả đồng khả năng.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_09",
+      "chapter_code": "MATH.G7.CH9",
+      "chapter_name": "Quan hệ giữa các yếu tố trong một tam giác",
+      "lessons": [
+        {
+          "lesson_id": "L_31",
+          "lesson_code": "MATH.G7.CH9.L31",
+          "lesson_name": "Quan hệ giữa góc và cạnh đối diện trong một tam giác",
+          "page_start": 60,
+          "page_end": 62,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.GEO.ANGLE_SIDE_REL",
+              "canonical_name": "Nhận biết định lí về góc và cạnh đối diện trong tam giác",
+              "description": "Giải thích định lí: góc đối diện với cạnh lớn hơn là góc lớn hơn; cạnh đối diện với góc lớn hơn là cạnh lớn hơn.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Relations"
+            },
+            {
+              "code": "MATH.G7.GEO.MAX_SIDE_RIGHT_ANGLE",
+              "canonical_name": "Nhận biết cạnh lớn nhất trong tam giác vuông/tù",
+              "description": "Khẳng định cạnh huyền là cạnh lớn nhất trong tam giác vuông; cạnh đối diện góc tù là cạnh lớn nhất trong tam giác tù.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Relations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_32",
+          "lesson_code": "MATH.G7.CH9.L32",
+          "lesson_name": "Quan hệ giữa đường vuông góc và đường xiên",
+          "page_start": 63,
+          "page_end": 65,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.GEO.PERPENDICULAR_OBLIQUE",
+              "canonical_name": "Nhận biết đường vuông góc, đường xiên và khoảng cách",
+              "description": "Hiểu định nghĩa đường vuông góc, đường xiên hạ từ một điểm đến đường thẳng d; khoảng cách từ điểm đến đường thẳng.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Relations"
+            },
+            {
+              "code": "MATH.G7.GEO.SHORT_PATH_PROP",
+              "canonical_name": "Biết quan hệ độ dài giữa đường vuông góc và đường xiên",
+              "description": "Vận dụng định lí: đường vuông góc là đường ngắn nhất trong các đường hạ từ một điểm nằm ngoài đường thẳng đến đường thẳng đó.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Relations"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_33",
+          "lesson_code": "MATH.G7.CH9.L33",
+          "lesson_name": "Quan hệ giữa ba cạnh của một tam giác",
+          "page_start": 66,
+          "page_end": 71,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.GEO.TRIANGLE_INEQUALITY",
+              "canonical_name": "Nhận biết bất đẳng thức tam giác",
+              "description": "Hiểu định lý trong một tam giác, độ dài một cạnh luôn nhỏ hơn tổng và lớn hơn hiệu độ dài hai cạnh còn lại (b-c < a < b+c).",
+              "domain": "Geometry",
+              "subdomain": "Triangle Relations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G7.GEO.INVALID_TRIANGLE_SIDES",
+              "description": "Học sinh lầm tưởng bộ ba số bất kì đều lập thành 3 cạnh tam giác",
+              "error_pattern": "Cho rằng bộ ba 1cm, 2cm, 4cm ghép được thành một tam giác vì 2 < 4+1 (quên kiểm tra cạnh lớn nhất 4 > 1+2)",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_34",
+          "lesson_code": "MATH.G7.CH9.L34",
+          "lesson_name": "Sự đồng quy của ba đường trung tuyến, ba đường phân giác trong một tam giác",
+          "page_start": 71,
+          "page_end": 76,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.GEO.MEDIANS_CONCURRENCY",
+              "canonical_name": "Nhận biết sự đồng quy của ba đường trung tuyến",
+              "description": "Mô tả định lí ba đường trung tuyến đồng quy tại một điểm gọi là trọng tâm (G); khoảng cách từ trọng tâm đến đỉnh bằng 2/3 độ dài đường trung tuyến.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Concurrency"
+            },
+            {
+              "code": "MATH.G7.GEO.BISECTORS_CONCURRENCY",
+              "canonical_name": "Nhận biết sự đồng quy của ba đường phân giác",
+              "description": "Mô tả định lí ba đường phân giác đồng quy tại một điểm (I) cách đều ba cạnh của tam giác đó.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Concurrency"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_35",
+          "lesson_code": "MATH.G7.CH9.L35",
+          "lesson_name": "Sự đồng quy của ba đường trung trực, ba đường cao trong một tam giác",
+          "page_start": 77,
+          "page_end": 84,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.GEO.BISECTORS_PERP_CONCURRENCY",
+              "canonical_name": "Nhận biết sự đồng quy của ba đường trung trực",
+              "description": "Mô tả định lí ba đường trung trực của tam giác đồng quy tại một điểm (O) cách đều ba đỉnh của tam giác đó.",
+              "domain": "Geometry",
+              "subdomain": "Triangle Concurrency"
+            },
+            {
+              "code": "MATH.G7.GEO.ALTITUDES_CONCURRENCY",
+              "canonical_name": "Nhận biết sự đồng quy của ba đường cao",
+              "description": "Mô tả định lí ba đường cao của tam giác đồng quy tại một điểm gọi là trực tâm (H).",
+              "domain": "Geometry",
+              "subdomain": "Triangle Concurrency"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_10",
+      "chapter_code": "MATH.G7.CH10",
+      "chapter_name": "Một số hình khối trong thực tiễn",
+      "lessons": [
+        {
+          "lesson_id": "L_36",
+          "lesson_code": "MATH.G7.CH10.L36",
+          "lesson_name": "Hình hộp chữ nhật và hình lập phương",
+          "page_start": 85,
+          "page_end": 94,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.SOLID.PRISM_CUBE_PROP",
+              "canonical_name": "Mô tả yếu tố hình hộp chữ nhật và hình lập phương",
+              "description": "Xác định số đỉnh, mặt, cạnh, đường chéo của hình hộp chữ nhật và hình lập phương thông qua mô hình thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            },
+            {
+              "code": "MATH.G7.SOLID.PRISM_CUBE_MEASURE",
+              "canonical_name": "Tính diện tích xung quanh và thể tích hình hộp chữ nhật, hình lập phương",
+              "description": "Áp dụng công thức S_xq = 2*(a+b)*c và V = a*b*c để tính diện tích vỏ bọc và dung tích chứa nước thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_37",
+          "lesson_code": "MATH.G7.CH10.L37",
+          "lesson_name": "Hình lăng trụ đứng tam giác. Hình lăng trụ đứng tứ giác",
+          "page_start": 95,
+          "page_end": 103,
+          "canonical_skills": [
+            {
+              "code": "MATH.G7.SOLID.RIGHT_PRISM_PROP",
+              "canonical_name": "Mô tả hình lăng trụ đứng tam giác và tứ giác",
+              "description": "Nhận biết các mặt đáy song song, các mặt bên là hình chữ nhật, các cạnh bên song song và bằng nhau (chiều cao lăng trụ).",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            },
+            {
+              "code": "MATH.G7.SOLID.RIGHT_PRISM_MEASURE",
+              "canonical_name": "Tính diện tích xung quanh và thể tích lăng trụ đứng",
+              "description": "Áp dụng công thức S_xq = chu vi đáy * chiều cao, và V = diện tích đáy * chiều cao.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

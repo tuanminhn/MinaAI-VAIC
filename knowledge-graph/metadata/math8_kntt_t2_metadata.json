@@ -1,0 +1,427 @@
+{
+  "book_metadata": {
+    "book_id": "KNTT_TOAN_8_T2",
+    "book_name": "Toán 8 - Tập Hai",
+    "curriculum": "GDPT_2018",
+    "publisher": "Nhà Xuất Bản Giáo Dục Việt Nam",
+    "grade": 8,
+    "version": 1
+  },
+  "chapters": [
+    {
+      "chapter_id": "CH_06",
+      "chapter_code": "MATH.G8.CH6",
+      "chapter_name": "Phân thức đại số",
+      "lessons": [
+        {
+          "lesson_id": "L_21",
+          "lesson_code": "MATH.G8.CH6.L21",
+          "lesson_name": "Phân thức đại số",
+          "page_start": 5,
+          "page_end": 8,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.FRAC.CONCEPT",
+              "canonical_name": "Nhận biết phân thức đại số, tử thức và mẫu thức",
+              "description": "Nhận biết biểu thức đại số dạng A/B với A, B là các đa thức và B khác đa thức 0; chỉ rõ cấu trúc tử thức và mẫu thức.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            },
+            {
+              "code": "MATH.G8.FRAC.DOMAIN",
+              "canonical_name": "Xác định điều kiện xác định của phân thức đại số",
+              "description": "Tìm điều kiện của biến để mẫu thức của phân thức đại số nhận giá trị khác 0.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            },
+            {
+              "code": "MATH.G8.FRAC.EVALUATE",
+              "canonical_name": "Tính giá trị của phân thức đại số",
+              "description": "Thay giá trị số cụ thể của biến thỏa mãn điều kiện xác định vào phân thức để tính toán giá trị biểu thức số tương ứng.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_22",
+          "lesson_code": "MATH.G8.CH6.L22",
+          "lesson_name": "Tính chất cơ bản của phân thức đại số",
+          "page_start": 9,
+          "page_end": 15,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.FRAC.PROPERTIES",
+              "canonical_name": "Áp dụng tính chất cơ bản của phân thức đại số",
+              "description": "Nhân hoặc chia cả tử và mẫu của một phân thức với cùng một đa thức khác 0 để tạo lập phân thức mới bằng nó; áp dụng quy tắc đổi dấu.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            },
+            {
+              "code": "MATH.G8.FRAC.SIMPLIFY",
+              "canonical_name": "Thực hiện rút gọn phân thức đại số",
+              "description": "Phân tích tử và mẫu thành nhân tử rồi chia cả tử và mẫu cho nhân tử chung để rút gọn phân thức.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            },
+            {
+              "code": "MATH.G8.FRAC.COMMON_DENOM",
+              "canonical_name": "Thực hiện quy đồng mẫu thức nhiều phân thức",
+              "description": "Tìm mẫu thức chung, xác định nhân tử phụ và quy đồng mẫu thức các phân thức đại số cho trước.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Expressions"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_23",
+          "lesson_code": "MATH.G8.CH6.L23",
+          "lesson_name": "Phép cộng và phép trừ phân thức đại số",
+          "page_start": 16,
+          "page_end": 20,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.FRAC.ADD_SUB",
+              "canonical_name": "Thực hiện phép cộng và phép trừ phân thức đại số",
+              "description": "Áp dụng quy tắc cộng, trừ phân thức cùng mẫu hoặc quy đồng mẫu thức để thực hiện phép toán cộng, trừ phân thức khác mẫu.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Operations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.FRAC.SUB_SIGN_ERROR",
+              "description": "Sai dấu khi thực hiện phép trừ phân thức đại số do không đổi dấu toàn bộ tử thức của phân thức đối",
+              "error_pattern": "A/b - (C - D)/b = (A - C - D)/b thay vì (A - C + D)/b",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_24",
+          "lesson_code": "MATH.G8.CH6.L24",
+          "lesson_name": "Phép nhân và phép chia phân thức đại số",
+          "page_start": 21,
+          "page_end": 27,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.FRAC.MUL_DIV",
+              "canonical_name": "Thực hiện phép nhân và phép chia phân thức đại số",
+              "description": "Nhân các tử với nhau, mẫu với nhau đối với phép nhân; nhân với phân thức nghịch đảo đối với phép chia phân thức.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Operations"
+            },
+            {
+              "code": "MATH.G8.FRAC.OP_PROPERTIES",
+              "canonical_name": "Vận dụng tính chất phép toán phân thức để tính hợp lý",
+              "description": "Sử dụng tính chất giao hoán, kết hợp, phân phối và quy tắc dấu ngoặc để rút gọn các biểu thức chứa phân thức phức tạp.",
+              "domain": "Algebra",
+              "subdomain": "Fractional Operations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_07",
+      "chapter_code": "MATH.G7.CH7",
+      "chapter_name": "Phương trình bậc nhất một ẩn",
+      "lessons": [
+        {
+          "lesson_id": "L_25",
+          "lesson_code": "MATH.G8.CH7.L25",
+          "lesson_name": "Phương trình bậc nhất một ẩn",
+          "page_start": 28,
+          "page_end": 32,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.EQ.LINEAR_CONCEPT",
+              "canonical_name": "Nhận biết phương trình bậc nhất một ẩn và nghiệm",
+              "description": "Nhận biết dạng phương trình ax + b = 0 (a khác 0) và kiểm tra một giá trị có phải là nghiệm của phương trình hay không.",
+              "domain": "Algebra",
+              "subdomain": "Equations"
+            },
+            {
+              "code": "MATH.G8.EQ.LINEAR_SOLVE",
+              "canonical_name": "Thực hiện giải phương trình bậc nhất một ẩn",
+              "description": "Vận dụng thành thạo quy tắc chuyển vế và quy tắc nhân (chia) để tìm nghiệm duy nhất của phương trình bậc nhất một ẩn.",
+              "domain": "Algebra",
+              "subdomain": "Equations"
+            },
+            {
+              "code": "MATH.G8.EQ.REDUCIBLE_SOLVE",
+              "canonical_name": "Thực hiện giải phương trình đưa được về dạng ax + b = 0",
+              "description": "Bỏ dấu ngoặc, quy đồng khử mẫu để biến đổi và giải các phương trình đưa được về dạng bậc nhất.",
+              "domain": "Algebra",
+              "subdomain": "Equations"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.EQ.TRANSPOSE_SIGN",
+              "description": "Học sinh quên đổi dấu hạng tử khi di chuyển sang vế khác của đẳng thức",
+              "error_pattern": "ax + b = 0 -> ax = b thay vì ax = -b",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_26",
+          "lesson_code": "MATH.G8.CH7.L26",
+          "lesson_name": "Giải bài toán bằng cách lập phương trình",
+          "page_start": 33,
+          "page_end": 40,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.EQ.WORD_PROBLEMS",
+              "canonical_name": "Giải bài toán thực tế bằng cách lập phương trình bậc nhất một ẩn",
+              "description": "Chọn ẩn, đặt điều kiện, biểu diễn đại lượng chưa biết qua ẩn, lập phương trình toán học và giải đối chiếu điều kiện thực tế.",
+              "domain": "Algebra",
+              "subdomain": "Equations Word Problems"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_08",
+      "chapter_code": "MATH.G8.CH8",
+      "chapter_name": "Mở đầu về tính xác suất của biến cố",
+      "lessons": [
+        {
+          "lesson_id": "L_30",
+          "lesson_code": "MATH.G8.CH8.L30",
+          "lesson_name": "Kết quả có thể và kết quả thuận lợi",
+          "page_start": 60,
+          "page_end": 63,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.PROB.OUTCOMES",
+              "canonical_name": "Xác định các kết quả có thể và kết quả thuận lợi của biến cố",
+              "description": "Liệt kê đầy đủ danh sách các kết quả có thể xảy ra của một phép thử ngẫu nhiên và chỉ rõ tập hợp các kết quả thuận lợi cho một biến cố cụ thể.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_31",
+          "lesson_code": "MATH.G8.CH8.L31",
+          "lesson_name": "Cách tính xác suất của biến cố bằng tỉ số",
+          "page_start": 63,
+          "page_end": 67,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.PROB.CLASSIC_CALC",
+              "canonical_name": "Tính xác suất của biến cố bằng tỉ số trong mô hình đồng khả năng",
+              "description": "Lập tỉ số giữa số kết quả thuận lợi cho biến cố và tổng số kết quả có thể xảy ra của phép thử đồng khả năng.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_32",
+          "lesson_code": "MATH.G8.CH8.L32",
+          "lesson_name": "Mối liên hệ giữa xác suất thực nghiệm với xác suất và ứng dụng",
+          "page_start": 67,
+          "page_end": 74,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.PROB.EMPIRICAL_REL",
+              "canonical_name": "Ước lượng xác suất bằng xác suất thực nghiệm và ứng dụng",
+              "description": "Tính toán xác suất thực nghiệm k/n sau n lần theo dõi hiện tượng thực tế và dùng nó để dự báo, ước lượng xác suất trong tương lai.",
+              "domain": "Data and Probability",
+              "subdomain": "Probability Concepts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_09",
+      "chapter_code": "MATH.G8.CH9",
+      "chapter_name": "Tam giác đồng dạng",
+      "lessons": [
+        {
+          "lesson_id": "L_33",
+          "lesson_code": "MATH.G8.CH9.L33",
+          "lesson_name": "Hai tam giác đồng dạng",
+          "page_start": 79,
+          "page_end": 83,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SIM.TRI_CONCEPT",
+              "canonical_name": "Nhận biết hai tam giác đồng dạng và tỉ số đồng dạng",
+              "description": "Hiểu định nghĩa hai tam giác đồng dạng dựa trên tính chất các góc tương ứng bằng nhau và các cạnh tương ứng tỉ lệ; xác định tỉ số đồng dạng k.",
+              "domain": "Geometry",
+              "subdomain": "Similarity"
+            },
+            {
+              "code": "MATH.G8.SIM.THALES_APPLICATION",
+              "canonical_name": "Vận dụng định lí đường thẳng song song cắt tam giác để chứng minh đồng dạng",
+              "description": "Vận dụng định lí: nếu một đường thẳng cắt hai cạnh của một tam giác và song song với cạnh còn lại thì nó tạo thành một tam giác mới đồng dạng với tam giác đã cho.",
+              "domain": "Geometry",
+              "subdomain": "Similarity"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_34",
+          "lesson_code": "MATH.G8.CH9.L34",
+          "lesson_name": "Ba trường hợp đồng dạng của hai tam giác",
+          "page_start": 84,
+          "page_end": 93,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SIM.CASE_CCC",
+              "canonical_name": "Chứng minh hai tam giác đồng dạng theo trường hợp cạnh-cạnh-cạnh",
+              "description": "Khẳng định hai tam giác đồng dạng khi ba cạnh của tam giác này tỉ lệ với ba cạnh của tam giác kia.",
+              "domain": "Geometry",
+              "subdomain": "Similarity Cases"
+            },
+            {
+              "code": "MATH.G8.SIM.CASE_CGC",
+              "canonical_name": "Chứng minh hai tam giác đồng dạng theo trường hợp cạnh-góc-cạnh",
+              "description": "Khẳng định hai tam giác đồng dạng khi có hai cạnh tỉ lệ và cặp góc xen giữa hai cạnh đó bằng nhau.",
+              "domain": "Geometry",
+              "subdomain": "Similarity Cases"
+            },
+            {
+              "code": "MATH.G8.SIM.CASE_GG",
+              "canonical_name": "Chứng minh hai tam giác đồng dạng theo trường hợp góc-góc",
+              "description": "Khẳng định hai tam giác đồng dạng khi có hai góc của tam giác này lần lượt bằng hai góc của tam giác kia.",
+              "domain": "Geometry",
+              "subdomain": "Similarity Cases"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.SIM.INVERSE_RATIO",
+              "description": "Lập tỉ lệ thức sai giữa các cạnh tương ứng hoặc viết sai thứ tự đỉnh tương ứng khi thiết lập hệ thức đồng dạng",
+              "error_pattern": "Tam giác ABC đồng dạng A'B'C' -> AB/A'B' = B'C'/BC thay vì BC/B'C'",
+              "severity": "high"
+            }
+          ]
+                },
+        {
+          "lesson_id": "L_35",
+          "lesson_code": "MATH.G8.CH9.L35",
+          "lesson_name": "Định lí Pythagore và ứng dụng",
+          "page_start": 94,
+          "page_end": 98,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.GEO.PYTHAGORE",
+              "canonical_name": "Vận dụng định lí Pythagore và định lí Pythagore đảo",
+              "description": "Tính độ dài một cạnh trong tam giác vuông khi biết hai cạnh còn lại; chứng minh một tam giác là tam giác vuông khi biết độ dài ba cạnh.",
+              "domain": "Geometry",
+              "subdomain": "Pythagorean Theorem"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.GEO.PYTHAGORE.HYPOTENUSE",
+              "description": "Nhầm lẫn vị trí giữa cạnh huyền và cạnh góc vuông khi thiết lập công thức Pythagore",
+              "error_pattern": "Trong tam giác vuông tại B: AC^2 + BC^2 = AB^2 thay vì AB^2 + BC^2 = AC^2",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_36",
+          "lesson_code": "MATH.G8.CH9.L36",
+          "lesson_name": "Các trường hợp đồng dạng của hai tam giác vuông",
+          "page_start": 99,
+          "page_end": 103,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SIM.RIGHT_TRI",
+              "canonical_name": "Chứng minh các trường hợp đồng dạng đặc biệt của hai tam giác vuông",
+              "description": "Vận dụng dấu hiệu góc nhọn, hai cạnh góc vuông, hoặc cạnh huyền - cạnh góc vuông tỉ lệ để chứng minh hai tam giác vuông đồng dạng.",
+              "domain": "Geometry",
+              "subdomain": "Similarity"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_37",
+          "lesson_code": "MATH.G8.CH9.L37",
+          "lesson_name": "Hình đồng dạng",
+          "page_start": 104,
+          "page_end": 110,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SIM.FIGURES_CONCEPT",
+              "canonical_name": "Nhận biết hình đồng dạng và hình đồng dạng phối cảnh",
+              "description": "Nhận biết trực quan các hình đồng dạng, phóng to thu nhỏ trong tự nhiên, kiến trúc; chỉ ra tâm phối cảnh và tỉ số phối cảnh.",
+              "domain": "Geometry",
+              "subdomain": "Similarity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH_10",
+      "chapter_code": "MATH.G8.CH10",
+      "chapter_name": "Một số hình khối trong thực tiễn",
+      "lessons": [
+        {
+          "lesson_id": "L_38",
+          "lesson_code": "MATH.G8.CH10.L38",
+          "lesson_name": "Hình chóp tam giác đều",
+          "page_start": 113,
+          "page_end": 117,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SOLID.PYRAMID_TRI_PROP",
+              "canonical_name": "Mô tả đỉnh, cạnh bên, mặt bên, mặt đáy của hình chóp tam giác đều",
+              "description": "Chỉ ra các yếu tố cơ bản của hình chóp tam giác đều; phân biệt đường cao và trung đoạn trên mô hình không gian.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            },
+            {
+              "code": "MATH.G8.SOLID.PYRAMID_TRI_MEASURE",
+              "canonical_name": "Tính diện tích xung quanh và thể tích hình chóp tam giác đều",
+              "description": "Vận dụng công thức S_xq = nửa chu vi đáy * trung đoạn và V = 1/3 * diện tích đáy * chiều cao.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ],
+          "misconceptions": [
+            {
+              "misconception_id": "MIS.G8.SOLID.HEIGHT_TRUNC",
+              "description": "Nhầm lẫn giữa chiều cao thực tế của hình chóp với độ dài đường trung đoạn của mặt bên khi tính thể tích",
+              "error_pattern": "V = 1/3 * S_đáy * d (trung đoạn) thay vì 1/3 * S_đáy * h (chiều cao)",
+              "severity": "high"
+            }
+          ]
+        },
+        {
+          "lesson_id": "L_39",
+          "lesson_code": "MATH.G8.CH10.L39",
+          "lesson_name": "Hình chóp tứ giác đều",
+          "page_start": 117,
+          "page_end": 125,
+          "canonical_skills": [
+            {
+              "code": "MATH.G8.SOLID.PYRAMID_QUAD_PROP",
+              "canonical_name": "Mô tả đỉnh, mặt đáy, mặt bên, cạnh bên của hình chóp tứ giác đều",
+              "description": "Chỉ ra mặt đáy là hình vuông, các mặt bên là các tam giác cân bằng nhau chung một đỉnh; xác định chân đường cao là giao điểm hai đường chéo đáy.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            },
+            {
+              "code": "MATH.G8.SOLID.PYRAMID_QUAD_MEASURE",
+              "canonical_name": "Tính diện tích xung quanh và thể tích hình chóp tứ giác đều",
+              "description": "Sử dụng công thức chu vi đáy và hệ thức chiều cao để thực hiện tính toán diện tích bọc bạt lều hoặc dung tích khối bê tông thực tế.",
+              "domain": "Geometry",
+              "subdomain": "Solid Geometry"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
