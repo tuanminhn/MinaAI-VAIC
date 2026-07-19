@@ -36,4 +36,20 @@ export type ReteachPlan = {
   citations: string[];
 };
 
+export type PersonalizedPracticeContent = {
+  title: string;
+  objective: string;
+  instructions: string;
+  questions: {
+    id: string;
+    stem: string;
+    options: { id: string; content: string }[];
+    correctOptionId: string;
+    explanation: string;
+    targetedMisconception: string;
+    difficulty: "foundation" | "practice" | "transfer";
+  }[];
+  citations: string[];
+};
+
 export type AiResponse<T> = T & { ai: AiMeta };

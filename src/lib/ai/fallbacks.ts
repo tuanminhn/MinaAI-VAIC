@@ -1,4 +1,4 @@
-import type { AnswerExplanation, ClassSummary, ReteachPlan } from "./contracts";
+import type { AnswerExplanation, ClassSummary, PersonalizedPracticeContent, ReteachPlan } from "./contracts";
 
 export type AnswerExplanationContext = {
   questionId: string;
@@ -26,6 +26,21 @@ export type ReteachContext = {
   studentCount: number;
   commonMisconceptions: string[];
   approvedQuestionStems: string[];
+};
+
+export type PersonalizedPracticeContext = {
+  skillId: string;
+  skillName: string;
+  description: string;
+  misconceptions: string[];
+  errorEvidence: { questionId: string; selectedContent: string; misconception?: string }[];
+  approvedExamples: {
+    questionId: string;
+    stem: string;
+    options: { id: string; content: string }[];
+    correctOptionId: string;
+    explanation: string;
+  }[];
 };
 
 export function fallbackAnswerExplanation(context: AnswerExplanationContext): AnswerExplanation {
@@ -93,5 +108,41 @@ export function fallbackReteachPlan(context: ReteachContext, durationMinutes: nu
       extension: "Yêu cầu học sinh tự tạo một bài tương tự và giải thích cách kiểm tra kết quả.",
     },
     citations: [context.skillId],
+  };
+}
+
+export function fallbackPersonalizedPractice(context: PersonalizedPracticeContext): PersonalizedPracticeContent {
+  const sources = context.approvedExamples.length ? context.approvedExamples : [{
+    questionId: context.skillId,
+    stem: `Chọn phát biểu đúng nhất về ${context.skillName.toLowerCase()}.`,
+    options: [
+      { id: "A", content: context.description },
+      { id: "B", content: "Bỏ qua bước kiểm tra điều kiện của bài toán." },
+      { id: "C", content: "Chỉ cần ghi đáp án, không cần giải thích." },
+      { id: "D", content: "Áp dụng một quy tắc không liên quan." },
+    ],
+    correctOptionId: "A",
+    explanation: context.description,
+  }];
+  const difficulties: PersonalizedPracticeContent["questions"][number]["difficulty"][] = ["foundation", "practice", "practice", "transfer"];
+  return {
+    title: `Bộ luyện tập cá nhân: ${context.skillName}`,
+    objective: `Củng cố đúng kỹ năng ${context.skillName.toLowerCase()} và tự kiểm tra lỗi thường gặp trước khi quay lại bài chính.`,
+    instructions: "Làm lần lượt từ câu nền tảng đến câu vận dụng. Sau mỗi câu, hãy nói ngắn gọn vì sao em chọn đáp án đó.",
+    questions: Array.from({ length: 4 }, (_, index) => {
+      const source = sources[index % sources.length];
+      return {
+        id: `P${index + 1}`,
+        stem: `${index ? `Luyện tập ${index + 1}: ` : ""}${source.stem}`,
+        options: source.options,
+        correctOptionId: source.correctOptionId,
+        explanation: source.explanation,
+        targetedMisconception: context.errorEvidence[index % Math.max(1, context.errorEvidence.length)]?.misconception
+          ?? context.misconceptions[index % Math.max(1, context.misconceptions.length)]
+          ?? "Cần kiểm tra lại từng bước và điều kiện áp dụng.",
+        difficulty: difficulties[index],
+      };
+    }),
+    citations: [...new Set([context.skillId, ...sources.map((item) => item.questionId)])],
   };
 }

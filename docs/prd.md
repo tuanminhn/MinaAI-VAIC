@@ -142,6 +142,8 @@ Pilot với giáo viên Toán
 **Mục tiêu:** Biết ai cần hỗ trợ trước, chia nhóm chính xác, giao bài đúng lỗ hổng.
 **Mina AI giúp gì:** Cô mở dashboard và thấy nhóm hổng quy đồng, nhóm nhầm dấu số âm, nhóm cần bài nâng cao.
 
+**Luồng prototype hiện hành:** Trong từng nhóm, dashboard hiển thị học sinh cụ thể. Cô có thể yêu cầu AI soạn 4 câu theo evidence cá nhân, review câu/đáp án/lời giải trong popup rồi mới duyệt giao cho đúng học sinh.
+
 ## 6.2. Persona 2 — Học sinh hổng nền
 
 **Tên:** Minh
@@ -1173,6 +1175,8 @@ Metadata:
 
 ```http
 POST /auth/login
+GET /student/practice
+POST /student/practice/submit
 POST /classes
 GET /classes/{class_id}
 POST /classes/{class_id}/students/import
@@ -1183,6 +1187,8 @@ GET /dashboard/classes/{class_id}
 GET /dashboard/classes/{class_id}/priority
 GET /dashboard/classes/{class_id}/groups
 POST /assignments/group
+POST /ai/personalized-practice
+POST /personalized-practice/assign
 POST /teacher-interventions
 GET /reports/class/{class_id}
 ```

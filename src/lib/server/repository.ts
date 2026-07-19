@@ -1,7 +1,8 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 import type { QueryResultRow } from "pg";
-import type { AnswerOption, Diagnosis, KnowledgeEdge, Misconception, Question, StudentSummary, SubmittedAnswer } from "@/lib/contracts";
+import type { AiMeta, PersonalizedPracticeContent } from "@/lib/ai/contracts";
+import type { AnswerOption, Diagnosis, KnowledgeEdge, Misconception, PersonalizedPractice, PracticeQuestion, Question, StudentSummary, SubmittedAnswer } from "@/lib/contracts";
 import { diagnose, TARGET_SKILL_ID } from "@/lib/diagnostic/engine";
 import { DEMO_ASSIGNMENT_ID, DEMO_CLASS_ID } from "@/lib/demo-constants";
 import { query, transaction } from "./db";
@@ -133,36 +134,55 @@ export async function getDemoPayload() {
   };
 }
 
-export async function registerDemoStudent(displayName: string, studentNumber: string) {
-  const normalizedName = displayName.trim().replace(/\s+/g, " ");
+export async function loginDemoStudent(studentNumber: string) {
   const normalizedNumber = studentNumber.trim();
-  if (!normalizedName || normalizedName.length > 80) throw new Error("INVALID_STUDENT_NAME");
   if (!normalizedNumber || normalizedNumber.length > 40) throw new Error("INVALID_STUDENT_NUMBER");
-
-  const existing = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+  const result = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
     `SELECT id,display_name,student_number FROM students
-     WHERE classroom_id=$1 AND student_number=$2`,
-    [DEMO_CLASS_ID, normalizedNumber],
+     WHERE classroom_id=$1 AND student_number=$2`, [DEMO_CLASS_ID, normalizedNumber],
   );
-  if (existing.rows[0]) {
-    const updated = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
-      `UPDATE students SET display_name=$1 WHERE id=$2
-       RETURNING id,display_name,student_number`,
-      [normalizedName, existing.rows[0].id],
-    );
-    return { id: updated.rows[0].id, displayName: updated.rows[0].display_name, studentNumber: updated.rows[0].student_number };
-  }
+  if (!result.rows[0]) throw new Error("STUDENT_NUMBER_NOT_FOUND");
+  return { id: result.rows[0].id, displayName: result.rows[0].display_name, studentNumber: result.rows[0].student_number };
+}
 
-  const created = await query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
-    `INSERT INTO students (id,classroom_id,display_name,student_number)
-     VALUES ($1,$2,$3,$4) RETURNING id,display_name,student_number`,
-    [`STUDENT_${randomUUID()}`, DEMO_CLASS_ID, normalizedName, normalizedNumber],
-  );
-  return { id: created.rows[0].id, displayName: created.rows[0].display_name, studentNumber: created.rows[0].student_number };
+export async function loginOrRegisterDemoStudent(displayName: string | undefined, studentNumber: string) {
+  const normalizedNumber = studentNumber.trim();
+  if (!/^\d{1,40}$/.test(normalizedNumber)) throw new Error("INVALID_STUDENT_NUMBER");
+  const suppliedName = displayName?.trim().replace(/\s+/g, " ") ?? "";
+  if (suppliedName.length > 80) throw new Error("INVALID_STUDENT_NAME");
+  const normalizedName = suppliedName || `Học sinh ${normalizedNumber}`;
+
+  return transaction(async (client) => {
+    const inserted = await client.query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+      `INSERT INTO students (id,classroom_id,display_name,student_number)
+       VALUES ($1,$2,$3,$4)
+       ON CONFLICT (classroom_id,student_number) WHERE student_number IS NOT NULL DO NOTHING
+       RETURNING id,display_name,student_number`,
+      [`STUDENT_${randomUUID()}`, DEMO_CLASS_ID, normalizedName, normalizedNumber],
+    );
+    const created = inserted.rows[0];
+    if (created) {
+      return { id: created.id, displayName: created.display_name, studentNumber: created.student_number, isNew: true };
+    }
+
+    const existing = await client.query<QueryResultRow & { id: string; display_name: string; student_number: string }>(
+      `SELECT id,display_name,student_number FROM students
+       WHERE classroom_id=$1 AND student_number=$2`,
+      [DEMO_CLASS_ID, normalizedNumber],
+    );
+    if (!existing.rows[0]) throw new Error("STUDENT_ACCOUNT_CONFLICT");
+    return {
+      id: existing.rows[0].id,
+      displayName: existing.rows[0].display_name,
+      studentNumber: existing.rows[0].student_number,
+      isNew: false,
+    };
+  });
 }
 
 export async function resetDemo() {
   await transaction(async (client) => {
+    await client.query("DELETE FROM personalized_practice_assignments WHERE source_assignment_id=$1", [DEMO_ASSIGNMENT_ID]);
     await client.query("DELETE FROM remediation_assignments WHERE assignment_id=$1", [DEMO_ASSIGNMENT_ID]);
     await client.query("DELETE FROM diagnostic_results WHERE assignment_id=$1", [DEMO_ASSIGNMENT_ID]);
     await client.query("DELETE FROM attempts WHERE assignment_id=$1", [DEMO_ASSIGNMENT_ID]);
@@ -199,13 +219,19 @@ export async function getTeacherDashboard() {
     target_skill_id: string | null; root_cause_skill_id: string | null; confidence: string | null;
     evidence: Diagnosis["evidence"] | null; recommended_path_id: string | null; next_question_id: string | null;
     engine_version: string | null; content_version: string | null; remediation_status: string | null;
+    personalized_practice_status: StudentSummary["personalizedPracticeStatus"];
   }>(
     `SELECT s.id,s.display_name,s.student_number,s.scenario,d.status,d.target_skill_id,d.root_cause_skill_id,d.confidence,
        d.evidence,d.recommended_path_id,d.next_question_id,d.engine_version,d.content_version,
-       r.status AS remediation_status
+       r.status AS remediation_status,p.status AS personalized_practice_status
      FROM students s
      LEFT JOIN diagnostic_results d ON d.student_id=s.id AND d.assignment_id=$2
      LEFT JOIN remediation_assignments r ON r.student_id=s.id AND r.assignment_id=$2
+     LEFT JOIN LATERAL (
+       SELECT status FROM personalized_practice_assignments pp
+       WHERE pp.student_id=s.id AND pp.source_assignment_id=$2
+       ORDER BY pp.created_at DESC LIMIT 1
+     ) p ON true
      WHERE s.classroom_id=$1 ORDER BY
        CASE d.status WHEN 'diagnosed' THEN 1 WHEN 'insufficient_evidence' THEN 2 WHEN 'mastered' THEN 3 ELSE 4 END,
        s.display_name`,
@@ -228,6 +254,7 @@ export async function getTeacherDashboard() {
       contentVersion: row.content_version!,
     } : null,
     remediationStatus: row.remediation_status,
+    personalizedPracticeStatus: row.personalized_practice_status,
   }));
   const diagnosed = summaries.filter((item) => item.diagnosis?.status === "diagnosed").length;
   const mastered = summaries.filter((item) => item.diagnosis?.status === "mastered").length;
@@ -292,4 +319,91 @@ export async function getRemediation(studentId: string) {
     estimatedMinutes: assignment.rows[0].estimated_minutes,
     questions: questions.rows.map((row) => ({ id: row.id, type: row.question_type, stem: row.stem, options: row.options })),
   };
+}
+
+type PracticeRow = QueryResultRow & {
+  id: string; student_id: string; display_name: string; student_number: string | null;
+  skill_id: string; skill_name: string; title: string; objective: string; instructions: string;
+  questions: PracticeQuestion[]; citations: string[]; status: PersonalizedPractice["status"];
+  score: number | null; total: number | null;
+};
+
+function mapPractice(row: PracticeRow): PersonalizedPractice {
+  return {
+    id: row.id, studentId: row.student_id, studentDisplayName: row.display_name, studentNumber: row.student_number,
+    skillId: row.skill_id, skillName: row.skill_name, title: row.title, objective: row.objective,
+    instructions: row.instructions, questions: row.questions, citations: row.citations, status: row.status,
+    score: row.score, total: row.total,
+  };
+}
+
+async function getPracticeById(id: string) {
+  const result = await query<PracticeRow>(
+    `SELECT pp.id,pp.student_id,s.display_name,s.student_number,pp.skill_id,sk.canonical_name AS skill_name,
+       pp.title,pp.objective,pp.instructions,pp.questions,pp.citations,pp.status,pp.score,pp.total
+     FROM personalized_practice_assignments pp JOIN students s ON s.id=pp.student_id
+     JOIN skills sk ON sk.id=pp.skill_id WHERE pp.id=$1`, [id],
+  );
+  return result.rows[0] ? mapPractice(result.rows[0]) : null;
+}
+
+export async function savePersonalizedPracticeDraft(input: {
+  studentId: string; skillId: string; content: PersonalizedPracticeContent; ai: AiMeta;
+}) {
+  const id = `PRACTICE_${randomUUID()}`;
+  await query(
+    `INSERT INTO personalized_practice_assignments
+      (id,student_id,source_assignment_id,skill_id,title,objective,instructions,questions,citations,ai_metadata,status)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,'draft')`,
+    [id, input.studentId, DEMO_ASSIGNMENT_ID, input.skillId, input.content.title, input.content.objective,
+      input.content.instructions, JSON.stringify(input.content.questions), JSON.stringify(input.content.citations), JSON.stringify(input.ai)],
+  );
+  const draft = await getPracticeById(id);
+  if (!draft) throw new Error("PRACTICE_DRAFT_NOT_FOUND");
+  return { ...draft, ai: input.ai };
+}
+
+export async function assignPersonalizedPractice(id: string) {
+  const updated = await query<QueryResultRow & { id: string }>(
+    `UPDATE personalized_practice_assignments SET status='assigned',assigned_at=now(),updated_at=now()
+     WHERE id=$1 AND status='draft' RETURNING id`, [id],
+  );
+  if (!updated.rows[0]) throw new Error("PRACTICE_DRAFT_NOT_ASSIGNABLE");
+  return getPracticeById(id);
+}
+
+export async function getStudentPractices(studentId: string) {
+  const result = await query<PracticeRow>(
+    `SELECT pp.id,pp.student_id,s.display_name,s.student_number,pp.skill_id,sk.canonical_name AS skill_name,
+       pp.title,pp.objective,pp.instructions,pp.questions,pp.citations,pp.status,pp.score,pp.total
+     FROM personalized_practice_assignments pp JOIN students s ON s.id=pp.student_id
+     JOIN skills sk ON sk.id=pp.skill_id
+     WHERE pp.student_id=$1 AND pp.status IN ('assigned','in_progress','submitted')
+     ORDER BY pp.created_at DESC`, [studentId],
+  );
+  return result.rows.map(mapPractice);
+}
+
+export async function submitPersonalizedPractice(studentId: string, practiceId: string, answers: Record<string, string>) {
+  return transaction(async (client) => {
+    const result = await client.query<QueryResultRow & { questions: PracticeQuestion[]; status: string }>(
+      `SELECT questions,status FROM personalized_practice_assignments
+       WHERE id=$1 AND student_id=$2 FOR UPDATE`, [practiceId, studentId],
+    );
+    const row = result.rows[0];
+    if (!row) throw new Error("PRACTICE_NOT_FOUND");
+    if (!['assigned', 'in_progress'].includes(row.status)) throw new Error("PRACTICE_NOT_SUBMITTABLE");
+    if (row.questions.some((question) => !answers[question.id])) throw new Error("PRACTICE_INCOMPLETE");
+    const results = row.questions.map((question) => ({
+      questionId: question.id, selectedOptionId: answers[question.id], correctOptionId: question.correctOptionId,
+      isCorrect: answers[question.id] === question.correctOptionId, explanation: question.explanation,
+    }));
+    const score = results.filter((item) => item.isCorrect).length;
+    await client.query(
+      `UPDATE personalized_practice_assignments SET status='submitted',answers=$1,score=$2,total=$3,
+       submitted_at=now(),updated_at=now() WHERE id=$4`,
+      [JSON.stringify({ selections: answers, results }), score, row.questions.length, practiceId],
+    );
+    return { practiceId, score, total: row.questions.length, results };
+  });
 }

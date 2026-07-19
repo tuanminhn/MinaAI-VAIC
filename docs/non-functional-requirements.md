@@ -91,6 +91,9 @@ Mặc định là **offline-after-download**: người dùng cần mạng để 
 | NFR-AI-006 | Output không dùng ngôn ngữ kỳ thị/gắn nhãn và không tiết lộ dữ liệu học sinh khác |
 | NFR-AI-007 | Mọi model/prompt/rule/graph thay đổi có version và bộ eval hồi quy trước release |
 | NFR-AI-008 | Có cơ chế report, teacher override, rollback và incident review |
+| NFR-AI-009 | Bài luyện tập do LLM tạo không tự phát hành; phải qua schema/citation allowlist và hành động duyệt rõ ràng của giáo viên |
+
+SBD-as-token và tự tạo tài khoản bằng SBD mới là ngoại lệ có chủ đích cho hackathon demo: cookie HttpOnly 60 phút, không gửi tên/SBD tới LLM. Trước pilot thật phải tắt auto-provision công khai hoặc buộc roster/mã mời, đồng thời bổ sung rate limit, token/PIN không thể đoán, rotation/revocation, audit đăng nhập và cơ chế khôi phục phù hợp; không tuyên bố SBD thuần là authentication production.
 
 Eval set tối thiểu trước pilot gồm: ca đúng chuẩn, misconception điển hình, bất cẩn/thiếu dữ liệu, graph edge sai, prompt injection, yêu cầu đáp án trực tiếp, PII leakage và tiếng Việt không phù hợp lứa tuổi.
 

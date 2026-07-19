@@ -4,6 +4,7 @@
     {
       "id": "STUDENT_DEMO_MINH",
       "display_name": "Minh",
+      "student_number": "9001",
       "scenario": "root_cause_gap",
       "answers": {
         "Q.DIAG.G9.IDENTITY.001": "B",
@@ -19,6 +20,7 @@
     {
       "id": "STUDENT_DEMO_AN",
       "display_name": "An",
+      "student_number": "9002",
       "scenario": "mastered",
       "answers": {
         "Q.DIAG.G9.IDENTITY.001": "A",
@@ -42,6 +44,7 @@
     {
       "id": "STUDENT_DEMO_LAN",
       "display_name": "Lan",
+      "student_number": "9003",
       "scenario": "insufficient_evidence",
       "answers": {
         "Q.DIAG.G9.RADICAL.001": "D"

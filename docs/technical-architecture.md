@@ -29,7 +29,7 @@ PostgreSQL    Diagnostic engine   AI support layer
        approved knowledge graph + attempts
 ```
 
-Trong lúc làm diagnostic, trang học sinh không hiển thị đúng/sai hoặc hint để tránh làm nhiễu bằng chứng. Sau khi đã nộp đủ và server khóa kết quả, trang hiển thị từng câu đúng/sai; câu sai có AI Answer Explanation dựa trên lời giải và misconception đã duyệt. Dashboard có AI Class Summary từ số liệu tổng hợp và AI Re-teach Plan cho nhóm theo nguyên nhân gốc; cả hai là bản nháp bắt buộc giáo viên xem trước. Socratic Hint được dành cho luồng remediation/luyện tập, chưa đưa vào question runner diagnostic.
+Trong lúc làm diagnostic, trang học sinh không hiển thị đúng/sai hoặc hint để tránh làm nhiễu bằng chứng. Sau khi đã nộp đủ và server khóa kết quả, trang hiển thị từng câu đúng/sai; câu sai có AI Answer Explanation dựa trên lời giải và misconception đã duyệt. Dashboard có AI Class Summary, AI Re-teach Plan cho nhóm và danh sách học sinh cụ thể trong từng nhóm. Giáo viên có thể tạo bộ luyện tập cá nhân cho từng em; AI chỉ tạo `draft`, popup hiển thị toàn bộ câu/đáp án/lời giải để review, và chỉ nút “Duyệt và giao bài” mới chuyển trạng thái sang `assigned`. Socratic Hint được dành cho luồng remediation/luyện tập, chưa đưa vào question runner diagnostic.
 
 Các trang công khai gồm trang chủ (`/`), trang giới thiệu luồng sản phẩm (`/how-it-works`), bản đồ kho tri thức (`/knowledge-base`), trải nghiệm học sinh (`/student`) và dashboard giáo viên (`/teacher`). Bản đồ kho tri thức đọc trực tiếp catalog đã duyệt, trong đó micro-skill chi tiết tham chiếu các trang yêu cầu cần đạt lớp 6–9 của Chương trình GDPT 2018 môn Toán. Chế độ mặc định là lộ trình Dagre trái sang phải và chỉ hiển thị bốn nhóm chủ đề; người dùng chủ động mở micro-skill, hoặc chọn một skill để focus vào tối đa hai tầng tiên quyết và một tầng học tiếp. Hai chế độ bổ sung là cây phân cấp có collapse/expand và bản đồ đầy đủ cho quản trị chuyên sâu. Bộ lọc hỗ trợ tên/mã, khối, chủ đề, trạng thái duyệt và loại quan hệ; panel bên phải giữ provenance cùng quan hệ trực tiếp. Trang giới thiệu trình bày vòng lặp diagnostic → root-cause evidence → quyết định của giáo viên → remediation và transfer test. Trong trải nghiệm học sinh, học sinh làm đủ câu hỏi rồi nộp cho giáo viên; giao diện chỉ xác nhận nộp thành công, còn diagnosis, evidence và hành động đề xuất được hiển thị trên dashboard giáo viên.
 
@@ -39,12 +39,14 @@ Migration `db/migrations/001_initial.sql` tạo các nhóm bảng; `003_expand_m
 
 - Nội dung: `content_datasets`, `skills`, `knowledge_edges`, `misconceptions`, `questions`, `remediation_paths`.
 - Lớp học: `classrooms`, `students`, `assignments`, `assignment_questions`.
-- Sự kiện và kết quả: `attempts`, `diagnostic_results`, `remediation_assignments`, `demo_scenarios`.
+- Sự kiện và kết quả: `attempts`, `diagnostic_results`, `remediation_assignments`, `personalized_practice_assignments`, `demo_scenarios`.
 - Vận hành: `schema_migrations`.
 
 `attempts.event_id` là UUID unique để request retry không tạo attempt trùng. Các thao tác ghi diagnosis/remediation được đặt trong transaction.
 
-Học sinh vào lớp demo bằng họ tên và số báo danh nhập tự do, không cần khớp danh sách lớp. `students.student_number` là định danh hiển thị, unique trong từng lớp; gửi lại cùng số báo danh sẽ nhận lại hồ sơ đã có và cập nhật tên thay vì tạo trùng.
+Học sinh demo chỉ bắt buộc nhập SBD; họ tên là tùy chọn. `students.student_number` unique trong từng lớp: SBD cũ tải nguyên hồ sơ và giữ tên đã lưu, SBD mới tự tạo một hàng `students`, dùng tên nhập vào hoặc `Học sinh {SBD}`. SBD được dùng làm token của cookie HttpOnly, SameSite=Lax, thời hạn 60 phút. Các endpoint ghi attempt, transfer, giải thích và bài luyện tập xác minh session khớp học sinh. Cách dùng SBD trực tiếp và tự cấp tài khoản chỉ phù hợp hackathon vì có thể đoán/chia sẻ hoặc chiếm trước SBD; trước pilot phải thay bằng roster/credential có entropy, rate limit, thu hồi và phân quyền production.
+
+`personalized_practice_assignments` lưu snapshot bản nháp AI, metadata provider/model, câu hỏi, trạng thái `draft/assigned/in_progress/submitted`, câu trả lời và điểm. PII chỉ dùng trong database/UI; prompt cá nhân hóa chỉ nhận skill, lỗi sai, misconception và ví dụ nội dung đã duyệt đã khử định danh.
 
 ## Diagnostic engine
 
@@ -66,7 +68,7 @@ Tất cả endpoint trả JSON; lỗi có dạng `{ "error": "..." }`.
 | --- | --- | --- |
 | GET | `/api/health` | Kiểm tra app/database |
 | GET | `/api/demo` | Payload lớp, học sinh, assignment và câu hỏi demo |
-| POST | `/api/students` | Tạo hoặc nhận diện học sinh bằng họ tên và số báo danh trong lớp demo |
+| GET/POST/DELETE | `/api/student/session` | Khôi phục session; đăng nhập hồ sơ SBD cũ hoặc tự tạo hồ sơ SBD mới; đăng xuất |
 | POST | `/api/demo/reset` | Xóa attempt/kết quả demo và trả về trạng thái đầu |
 | POST | `/api/demo/run` | Chạy ba kịch bản seed qua engine |
 | POST | `/api/attempts` | Ghi attempt idempotent và tính diagnosis |
@@ -76,8 +78,12 @@ Tất cả endpoint trả JSON; lỗi có dạng `{ "error": "..." }`.
 | POST | `/api/ai/explanation` | Giải thích câu sai sau khi xác minh học sinh đã nộp đủ bài, không đưa PII vào prompt |
 | POST | `/api/ai/class-summary` | Tóm tắt lớp từ dữ liệu tổng hợp đã khử định danh |
 | POST | `/api/ai/reteach-plan` | Soạn bản nháp dạy lại 10–30 phút cho một nhóm root-cause skill |
+| POST | `/api/ai/personalized-practice` | Tạo và lưu bản nháp 4 câu cá nhân hóa, không đưa PII vào prompt |
+| POST | `/api/personalized-practice/assign` | Giáo viên duyệt và chuyển bản nháp sang đã giao |
+| GET | `/api/student/practice` | Học sinh đang đăng nhập nhận danh sách bài đã giao; đáp án đúng bị loại khỏi payload |
+| POST | `/api/student/practice/submit` | Chấm, lưu câu trả lời và hoàn tất bài cá nhân hóa |
 
-Ba API AI chỉ đọc câu hỏi, lời giải, skill, misconception trạng thái `approved`, lựa chọn đã khóa hoặc số liệu nhóm. `studentId` chỉ dùng phía server để xác minh attempt; tên, số báo danh, student ID và class code không đi vào prompt. Output LLM phải qua schema validator và citation allowlist; lỗi cấu hình, timeout, provider hoặc schema đều trả fallback deterministic cùng metadata `ai.mode`, không trả `null`. Diagnosis vẫn chạy độc lập và không gọi LLM.
+Bốn API AI chỉ đọc câu hỏi, lời giải, skill, misconception trạng thái `approved`, lựa chọn đã khóa hoặc số liệu nhóm. `studentId` chỉ dùng phía server để lấy ngữ cảnh; tên, số báo danh, student ID và class code không đi vào prompt. Bộ luyện tập phải đúng schema 4 câu, mỗi câu có một đáp án hợp lệ và citation thuộc allowlist. Output LLM phải qua schema validator; lỗi cấu hình, timeout, provider hoặc schema đều trả fallback deterministic cùng metadata `ai.mode`, không trả `null`. Diagnosis vẫn chạy độc lập và không gọi LLM.
 
 Biến cấu hình server-only: `LLM_ENABLED`, `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`, `LLM_TIMEOUT_MS`, `LLM_MAX_TOKENS`, `LLM_MAX_RETRIES`. Giá trị mặc định FPT là base URL `https://mkp-api.fptcloud.com`, model `DeepSeek-V4-Flash`, timeout 30 giây, tối đa 1600 output token và retry một lần cho lỗi 429/5xx. Request thực tế được gửi tới `/chat/completions` bằng Bearer authentication và không stream. Không có key trong repository; `.env` bị gitignore.
 

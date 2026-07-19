@@ -67,6 +67,9 @@ Khi trả lời câu hỏi, thêm dòng; không xóa lịch sử.
 | 2026-07-18 | DEC-001/002 v2 | Thay phạm vi lớp 7–8 bằng Toán lớp 6–9; vẫn giữ bộ Kết nối tri thức | Chủ sản phẩm | README, Problem Statement, PRD, MVP Spec, PDF pipeline, backlog hackathon |
 | 2026-07-18 | DEC-001/002 v3 | Mở ontology ra toàn bộ Toán THCS lớp 6–9 theo GDPT 2018; bài diagnostic tập trung học sinh lớp 9 | Chủ sản phẩm | Dataset, engine, UI Knowledge Base, README và docs |
 | 2026-07-18 | DEC-008 | Hackathon prototype dùng Next.js + TypeScript full-stack, PostgreSQL qua `DATABASE_URL`; diagnostic engine rule-based chạy server và không phụ thuộc LLM | Chủ sản phẩm | README, PRD, kiến trúc kỹ thuật, Task 2 |
+| 2026-07-19 | DEC-009 | Hackathon dùng SBD đã có làm token đăng nhập 60 phút; dashboard hiện học sinh theo từng nhóm và AI tạo bài cá nhân ở trạng thái draft để giáo viên review trước khi giao. SBD thuần không được dùng như auth production | Chủ sản phẩm | README, PRD, MVP Spec, NFR, kiến trúc kỹ thuật, Pilot |
+| 2026-07-19 | DEC-010 | Form học sinh nhập họ tên + SBD; SBD cũ tải hồ sơ không đổi tên, SBD mới tự tạo tài khoản demo. Auto-provision phải bị loại bỏ hoặc kiểm soát bằng roster/mã mời trước pilot thật | Chủ sản phẩm | README, MVP Spec, NFR, kiến trúc kỹ thuật |
+| 2026-07-19 | DEC-011 | Chỉ SBD là bắt buộc ở form học sinh; họ tên tùy chọn. SBD mới không có tên dùng `Học sinh {SBD}`; SBD cũ luôn giữ hồ sơ đã lưu | Chủ sản phẩm | README, MVP Spec, kiến trúc kỹ thuật |
 
 ## 7. Definition of Ready
 

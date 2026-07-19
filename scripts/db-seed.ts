@@ -82,9 +82,9 @@ async function main() {
       ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name,grade=EXCLUDED.grade,class_code=EXCLUDED.class_code`);
     for (const student of studentsJson.students) {
       await client.query(
-        `INSERT INTO students (id,classroom_id,display_name,scenario) VALUES ($1,'CLASS_DEMO_7A',$2,$3)
-         ON CONFLICT (id) DO UPDATE SET display_name=EXCLUDED.display_name,scenario=EXCLUDED.scenario`,
-        [student.id, student.display_name, student.scenario],
+        `INSERT INTO students (id,classroom_id,display_name,scenario,student_number) VALUES ($1,'CLASS_DEMO_7A',$2,$3,$4)
+         ON CONFLICT (id) DO UPDATE SET display_name=EXCLUDED.display_name,scenario=EXCLUDED.scenario,student_number=EXCLUDED.student_number`,
+        [student.id, student.display_name, student.scenario, student.student_number],
       );
       await client.query(
         `INSERT INTO demo_scenarios (student_id,answers,expected) VALUES ($1,$2,$3)

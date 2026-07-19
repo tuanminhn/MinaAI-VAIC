@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { StudentSummary } from "@/lib/contracts";
+import type { PersonalizedPractice, StudentSummary } from "@/lib/contracts";
 import type { AiMeta, ClassSummary, ReteachPlan } from "@/lib/ai/contracts";
 
 type Dashboard = {
@@ -12,6 +12,7 @@ type Dashboard = {
 };
 type ClassSummaryResult = ClassSummary & { ai: AiMeta };
 type ReteachPlanResult = ReteachPlan & { ai: AiMeta };
+type PracticeDraftResult = PersonalizedPractice & { ai: AiMeta };
 
 const labels: Record<string, string> = {
   diagnosed: "Cần củng cố",
@@ -36,6 +37,8 @@ export default function TeacherPage() {
   const [aiError, setAiError] = useState("");
   const [classSummary, setClassSummary] = useState<ClassSummaryResult | null>(null);
   const [reteachPlan, setReteachPlan] = useState<ReteachPlanResult | null>(null);
+  const [practiceDraft, setPracticeDraft] = useState<PracticeDraftResult | null>(null);
+  const [practiceAssigning, setPracticeAssigning] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -104,6 +107,46 @@ export default function TeacherPage() {
       setAiError(reason instanceof Error ? reason.message : "Chưa tạo được kế hoạch dạy lại");
     } finally {
       setAiBusy("");
+    }
+  }
+
+  async function generatePersonalizedPractice(student: StudentSummary, skillId: string) {
+    setAiBusy(`practice:${student.id}`);
+    setAiError("");
+    try {
+      const response = await fetch("/api/ai/personalized-practice", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ studentId: student.id, skillId }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? "Chưa tạo được bộ luyện tập cá nhân");
+      setPracticeDraft(result);
+    } catch (reason) {
+      setAiError(reason instanceof Error ? reason.message : "Chưa tạo được bộ luyện tập cá nhân");
+    } finally {
+      setAiBusy("");
+    }
+  }
+
+  async function assignPractice() {
+    if (!practiceDraft) return;
+    setPracticeAssigning(true);
+    setAiError("");
+    try {
+      const response = await fetch("/api/personalized-practice/assign", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ practiceId: practiceDraft.id }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? "Chưa giao được bài");
+      setPracticeDraft((current) => current ? { ...current, status: "assigned" } : current);
+      await load();
+    } catch (reason) {
+      setAiError(reason instanceof Error ? reason.message : "Chưa giao được bài");
+    } finally {
+      setPracticeAssigning(false);
     }
   }
 
@@ -190,10 +233,23 @@ export default function TeacherPage() {
               {!classSummary.classWideGaps.length && <div className="ai-empty">Chưa có nhóm nguyên nhân gốc rõ ràng.</div>}
               {classSummary.classWideGaps.map((gap) => (
                 <article className="ai-gap-card" key={gap.skillId}>
-                  <div><span>{gap.studentCount} học sinh</span><strong>{gap.skillName}</strong><p>{gap.reason}</p></div>
-                  <button className="button secondary" disabled={Boolean(aiBusy)} onClick={() => generateReteachPlan(gap.skillId)}>
+                  <div className="gap-summary"><span>{gap.studentCount} học sinh</span><strong>{gap.skillName}</strong><p>{gap.reason}</p></div>
+                  <button className="button secondary gap-plan-button" disabled={Boolean(aiBusy)} onClick={() => generateReteachPlan(gap.skillId)}>
                     {aiBusy === gap.skillId ? "Đang soạn..." : "Tạo AI Re-teach Plan"}
                   </button>
+                  <div className="gap-student-list">
+                    {data?.students.filter((student) => student.diagnosis?.status === "diagnosed" && student.diagnosis.rootCauseSkillId === gap.skillId).map((student) => (
+                      <div className="gap-student" key={student.id}>
+                        <div className="gap-student-identity"><i>{student.displayName.charAt(0)}</i><span><strong>{student.displayName}</strong><small>SBD {student.studentNumber ?? "—"}</small></span></div>
+                        <span className={`practice-state ${student.personalizedPracticeStatus ?? "none"}`}>
+                          {student.personalizedPracticeStatus === "assigned" ? "Đã giao" : student.personalizedPracticeStatus === "submitted" ? "Đã nộp" : student.personalizedPracticeStatus === "draft" ? "Có bản nháp" : "Chưa có bài"}
+                        </span>
+                        <button className="button primary" disabled={Boolean(aiBusy)} onClick={() => generatePersonalizedPractice(student, gap.skillId)}>
+                          {aiBusy === `practice:${student.id}` ? "Mina đang tạo..." : "Tạo bài cá nhân"}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </article>
               ))}
             </div>
@@ -285,6 +341,43 @@ export default function TeacherPage() {
         </aside>
       </div>
       </div>
+
+      {practiceDraft && (
+        <div className="practice-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPracticeDraft(null); }}>
+          <section className="practice-modal" role="dialog" aria-modal="true" aria-labelledby="practice-review-title">
+            <header className="practice-modal-header">
+              <div>
+                <span className="pill amber">Bản nháp AI · Chưa giao</span>
+                <h2 id="practice-review-title">Review bộ luyện tập cho {practiceDraft.studentDisplayName}</h2>
+                <p>SBD {practiceDraft.studentNumber ?? "—"} · {practiceDraft.skillName}</p>
+              </div>
+              <button className="modal-close" aria-label="Đóng" onClick={() => setPracticeDraft(null)}>×</button>
+            </header>
+            <div className="practice-review-intro">
+              <div><span>Mục tiêu</span><strong>{practiceDraft.objective}</strong></div>
+              <div><span>Hướng dẫn cho học sinh</span><strong>{practiceDraft.instructions}</strong></div>
+            </div>
+            <div className="practice-review-questions">
+              {practiceDraft.questions.map((question, index) => (
+                <article key={question.id}>
+                  <div className="practice-question-heading"><span>Câu {index + 1} · {question.difficulty}</span><strong>{question.stem}</strong></div>
+                  <div className="practice-review-options">
+                    {question.options.map((option) => <div className={option.id === question.correctOptionId ? "correct" : ""} key={option.id}><b>{option.id}</b><span>{option.content}</span>{option.id === question.correctOptionId && <em>Đáp án</em>}</div>)}
+                  </div>
+                  <footer><span><b>Lỗi nhắm tới:</b> {question.targetedMisconception}</span><span><b>Lời giải:</b> {question.explanation}</span></footer>
+                </article>
+              ))}
+            </div>
+            <footer className="practice-modal-actions">
+              <div><span>{practiceDraft.ai.mode === "llm" ? `AI · ${practiceDraft.ai.model}` : "Bản dự phòng có căn cứ"}</span><small>Giáo viên chịu trách nhiệm duyệt nội dung trước khi giao.</small></div>
+              <button className="button secondary" onClick={() => setPracticeDraft(null)}>Đóng, chưa giao</button>
+              <button className="button primary" disabled={practiceAssigning || practiceDraft.status === "assigned"} onClick={assignPractice}>
+                {practiceDraft.status === "assigned" ? "✓ Đã giao cho học sinh" : practiceAssigning ? "Đang giao..." : "Duyệt và giao bài"}
+              </button>
+            </footer>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

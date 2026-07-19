@@ -65,6 +65,9 @@ Mỗi event có: `event_id`, `event_name`, `schema_version`, `occurred_at`, `rec
 | `teacher_onboarding_completed` | steps, duration |
 | `class_created` | grade, textbook mapping, roster method |
 | `assignment_published` | assignment/content version, item count, offline size |
+| `personalized_practice_draft_generated` | skill, item count, provider/model, fallback reason; không có PII |
+| `personalized_practice_assigned` | practice version, skill, item count, time-to-review |
+| `personalized_practice_submitted` | practice version, score/total, duration |
 | `assignment_downloaded` | pack version, checksum result, network type |
 | `diagnostic_started/completed` | assignment, duration, online/offline |
 | `attempt_recorded` | question/skill version, correctness, misconception, hint count; không lưu answer free-text vào analytics |

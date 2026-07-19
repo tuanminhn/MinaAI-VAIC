@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fallbackAnswerExplanation, fallbackClassSummary, fallbackReteachPlan } from "./fallbacks";
+import { fallbackAnswerExplanation, fallbackClassSummary, fallbackPersonalizedPractice, fallbackReteachPlan } from "./fallbacks";
 
 describe("AI deterministic fallbacks", () => {
   it("explains an incorrect answer only from approved post-submission context", () => {
@@ -34,5 +34,19 @@ describe("AI deterministic fallbacks", () => {
     expect(result.group.studentCount).toBe(8);
     expect(result.workedExample).toBe("Câu hỏi đã duyệt");
     expect(result.agenda.reduce((sum, step) => sum + step.minutes, 0)).toBe(15);
+  });
+
+  it("builds a four-question personalized practice draft from approved content", () => {
+    const result = fallbackPersonalizedPractice({
+      skillId: "SKILL.A", skillName: "Giải bất phương trình", description: "Đổi chiều khi nhân số âm.",
+      misconceptions: ["Quên đổi chiều"], errorEvidence: [{ questionId: "Q1", selectedContent: "x > -3", misconception: "Quên đổi chiều" }],
+      approvedExamples: [{
+        questionId: "Q1", stem: "Giải -2x > 6", correctOptionId: "B", explanation: "Chia cho -2 và đổi chiều.",
+        options: [{ id: "A", content: "x > -3" }, { id: "B", content: "x < -3" }],
+      }],
+    });
+    expect(result.questions).toHaveLength(4);
+    expect(result.questions[0].correctOptionId).toBe("B");
+    expect(result.citations).toEqual(["SKILL.A", "Q1"]);
   });
 });

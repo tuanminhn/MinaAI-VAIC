@@ -1,7 +1,7 @@
 import "server-only";
 import type { QueryResultRow } from "pg";
 import type { AnswerOption } from "@/lib/contracts";
-import type { AnswerExplanationContext, ClassContext, ReteachContext } from "@/lib/ai/fallbacks";
+import type { AnswerExplanationContext, ClassContext, PersonalizedPracticeContext, ReteachContext } from "@/lib/ai/fallbacks";
 import { DEMO_ASSIGNMENT_ID, DEMO_CLASS_ID } from "@/lib/demo-constants";
 import { query } from "./db";
 
@@ -99,5 +99,61 @@ export async function getReteachContext(skillId: string): Promise<ReteachContext
     skillId, skillName: skill.rows[0].canonical_name, description: skill.rows[0].description,
     studentCount: Number(count.rows[0]?.student_count ?? 0),
     commonMisconceptions: misconceptions.rows.map((item) => item.description), approvedQuestionStems: questions.rows.map((item) => item.stem),
+  };
+}
+
+export async function getPersonalizedPracticeContext(studentId: string, skillId: string): Promise<{
+  student: { id: string; displayName: string; studentNumber: string | null };
+  context: PersonalizedPracticeContext;
+}> {
+  const diagnosis = await query<QueryResultRow & {
+    display_name: string; student_number: string | null; root_cause_skill_id: string | null;
+    status: string; evidence: { questionId: string; selectedContent: string; isCorrect: boolean; misconception?: string }[];
+  }>(
+    `SELECT s.display_name,s.student_number,d.root_cause_skill_id,d.status,d.evidence
+     FROM students s JOIN diagnostic_results d ON d.student_id=s.id AND d.assignment_id=$2
+     WHERE s.id=$1 AND s.classroom_id=$3`,
+    [studentId, DEMO_ASSIGNMENT_ID, DEMO_CLASS_ID],
+  );
+  const row = diagnosis.rows[0];
+  if (!row) throw new Error("STUDENT_DIAGNOSIS_NOT_FOUND");
+  if (row.status !== "diagnosed" || row.root_cause_skill_id !== skillId) throw new Error("SKILL_NOT_DIAGNOSED_FOR_STUDENT");
+
+  const skill = await query<QueryResultRow & { canonical_name: string; description: string }>(
+    "SELECT canonical_name,description FROM skills WHERE id=$1 AND review_status='approved'", [skillId],
+  );
+  if (!skill.rows[0]) throw new Error("SKILL_NOT_FOUND");
+  const questions = await query<QueryResultRow & {
+    id: string; stem: string; options: AnswerOption[]; explanation: string;
+  }>(
+    `SELECT id,stem,options,explanation FROM questions
+     WHERE $1=ANY(skill_ids) AND review_status='approved'
+     ORDER BY CASE question_type WHEN 'remediation' THEN 1 WHEN 'transfer' THEN 2 ELSE 3 END,id LIMIT 4`, [skillId],
+  );
+  const misconceptionRows = await query<QueryResultRow & { description: string }>(
+    `SELECT DISTINCT m.description FROM attempts a JOIN misconceptions m ON m.id=a.misconception_id
+     WHERE a.student_id=$1 AND a.assignment_id=$2 AND $3=ANY(m.skill_ids) AND m.review_status='approved'
+     ORDER BY m.description LIMIT 4`, [studentId, DEMO_ASSIGNMENT_ID, skillId],
+  );
+
+  return {
+    student: { id: studentId, displayName: row.display_name, studentNumber: row.student_number },
+    context: {
+      skillId,
+      skillName: skill.rows[0].canonical_name,
+      description: skill.rows[0].description,
+      misconceptions: misconceptionRows.rows.map((item) => item.description),
+      errorEvidence: (row.evidence ?? []).filter((item) => !item.isCorrect).map((item) => ({
+        questionId: item.questionId, selectedContent: item.selectedContent, misconception: item.misconception,
+      })),
+      approvedExamples: questions.rows.flatMap((item) => {
+        const correct = item.options.find((option) => option.is_correct);
+        return correct ? [{
+          questionId: item.id, stem: item.stem,
+          options: item.options.map((option) => ({ id: option.id, content: option.content })),
+          correctOptionId: correct.id, explanation: item.explanation,
+        }] : [];
+      }),
+    },
   };
 }

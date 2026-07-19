@@ -3,6 +3,7 @@ import type { AnswerExplanation } from "@/lib/ai/contracts";
 import { fallbackAnswerExplanation } from "@/lib/ai/fallbacks";
 import { getAnswerExplanationContext } from "@/lib/server/ai-context";
 import { generateStructured } from "@/lib/server/llm";
+import { getStudentSession } from "@/lib/server/student-session";
 
 export const runtime = "nodejs";
 
@@ -18,11 +19,14 @@ function isExplanation(value: unknown): value is AnswerExplanation {
 
 export async function POST(request: Request) {
   try {
+    const student = await getStudentSession();
+    if (!student) return NextResponse.json({ error: "Phiên đăng nhập đã hết hạn." }, { status: 401 });
     const body = await request.json() as { studentId?: string; assignmentId?: string; questionId?: string };
-    if (!body.studentId || !body.assignmentId || !body.questionId) {
+    if (!body.assignmentId || !body.questionId) {
       return NextResponse.json({ error: "Thiếu thông tin bài đã nộp." }, { status: 400 });
     }
-    const context = await getAnswerExplanationContext(body.studentId, body.assignmentId, body.questionId);
+    if (body.studentId && body.studentId !== student.id) return NextResponse.json({ error: "Không thể xem bài của học sinh khác." }, { status: 403 });
+    const context = await getAnswerExplanationContext(student.id, body.assignmentId, body.questionId);
     const result = await generateStructured({
       task: "Giải thích một đáp án sai bằng tiếng Việt theo schema {feedback,concept,steps,selfCheckQuestion,citations}. Có 2–4 bước ngắn.",
       system: "Bạn là trợ giảng Toán phổ thông phản hồi sau khi học sinh đã nộp bài diagnostic. Chỉ dùng nội dung đã duyệt trong ngữ cảnh. Giải thích thân thiện, cụ thể, không gắn nhãn năng lực, không suy đoán ngoài bằng chứng. Có thể nêu đáp án đúng vì bài đã khóa. citations chỉ chứa mã câu hỏi trong ngữ cảnh.",

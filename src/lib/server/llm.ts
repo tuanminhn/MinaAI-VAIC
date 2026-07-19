@@ -9,6 +9,7 @@ type GenerateInput<T> = {
   fallback: T;
   validate: (value: unknown) => value is T;
   requiresTeacherApproval: boolean;
+  maxTokens?: number;
 };
 
 const FPT_DEFAULT_BASE_URL = "https://mkp-api.fptcloud.com";
@@ -30,7 +31,9 @@ export async function generateStructured<T>(input: GenerateInput<T>): Promise<{ 
   const model = process.env.LLM_MODEL || FPT_DEFAULT_MODEL;
   const baseUrl = process.env.LLM_BASE_URL || FPT_DEFAULT_BASE_URL;
   const timeoutMs = boundedInteger(process.env.LLM_TIMEOUT_MS, 30_000, 1_000, 60_000);
-  const maxTokens = boundedInteger(process.env.LLM_MAX_TOKENS, 1_600, 256, 4_096);
+  const maxTokens = input.maxTokens
+    ? Math.min(4_096, Math.max(256, Math.round(input.maxTokens)))
+    : boundedInteger(process.env.LLM_MAX_TOKENS, 1_600, 256, 4_096);
   const maxRetries = boundedInteger(process.env.LLM_MAX_RETRIES, 1, 0, 2);
   const fallbackMeta = (reason: AiMeta["reason"]): AiMeta => ({
     mode: "fallback", provider: "local", model: "deterministic-v1", grounded: true,

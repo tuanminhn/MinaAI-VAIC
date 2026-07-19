@@ -80,6 +80,7 @@ Acceptance criteria:
 - Giáo viên chỉ xem/sửa lớp mình sở hữu hoặc được cấp quyền.
 - Mã lớp có hạn dùng/có thể rotate; không dùng làm credential vĩnh viễn.
 - Học sinh không cần email/số điện thoại trong mặc định MVP.
+- Prototype chỉ bắt buộc SBD, họ tên tùy chọn, và dùng cookie 60 phút; SBD cũ tải hồ sơ đã lưu, SBD mới tự tạo tài khoản với tên nhập vào hoặc tên mặc định. Pilot thật không được coi SBD thuần hay auto-provision công khai là credential đủ an toàn.
 - Không hiển thị danh sách hoặc kết quả của học sinh khác cho học sinh.
 - Import lỗi trả về từng dòng lỗi và không tạo trùng bản ghi khi retry.
 
@@ -131,6 +132,7 @@ Acceptance criteria:
 - Nhóm theo root cause/misconception; “chưa đủ dữ liệu” là nhóm riêng.
 - Mọi con số lớp có denominator và thời điểm cập nhật.
 - Giáo viên có thể đổi nhóm thủ công mà không xóa đề xuất máy.
+- Mỗi nhóm hiển thị tên/SBD của học sinh thuộc nhóm cho đúng giáo viên lớp; giáo viên có thể mở tạo bài cá nhân cho từng em.
 
 ### FR-006 — Remediation và Repair-and-Return
 
@@ -143,6 +145,9 @@ Acceptance criteria:
 - Sau remediation, hệ thống chạy transfer test độc lập với câu luyện.
 - Nếu chưa đạt, hệ thống đưa ra một bước tiếp theo hữu hạn hoặc chuyển về giáo viên; không kẹt vô hạn.
 - Khi đạt, học sinh được đưa lại target skill ban đầu.
+- Bài do LLM tạo chỉ được lưu là `draft`; giáo viên phải thấy toàn bộ câu, đáp án và lời giải trong màn hình review trước khi chuyển sang `assigned`.
+- Học sinh chỉ nhận bài `assigned` của chính session SBD; payload trước khi nộp không chứa đáp án đúng hoặc lời giải.
+- Câu trả lời, điểm và thời điểm nộp bài cá nhân được lưu để giáo viên theo dõi quá trình.
 
 ### FR-007 — Gap closure và báo cáo
 

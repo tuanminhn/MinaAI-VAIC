@@ -73,4 +73,32 @@ export type StudentSummary = {
   scenario: string | null;
   diagnosis: Diagnosis | null;
   remediationStatus: string | null;
+  personalizedPracticeStatus: "draft" | "assigned" | "in_progress" | "submitted" | null;
+};
+
+export type PracticeQuestion = {
+  id: string;
+  stem: string;
+  options: { id: string; content: string }[];
+  correctOptionId: string;
+  explanation: string;
+  targetedMisconception: string;
+  difficulty: "foundation" | "practice" | "transfer";
+};
+
+export type PersonalizedPractice = {
+  id: string;
+  studentId: string;
+  studentDisplayName: string;
+  studentNumber: string | null;
+  skillId: string;
+  skillName: string;
+  title: string;
+  objective: string;
+  instructions: string;
+  questions: PracticeQuestion[];
+  citations: string[];
+  status: "draft" | "assigned" | "in_progress" | "submitted";
+  score?: number | null;
+  total?: number | null;
 };
